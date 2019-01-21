@@ -12,4 +12,14 @@
 //
 //= require rails-ujs
 //= require turbolinks
+
+// ### BOOTSTRAP DEPENDENCIES
+//= require jquery3
+//= require jquery_ujs
+
+//= require bootstrap/dist/js/bootstrap
+//= require popper
+//= require bootstrap-sprockets
+// ###
+
 //= require_tree .

@@ -23,9 +23,9 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
 
 gem 'mongoid', 									'~> 7.0'
 gem 'mongoid-autoinc',					'~> 6.0'
@@ -38,9 +38,16 @@ gem 'aws-sdk',                  '~> 3.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'bootstrap', '~> 4.0'
+
+gem 'jquery-rails',             '~> 4.3'
+
 gem 'money-rails',							'~> 1.13'
 gem 'pundit',                   '~> 2.0'
-gem 'symmetric-encryption',     '~> 3.6'
+
+gem 'sassc',                    '~> 1.12'
+gem 'slim',                     '~> 3.0'
+# gem 'symmetric-encryption',     '~> 3.6'
 
 
 group :development, :test do
