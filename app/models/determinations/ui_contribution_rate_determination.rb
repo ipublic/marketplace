@@ -1,7 +1,12 @@
 class Determinations::UiContributionRateDetermination
   include Mongoid::Document
 
+  embedded_in :party, 
+  						class_name: "Parties::Party"
+
+
   field :calendar_year_period_id, 					type: BSON::ObjectId
+  field :predecessor_id, 										type: BSON::ObjectId
   field :tax_rate, 													type: Float, default: 0.0
   field :administration_fee, 								type: Float, default: 0.0
   field :initial_tax_rate, 									type: Float, default: 0.0

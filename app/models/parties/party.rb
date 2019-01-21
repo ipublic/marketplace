@@ -19,11 +19,15 @@ class Parties::Party
 	has_many 		:accounts,
 							class_name: "Accounts::Account"
 
-  scope :ui_group_sponsors,	->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
-	scope :ui_tpas, 					->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
+  scope :ui_group_sponsors,		->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
+	scope :ui_tpas, 						->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
+	scope :ui_tpa_agents, 			->{ any_in(party_roles: [:unemployment_insurance_tpa_agent]) } 	# need to check end_date for active
 
-	scope :ui_tpa_agents, 		->{ any_in(party_roles: [:unemployment_insurance_tpa_agent]) } 	# need to check end_date for active
-  scope :active_on,					->(compare_date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
+  scope :pfl_group_sponsors,	->{ any_in(party_roles: [:paid_family_leave_group_sponsor])}
+	scope :pfl_tpas, 						->{ any_in(party_roles: [:paid_family_leave_tpa]) } 				# need to check end_date for active
+	scope :pfl_tpa_agents, 			->{ any_in(party_roles: [:paid_family_leave_tpa_agent]) } 	# need to check end_date for active
+
+  scope :active_on,						->(compare_date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
 
   scope :clients_for_tpa,					->(third_party_administrator){}
   scope :employees_for_employer, 	->(employer){}

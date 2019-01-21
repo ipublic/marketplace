@@ -46,7 +46,6 @@ class Parties::PartyRelationship
   			:employment,
   			:unemployment_insurance_claiment,
 
-  			:patient_practitioner,
   			:patient_provider,
   			:practice_affiliation,
   			:provider_network,
@@ -60,6 +59,41 @@ class Parties::PartyRelationship
   def person_party_relationship_kinds
   	[:household_member, :family_dependency, :patient_practitioner_relationship]
   end
+
+  dan_thomas: {
+	  relation_kind: 			:employed_by,
+	  relationship_party: :ideacrew,
+	  start_on: 					:date_1,
+	  end_on: 						:nil,
+	}
+
+  dan_thomas: {
+	  relation_kind: 			:cobra_by,
+	  relationship_party: :ideacrew,
+	  start_on: 					:date_1,
+	  end_on: 						:nil,
+	}
+
+  dan_thomas: {
+	  relation_kind: 			:organization_contact,
+	  relationship_party: :ideacrew,
+	  start_on: 					:date_1,
+	  end_on: 						:date_2,
+	}
+
+	ideacrew: {
+		relationship_kind: 	:ui_tpa_representation,
+		relationship_party: :tpa_1,
+	  start_on: 					:date_1,
+	  end_on: 						:date_2,
+	}
+
+	tpa_agent1: {
+		relationship_kind: 	:ui_tpa_representative,
+		relationship_party: :tpa_1,
+	  start_on: 					:date_1,
+	  end_on: 						:date_2,
+	}
 
 
   def person

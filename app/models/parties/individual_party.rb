@@ -8,12 +8,18 @@ class Parties::IndividualParty < Party
   embeds_many :determinations,
   						class_name: "Determinations::Determination"
 
+
+  scope :employed_by, 	-> (party){} # party_relationship of employment, with 
+  scope :contacts_for, 	-> (party){}
+
+
 	def all_party_roles
 		super + [
-				:individual_unemployment_insurance_sponsor,
+				:unemployment_insurance_individual_sponsor,
 				:unemployment_insurance_claiment,
 				:paid_family_leave_claiment,
 				:employee,
+				:health_insurance_contract_holder,
   			:patient_practitioner,
 			]
 	end
