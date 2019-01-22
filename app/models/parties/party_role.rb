@@ -11,7 +11,7 @@ class Parties::PartyRole
   # End date for this party_role
   field :end_date, type: Date
 
-  field :party_role_kind_id, type: 
+  field :party_role_kind_id, type: BSON::ObjectId
 
   delegate :kind,					to: :party_role_kind, allow_nil: false
   delegate :title, 				to: :party_role_kind, allow_nil: false

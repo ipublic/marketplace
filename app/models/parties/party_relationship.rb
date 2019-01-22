@@ -60,103 +60,104 @@ class Parties::PartyRelationship
   	[:household_member, :family_dependency, :patient_practitioner_relationship]
   end
 
-  dan_thomas: {
-	  relation_kind: 			:employed_by,
-	  relationship_party: :ideacrew,
-	  start_on: 					:date_1,
-	  end_on: 						:nil,
-	}
+ # 	def examples
+ #  dan_thomas: {
+	#   relation_kind: 			:employed_by,
+	#   relationship_party: :ideacrew,
+	#   start_on: 					:date_1,
+	#   end_on: 						:nil,
+	# }
 
-  dan_thomas: {
-	  relation_kind: 			:cobra_by,
-	  relationship_party: :ideacrew,
-	  start_on: 					:date_1,
-	  end_on: 						:nil,
-	}
+ #  dan_thomas: {
+	#   relation_kind: 			:cobra_by,
+	#   relationship_party: :ideacrew,
+	#   start_on: 					:date_1,
+	#   end_on: 						:nil,
+	# }
 
-  dan_thomas: {
-	  relation_kind: 			:organization_contact,
-	  relationship_party: :ideacrew,
-	  start_on: 					:date_1,
-	  end_on: 						:date_2,
-	}
+ #  dan_thomas: {
+	#   relation_kind: 			:organization_contact,
+	#   relationship_party: :ideacrew,
+	#   start_on: 					:date_1,
+	#   end_on: 						:date_2,
+	# }
 
-	ideacrew: {
-		relationship_kind: 	:ui_tpa_representation,
-		relationship_party: :tpa_1,
-	  start_on: 					:date_1,
-	  end_on: 						:date_2,
-	}
+	# ideacrew: {
+	# 	relationship_kind: 	:ui_tpa_representation,
+	# 	relationship_party: :tpa_1,
+	#   start_on: 					:date_1,
+	#   end_on: 						:date_2,
+	# }
 
-	tpa_agent1: {
-		relationship_kind: 	:ui_tpa_representative,
-		relationship_party: :tpa_1,
-	  start_on: 					:date_1,
-	  end_on: 						:date_2,
-	}
-
-
-  def person
-  	{
-  		person_party: "john",
-  			party_role_kinds: [:person, :patient, :insured_contract_holder],
-  			party_relationships: [
-  				{
-	  				relationship_kind: 	:patient_practitioner_relationship,
-	  				related_party: 			"dr jones",
-	  				party_role_kind: 		:patient,
-	  				related_role: 			:individual_health_care_practitioner,
-	  				start_date: 				"Wed, 03 Oct 2018",
-	  				end_date: 					"Thu, 04 Oct 2018",
-	  			},
-  				{
-	  				relationship_kind: 	:household_member,
-	  				related_party: 			"smith",
-	  				party_role_kind: 		:person,
-	  				related_role: 			:household,
-	  				start_date: 				"Wed, 03 Oct 2018",
-	  				end_date: 					"Thu, 04 Oct 2018",
-	  			},
-  				{
-	  				relationship_kind: 	:family_dependency,
-	  				related_party: 			"jane",
-	  				party_role_kind: 		:insured_contract_holder,
-	  				related_role: 			:insured_dependent,
-	  				start_date: 				"Wed, 03 Oct 2018",
-	  				end_date: 					"Thu, 04 Oct 2018",
-	  			},
-  			]
-  	}
+	# tpa_agent1: {
+	# 	relationship_kind: 	:ui_tpa_representative,
+	# 	relationship_party: :tpa_1,
+	#   start_on: 					:date_1,
+	#   end_on: 						:date_2,
+	# }
 
 
-  def transaction_detail
-  	{ id: 123, payload: [
-	  		{ subject_role: :person, 	id: "john", related_role: :household, related_party: "smith", relationship_kind: :household_member  },
-	  		{ subject_role: :person, 	id: "jane", related_role: :household, related_party: "smith", relationship_kind: :household_member  },
-	  		{ subject_role: :insured_contract_holder, id: "john", related_role: :insured_dependent, id: "jane", relationship_kind: :family_dependency  },
-	  		{ subject_role: :patient, id: "john", related_role: :individual_health_care_practitioner, id: "dr jones", relationship_kind: :patient_practitioner_relationship  },
-	  	]
-  	}
-	end
+ #  def person
+ #  	{
+ #  		person_party: "john",
+ #  			party_role_kinds: [:person, :patient, :insured_contract_holder],
+ #  			party_relationships: [
+ #  				{
+	#   				relationship_kind: 	:patient_practitioner_relationship,
+	#   				related_party: 			"dr jones",
+	#   				party_role_kind: 		:patient,
+	#   				related_role: 			:individual_health_care_practitioner,
+	#   				start_date: 				"Wed, 03 Oct 2018",
+	#   				end_date: 					"Thu, 04 Oct 2018",
+	#   			},
+ #  				{
+	#   				relationship_kind: 	:household_member,
+	#   				related_party: 			"smith",
+	#   				party_role_kind: 		:person,
+	#   				related_role: 			:household,
+	#   				start_date: 				"Wed, 03 Oct 2018",
+	#   				end_date: 					"Thu, 04 Oct 2018",
+	#   			},
+ #  				{
+	#   				relationship_kind: 	:family_dependency,
+	#   				related_party: 			"jane",
+	#   				party_role_kind: 		:insured_contract_holder,
+	#   				related_role: 			:insured_dependent,
+	#   				start_date: 				"Wed, 03 Oct 2018",
+	#   				end_date: 					"Thu, 04 Oct 2018",
+	#   			},
+ #  			]
+ #  	}
+	# end
+
+ #  def transaction_detail
+ #  	{ id: 123, payload: [
+	#   		{ subject_role: :person, 	id: "john", related_role: :household, related_party: "smith", relationship_kind: :household_member  },
+	#   		{ subject_role: :person, 	id: "jane", related_role: :household, related_party: "smith", relationship_kind: :household_member  },
+	#   		{ subject_role: :insured_contract_holder, id: "john", related_role: :insured_dependent, id: "jane", relationship_kind: :family_dependency  },
+	#   		{ subject_role: :patient, id: "john", related_role: :individual_health_care_practitioner, id: "dr jones", relationship_kind: :patient_practitioner_relationship  },
+	#   	]
+ #  	}
+	# end
 
 
-  class PatientPractitionerRelationship
-  	has_one  :patient
-  	has_many :health_care_provider_organization
+  # class PatientPractitionerRelationship
+  # 	has_one  :patient
+  # 	has_many :health_care_provider_organization
 
-  	field :is_primary_care_provider, type: Boolean
+  # 	field :is_primary_care_provider, type: Boolean
 
-  end
+  # end
 
-  class PracticeAffiliationRelationship
-  	has_one  :individual_health_care_practitioner
-  	has_many :health_care_provider_organizations
+  # class PracticeAffiliationRelationship
+  # 	has_one  :individual_health_care_practitioner
+  # 	has_many :health_care_provider_organizations
 
-  end
+  # end
 
-  class ProviderNetworkRelationship
-  	has_one :provider 
-  	has_many :health_care_networks
-  end
+  # class ProviderNetworkRelationship
+  # 	has_one :provider 
+  # 	has_many :health_care_networks
+  # end
 
 end
