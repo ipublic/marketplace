@@ -39,7 +39,7 @@ Things you may want to cover:
 
 The software is available as open source under the terms of the MIT License (MIT)
 
-Developed and managed by IdeaCrew, Inc. and HBX
+Developed and managed by IdeaCrew, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
