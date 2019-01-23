@@ -11,6 +11,10 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+# Use webpacker to manage application-like JavaScript in Rails
+gem 'webpacker', '~> 3.5.5'
+# Use devise for authentication
+gem 'devise'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
@@ -37,11 +41,6 @@ gem 'aws-sdk',                  '~> 3.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
-gem 'bootstrap', '~> 4.0'
-
-gem 'jquery-rails',             '~> 4.3'
-
 gem 'money-rails',							'~> 1.13'
 gem 'pundit',                   '~> 2.0'
 
