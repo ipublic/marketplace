@@ -3,6 +3,7 @@ import './alerts';
 import '../src/application.scss';
 import '../images/does.png';
 
-$(document).ready(function() {
+
+document.addEventListener("turbolinks:load", function() {
   $('body').bootstrapMaterialDesign();
-});
+})
