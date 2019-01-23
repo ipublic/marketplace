@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Marketplace</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'application' %>
+  </head>
+
+  <body>
+    <nav class="navbar uits-nav">
+      <span class="navbar-brand mb-0 h1">
+        <img src="<%= asset_pack_path 'images/does.png' %>" width="70" height="35" class="d-inline-block align-top" alt="" />
+        <span class="heading-txt">UITS</span>
+      </span>
+    </nav>
+    <% if alert %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= alert %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% end %>
+    <div class="main-container">
+      <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
+  <header class="bmd-layout-header">
+    <div>
+      <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-p1">
+        <span class="sr-only">Toggle drawer</span>
+        <i class="fas fa-bars fa-2x mt-1"></i>
+      </button>
+      <span class="float-right pr-2 mt-2"><%= link_to 'Log Out', destroy_user_session_path %></span>
+      <ul class="nav navbar-nav">
+        <li class="nav-item"></li>
+      </ul>
+    </div>
+  </header>
+  <div id="dw-p1" class="bmd-layout-drawer bg-faded">
+    <ul class="list-group">
+      <a class="list-group-item">Link 1</a>
+      <a class="list-group-item">Link 2</a>
+      <a class="list-group-item">Link 3</a>
+    </ul>
+  </div>
+  <main class="bmd-layout-content">
+    <div class="container">
+      <%= yield %>
+    </div>
+  </main>
+</div>
+
+    </div>
+  </body>
+</html>
