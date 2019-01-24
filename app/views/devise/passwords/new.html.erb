@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center">
+  <div class="card forgot-password-card" style="width: 23rem;">
+  <div class="card-img-top"><h4 class="text-center">Forgot your password?</h4></div>
+  <div class="card-body">
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <% if devise_error_messages! %>
+        <div class="alert alert-warning" role="alert">
+          <p><%= devise_error_messages! %></p>
+        </div>
+      <% end %>
+      <div class="form-group">
+        <%= f.label :email, for:'inputEmail', class:'bmd-label-floating' %>
+        <%= f.email_field :email, class:'form-control', id:'inputEmail' %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send reset instructions", class:'btn btn-primary btn-raised btn-block btn-lg' %>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
+</div>
