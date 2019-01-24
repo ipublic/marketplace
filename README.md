@@ -35,6 +35,10 @@ Things you may want to cover:
 
 * In a separate terminal window start webpack dev server run `bin/webpack-dev-server`
 
+## Front End UI Components
+
+* The frontend is built with [Bootstrap 4 Material Design](https://fezvrasta.github.io/bootstrap-material-design/docs/4.0/getting-started/introduction/) which provides built in support for responsive design, section 508 compliance, and supports the [web components](https://en.wikipedia.org/wiki/Web_Components) architecture.
+
 ### License
 
 The software is available as open source under the terms of the MIT License (MIT)
