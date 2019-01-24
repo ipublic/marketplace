@@ -10,6 +10,15 @@ body, html {
   background-color: transparent;
 }
 
+footer {
+  background-color: #343a40;
+  color: #8d97ad;
+  font-weight: 300;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
 .navbar-toggler {
   .fa-bars {
     color: #188ef4;
