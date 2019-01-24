@@ -2,25 +2,40 @@ class Parties::PartyRelationship
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  embedded_in :party_role,
+  						class_name: "Parties::PartyRole"
 
-  has_and_belongs_to_many :subject_parties, inverse_of: :related_parties, autosave: true,
-                          class_name: "Parties::Party"
-
-  has_and_belongs_to_many :related_parties, inverse_of: :subject_parties, autosave: true,
-                          class_name: "Parties::Party"
-
-  embeds_one :party_relationship_kind
+  field :related_party_id, type: BSON::ObjectId
 
   # Begin date for this relationship
-  field :from_date, type: Date 
+  field :start_date, type: Date 
 
   # End date for this relationship
-  field :thru_date, type: Date
+  field :end_date, type: Date
 
-  delegate :kind_key,			to: :party_relationship_kind, allow_nil: false
-  delegate :name, 				to: :party_relationship_kind, allow_nil: false
-  delegate :description, 	to: :party_relationship_kind, allow_nil: true
+  # delegate :kind,					to: :party_relationship_kind, allow_nil: false
+  # delegate :name, 				to: :party_relationship_kind, allow_nil: true
+  # delegate :description, 	to: :party_relationship_kind, allow_nil: true
 
+  embeds_one 	:party_relationship_kind,
+  						class_name: "Parties::PartyRelationshipKind"
+
+
+  def related_party=(new_related_party)
+      if new_related_party.nil?
+        write_attribute(:related_party_id, nil)
+      else
+        raise ArgumentError.new("expected BenefitApplication") unless new_related_party.is_a? BenefitSponsors::BenefitApplications::BenefitApplication
+        write_attribute(:related_party_id, new_related_party._id)
+      end
+      @related_party = new_related_party
+  end
+
+  def related_party
+    return nil if related_party_id.blank?
+    return @related_party if defined? @related_party
+    @related_party = benefit_sponsorship.benefit_applications_by(related_party_id)
+  end
 
   def kjldfjk
   	{

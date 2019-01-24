@@ -1,49 +1,50 @@
-class Parties::PartyRoleKind
-  include Mongoid::Document
+# Actor roles or categories that a Party entity plays in the context of the enterprise.  
+module Parties
+	class PartyRoleKind
+	  include Mongoid::Document
+	  include Mongoid::Timestamps
 
-  field :kind,									type: Symbol
-  field :title, 								type: String
-  field :description, 					type: String
+	  belongs_to	:party,
+	  						class_name: "Parties::Party"
 
-  field :start_on, 							type: Date
-  field :end_on, 								type: Date
-  field :is_published, 					type: Boolean, default: true
+	  field :key,										type: Symbol
+	  field :title, 								type: String
+	  field :description, 					type: String
 
-  embeds_one :eligibility_policy
+	  field :has_related_parties,			type: Boolean, default: false
+	  field :related_party_kinds,			type: Array, default: []
 
-  index({ kind: 1, is_published: 1, start_on: 1, end_on: 1 })
+	  # Used for enabling/disabling role kinds over time
+	  field :is_published, 					type: Boolean, default: true
+	  field :start_date, 						type: Date
+	  field :end_date, 							type: Date
 
-  def publish
-  	write_attribute(:is_published, true)
-  end
+	  # Associate a business rule for validating a role instance
+	  embeds_one :eligibility_policy
 
-  def unpublish
-  	write_attribute(:is_published, false)
-  end
+	  index({ key: 1, is_published: 1, start_date: 1, end_date: 1 })
 
-  def is_draft?
-  	!is_published?
-  end
+	  alias_method :is_published?, 			:is_published
+	  alias_method :has_related_party?, :has_related_party
 
-  def may_publish?
-  	# is_draft? && Date.today <= 
-  end
+	  def title
+	  	title.present? ? title : key.to_s.gsub('_', ' ')
+	  end
+
+	  def publish
+	  	write_attribute(:is_published, true)
+	  end
+
+	  def unpublish
+	  	write_attribute(:is_published, false)
+	  end
+
+	  def is_draft?
+	  	!is_published?
+	  end
+
+	end
+
 end
 
-Parties::PartyRoleKind.new({kind: :unemployment_insurance_agency_administrator, title: "", description: "", is_published: true})
 
-Parties::PartyRoleKind.new({kind: :unemployment_insurance_group_sponsor, title: "", description: "An employer who manages unemployment insurance tax for its employees", is_published: true})
-Parties::PartyRoleKind.new({kind: :unemployment_insurance_individual_sponsor, title: "", description: "", is_published: true})
-Parties::PartyRoleKind.new({kind: :unemployment_insurance_tpa, title: "", description: "", is_published: true})
-Parties::PartyRoleKind.new({kind: :unemployment_insurance_tpa_agent, title: "", description: "", is_published: true})
-Parties::PartyRoleKind.new({kind: :unemployment_insurance_claiment, title: "", description: "", is_published: true})
-
-Parties::PartyRoleKind.new({kind: :paid_family_leave_group_sponsor, title: "", description: "", is_published: true})
-Parties::PartyRoleKind.new({kind: :paid_family_leave_tpa, title: "", description: "", is_published: true})
-Parties::PartyRoleKind.new({kind: :paid_family_leave_tpa_agent, title: "", description: "", is_published: true})
-Parties::PartyRoleKind.new({kind: :paid_family_leave_claiment, title: "", description: "", is_published: true})
-
-Parties::PartyRoleKind.new({kind: :employee, title: "", description: "", is_published: true})
-
-Parties::PartyRoleKind.new({kind: :health_insurance_group_sponsor, title: "", description: "An employer or organization who sponsors health insurance benefits for its members", is_published: true})
-Parties::PartyRoleKind.new({kind: :health_insurance_contract_holder, title: "", description: "", is_published: true})

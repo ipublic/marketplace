@@ -3,22 +3,28 @@ module Parties
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-		field 			:party_id, type: Integer
+		field	:party_id, 					type: Integer
+	  field :registered_on, 		type: Date, default: ->{ TimeKeeper.date_of_record }
 
-	  embeds_many :party_roles, 
-								class_name: "Parties::PartyRole"
+	  field :profile_source, 		type: Symbol, default: :self_serve
+	  field :contact_method, 		type: String, default: "Only Electronic communications"
 
-	  embeds_many :party_relationships,
-	  						class_name: "Parties::PartyRelationship"
 
-	  embeds_many :determinations,
-	  						class_name: "Determinations::Determination"
+	  has_many 		:party_role_kinds,
+								class_name: "Parties::PartyRoleKind"
 
 		has_many		:notices,
 								class_name: "Notices::Notice"
 
 		has_many 		:accounts,
 								class_name: "Accounts::Account"
+
+	  embeds_many :party_roles, 
+								class_name: "Parties::PartyRole"
+
+	  embeds_many :determinations,
+	  						class_name: "Determinations::Determination"
+
 
 	  scope :ui_group_sponsors,		->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
 		scope :ui_tpas, 						->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
@@ -37,7 +43,7 @@ module Parties
 		index({ party_id: 1 })
 	  index({"party_role.kind" => 1})
 
-	  def has_role?(role_kind)
+	  def has_role_kind?(role_kind)
 	  	party_roles.include?(role_kind)
 	  end
 
@@ -45,22 +51,35 @@ module Parties
 	  	party_relationships.include?(relationship_kind)
 	  end
 
-	  def add_party_role(new_role, start_date=Date.today)
+	  def add_party_role(new_role)
+	  	if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
+		  	party_roles << new_role unless party_roles_by_kind(new_role)
+		  end
 
 	  	party_roles
 	  end
 
-	  def drop_party_role(dropped_role, end_date=Date.today)
+	  def drop_party_role(dropped_role)
 
 	  	party_roles
 	  end
 
-	  def add_party_relationship(new_relationship, related_party, start_date=Date.today)
-
-	  	party_relationships
+	  def terminate_party_role(role_kind, end_date=Date.today)
 	  end
 
-	  def drop_party_relationship(dropped_relationship, related_party, end_date=Date.today)
+	  def active_party_roles_by_kind(role_kind)
+	  	party_roles_by_kind(role_kind).reduce([]) { |list, role| ist << role.kind if role.is_active? }
+	  end
+
+	  def party_roles_by_kind(role_kind)
+	  	party_roles.reduce([]) { |list, role| list << role.kind if role == role_kind }
+	  end
+
+	  def add_party_relationship(new_relationship)
+	  	party_relationships << new_relationship
+	  end
+
+	  def drop_party_relationship(dropped_relationship)
 
 	  	party_relationships
 	  end
