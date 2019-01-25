@@ -18,9 +18,9 @@ module Parties
   	embeds_many	:person_names,
   							class_name: "Parties::PersonName"
 
-	  embeds_many :addresses
-	  embeds_many :phones
-	  embeds_many :emails
+	  # embeds_many :addresses
+	  # embeds_many :phones
+	  # embeds_many :emails
 
 	  validates_presence_of	:current_first_name, :current_last_name
 
@@ -28,7 +28,7 @@ module Parties
 
 	  validates :gender,
 	    allow_blank: true,
-	    inclusion: { in: Person::GENDER_KINDS, message: "%{value} is not a valid gender" }
+	    inclusion: { in: GENDER_KINDS, message: "%{value} is not a valid gender" }
 
 	  index({current_last_name: 1, current_first_name: 1})
 	  index({current_first_name: 1, current_last_name: 1})
@@ -54,13 +54,12 @@ module Parties
 			[
 				:customer,
 				:supplier,
-				:
 			]
 		end
 
 
 		def seed_party_role_kinds
-			Parties::PartyRoleKind.create(key: :employee, has_related_party: true, related_party_roles: [], 
+			# Parties::PartyRoleKind.create(key: :employee, has_related_party: true, related_party_roles: [], 
 
 			Parties::PartyRoleKind.create({key: :unemployment_insurance_agency_administrator, title: "", description: "", is_published: true})
 

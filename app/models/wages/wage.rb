@@ -18,14 +18,24 @@ module Wages
 	  field :state_qtr_ui_taxable_wages,	type: BigDecimal
 
 
-	  validates_presence_of :state_qtr_ui_total_wages, :state_qtr_ui_excess_wages, :state_qtr_ui_taxable_wages
+	  validates_presence_of :person_party_id, :state_qtr_ui_total_wages, :state_qtr_ui_excess_wages, :state_qtr_ui_taxable_wages
 
 
 	  def person_party=(new_person_party)
+      if new_person_party.nil?
+        write_attribute(:new_person_party, nil)
+      else
+        raise ArgumentError.new("expected Parties::PersonParty") unless new_person_party.is_a? Parties::PersonParty
+        write_attribute(:person_party_id, new_person_party._id)
+      end
+      @person_party = new_person_party
 	  end
 	  
 	  def person_party
+	    return nil if person_party_id.blank?
+	    return @person_party if defined? @person_party
+	    @person_party = Parties::PersonParty.find(person_party_id)
 	  end
-	  
+
 	end
 end
