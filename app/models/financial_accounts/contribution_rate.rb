@@ -5,8 +5,9 @@ module FinancialAccounts
 	  embedded_in	:financial_account,
 	  						class_name: 'FinancialAccounts::FinancialAccount'
 
-		embeds_one	:timespan,
-								class_name: 'Timespans::Timespan'
+	  belongs_to 	:timespan, 
+								class_name: 'TimeSpans::Timespan'
+
 
 	  field :efffective_on,				type: Date
 	  field :determined_at,				type: Time
