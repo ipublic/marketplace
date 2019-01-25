@@ -16,8 +16,8 @@ module Parties
 		has_many		:notices,
 								class_name: "Notices::Notice"
 
-		has_many 		:accounts,
-								class_name: "Accounts::Account"
+		has_many 		:financial_accounts,
+								class_name: "FinancialAccounts::FinancialAccount"
 
 	  embeds_many :party_roles, 
 								class_name: "Parties::PartyRole"

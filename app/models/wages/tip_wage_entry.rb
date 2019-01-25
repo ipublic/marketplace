@@ -1,3 +1,3 @@
-class Parties::Employee
+class Wages::TipWageEntry
   include Mongoid::Document
 end
