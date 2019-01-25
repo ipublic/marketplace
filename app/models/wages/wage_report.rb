@@ -2,7 +2,8 @@ module Wages
 	class WageReport
 	  include Mongoid::Document
 
-	  REPORT_TYPES 				= [:original, :ammended]
+	  REPORT_TYPES 				= [:original, :ammended, :estimated]
+
 	  STATUS_KINDS 				= [:processed]
 	  FILING_METHOD_KINDS = [:upload, :manual_entry, :no_wages]
 
@@ -11,8 +12,8 @@ module Wages
 	  belongs_to	:organization_party,
 	  						class_name: 'Parties::OrganizationParty'
 
-	  belongs_to 	:ui_tax_timespan, 
-	  						class_name: 'TimeSpans:UiTaxTimespan'
+	  belongs_to 	:quarter_year_timespan, 
+	  						class_name: 'TimeSpans:QuarterYearTimespan'
 
 		field :timespan_id,								type: BSON::ObjectId
 

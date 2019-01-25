@@ -109,7 +109,7 @@ module Integrations
 				employee.field 		:state_identifier_code,																length:  2, type: :string, required: true, default: '11' # DC = 11
 				employee.field 		:spacer,																							length:  4
 
-				employee.field 		:state_qtr_total_gross_wages,													length:  2, type: :money, required: true
+				employee.field 		:state_qtr_total_gross_wages,													length:  2, type: :money, required: false
 				employee.field 		:state_qtr_unemployment_insurance_total_wages,				length:  2, type: :money, required: true
 				employee.field 		:state_qtr_unemployment_insurance_excess_wages,				length:  2, type: :money, required: true
 				employee.field 		:state_qtr_unemployment_insurance_taxable_wages,			length:  2, type: :money, required: true

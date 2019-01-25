@@ -1,3 +1,7 @@
-class Wages::TipWageEntry
-  include Mongoid::Document
+module Wages
+	class TipWageEntry
+
+    field :hours_worked,							type: Integer
+
+	end
 end
