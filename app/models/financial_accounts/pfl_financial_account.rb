@@ -1,5 +1,5 @@
 module FinancialAccounts
-	class PflFinancialAccount
+	class PflFinancialAccount < FinancialAccount
 	  include Mongoid::Document
 
     field :pfl_tax_rate,              type: Float, default: 0.0

@@ -1,9 +1,9 @@
 module FinancialAccounts
-  class UiFinancialAccount
+  class UiFinancialAccount < FinancialAccount
     include Mongoid::Document
 
     PAYMENT_TYPES 				= [:contribute, :reimburse, ]
-    WAGE_FILING_SCHEDULES = [:quarterly, :annually]
+    WAGE_FILING_SCHEDULES = [:quarter, :annual]
 
     field :payment_type, 					type: Symbol
     field :wage_filing_schedule, 	type: Symbol
@@ -12,9 +12,9 @@ module FinancialAccounts
     embeds_many :payment_status		# financial transactions for timespans
 
     # Initial date employer became liable for UI tax
-    field :liability_date, type: Date 
+    field :liability_date,        type: Date 
 
-    field :status, type: Symbol, default: :active
+    field :status,                type: Symbol, default: :active
 
     # Account states:
     # Current
@@ -23,5 +23,14 @@ module FinancialAccounts
     # Quarter Delinquent - (management designation) 60 days after end of quarter. Generate Deliquency Notice
     # Closed
     #   Reason: Written Off
+
+    before_save :set_title
+
+    private
+
+    def set_title
+      write_attribute(:title, "Unemployment Insurance Account") if title.blank?
+    end
+
   end
 end

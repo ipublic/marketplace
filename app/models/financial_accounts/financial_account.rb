@@ -4,7 +4,7 @@ module FinancialAccounts
 	  include Mongoid::Timestamps
 
 	  field :title, 			type: String
-	  field :opened_on, 	type: String
+	  field :opened_on, 	type: Date, default: ->{ Date.today }
 
 	  embeds_many		:contribution_rates,
 	  							class_name: 'FinancialAccounts::ContributionRate'
@@ -17,6 +17,18 @@ module FinancialAccounts
 
 	  belongs_to 		:timespan, 
 	  							class_name: 'TimeSpans:Timespan'
+
+		validates_presence_of :opened_on, :party, :timespan
+
+
+    def contribution_rates
+      contribution_rates.order(effective_on: :desc).order(determined_at: :desc)
+    end
+
+    def latest_contribution_rate
+      contribution_rates.first
+    end
+
 
 	end
 end

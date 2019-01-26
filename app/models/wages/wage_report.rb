@@ -32,6 +32,9 @@ module Wages
 	  field :ui_paid_amount, 						type: BigDecimal
 	  field :ui_amount_due, 						type: BigDecimal
 
+	  belongs_to 	:financial_account,
+	  						class_name: 'FinancialAccounts::FinancialAccount'
+
 	  belongs_to	:organization_party,
 	  						class_name: 'Parties::OrganizationParty'
 

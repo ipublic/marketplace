@@ -2,6 +2,9 @@ module FinancialAccounts
 	class UiContributionRate < ContributionRate
 	  include Mongoid::Document
 
+    EMPLOYER_TAXABLE_WAGE_MAX = 2_000_000
+    EMPLOYEE_TAXABLE_WAGE_MAX = 9_000
+
 	  # RATE_KINDS = [:unempmloyment_insurance, :administrative_fee]
 	  # field :rate_kind, type: Symbol
 
