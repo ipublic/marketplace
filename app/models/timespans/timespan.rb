@@ -1,5 +1,9 @@
 module Timespans
-	class Timespan
+
+  YEAR_MAXIMUM = 2099
+  YEAR_MINIMUM = 1980
+
+  class Timespan
     include Mongoid::Document
     include Mongoid::Timestamps
 
@@ -7,12 +11,12 @@ module Timespans
     field :begin_on,  type: Date
     field :end_on,    type: Date
 
-    validates_presence_of :begin_on, :end_on
+    # validates_presence_of :begin_on, :end_on
     validate :ascending_dates
 
     # scope :find_on, ->(date){ where(:begin_on.lte => date, :end_on.gte => date).to_a unless date.blank?; binding.pry }
     scope :find_on,   	->(date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
-    scope :find_title, ->(compare_title){ where(:title => compare_title) unless compare_title.blank? }
+    scope :find_title,  ->(compare_title){ where(:title => compare_title) unless compare_title.blank? }
 
     def between?(compare_date)
       range_present? && (compare_date.between?(begin_on, end_on)) ? true : false
