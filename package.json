@@ -6,6 +6,7 @@
     "aos": "^2.3.4",
     "bootstrap": "^4.2.1",
     "bootstrap-material-design": "^4.1.1",
+    "caniuse-lite": "^1.0.30000697",
     "counterup": "^1.0.2",
     "datepicker": "^0.0.0",
     "jquery": "^3.3.1",
@@ -14,7 +15,9 @@
     "rails-ujs": "^5.2.2",
     "stimulus": "^1.1.1",
     "turbolinks": "^5.2.0",
-    "waypoints": "^4.0.1"
+    "waypoints": "^4.0.1",
+    "webpack": "3.12.0",
+    "webpack-dev-middleware": "1.12.2"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
