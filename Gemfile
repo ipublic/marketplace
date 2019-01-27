@@ -51,7 +51,7 @@ group :development, :test do
 	gem 'factory_bot_rails', 			'~> 4'
   gem 'shoulda-matchers',             '~> 3'
   gem 'mongoid-rspec',                '~> 4'
-
+  gem 'pry'
 end
 
 group :development do
