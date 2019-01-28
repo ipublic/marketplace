@@ -39,7 +39,7 @@ export default class extends Controller {
     "columns": [
         { "data": "name",
           "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-              $(nTd).html("<a href='' data-action='click->employers#goToEmployer' data-target='employers.selectedEmployer'>"+oData.name+"</a>");
+              $(nTd).html("<a href='javascript:;' data-action='click->employers#goToEmployer' data-target='employers.selectedEmployer'>"+oData.name+"</a>");
           }
         },
         { "data": "fein" },
@@ -55,6 +55,6 @@ export default class extends Controller {
       document.getElementById('employers').classList.add('show')
       let selectedEmployerName = event.target.innerHTML;
       document.getElementById('employerName').innerHTML = selectedEmployerName;
-    },400);
+    });
   }
 }
