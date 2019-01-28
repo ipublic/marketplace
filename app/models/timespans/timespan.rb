@@ -18,6 +18,8 @@ module Timespans
     scope :find_on,   	->(date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
     scope :find_title,  ->(compare_title){ where(:title => compare_title) unless compare_title.blank? }
 
+    after_validation :initialize_timespan
+
     def between?(compare_date)
       range_present? && (compare_date.between?(begin_on, end_on)) ? true : false
     end
@@ -39,6 +41,11 @@ module Timespans
     def ascending_dates
       return unless range_present?
       errors.add(:begin_on, "must be earlier than End on #{end_on}") unless (begin_on <= end_on)
+    end
+
+    private
+
+    def initialize_timespan
     end
 
   end
