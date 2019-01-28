@@ -11,6 +11,12 @@ module Timespans
     field :begin_on,  type: Date
     field :end_on,    type: Date
 
+    has_many  :wage_reports,
+              class_name: 'Wages::WageReport'
+
+    has_many  :determinations,
+              class_name: 'Determinations::Determination'
+
     # validates_presence_of :begin_on, :end_on
     validate :ascending_dates
 

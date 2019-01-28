@@ -1,3 +1,6 @@
-class Wages::ExemptWageEntry
-  include Mongoid::Document
+module Wages
+	class ExemptWageEntry < Wage
+
+
+	end
 end
