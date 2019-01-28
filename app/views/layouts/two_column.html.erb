@@ -13,19 +13,23 @@
   </head>
 
   <body>
-    <nav class="navbar uits-nav">
+    <nav class="navbar uits-nav pt-1 pb-1">
       <span class="navbar-brand mb-0 h1">
-        <img src="<%= asset_pack_path 'images/does.png' %>" width="70" height="35" class="d-inline-block align-top" alt="" />
+        <button class="navbar-toggler float-right" type="button" data-toggle="drawer" data-target="#dw-p1">
+          <span class="sr-only">Toggle drawer</span>
+          <i class="fas fa-bars"></i>
+        </button>
         <span class="heading-txt">UITS</span>
       </span>
+
       <span>
         <div class="dropdown dropleft">
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <%= link_to "Log Out", destroy_user_session_path, class:"dropdown-item" %>
           </div>
-          <i class="fas fa-user-circle fa-2x mr-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton"></i>
-          <i class="far fa-bell fa-2x mr-4"></i>
-          <i class="far fa-envelope fa-2x mr-4"></i>
+          <i class="fas fa-user-circle fa-lg mr-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton"></i>
+          <i class="far fa-bell fa-lg mr-4"></i>
+          <i class="far fa-envelope fa-lg mr-4"></i>
         </div>
       </span>
     </nav>
@@ -41,10 +45,6 @@
       <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
         <header class="bmd-layout-header">
           <div class="row ml-2">
-            <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-p1">
-              <span class="sr-only">Toggle drawer</span>
-              <i class="fas fa-bars fa-2x mt-1"></i>
-            </button>
             <ol class="breadcrumb pt-2 pb-0 mb-0 mt-2">
               <li class="breadcrumb-item active"><a href="#"><%= request.env['REQUEST_URI'].gsub('/','').capitalize %></a></li>
               <!-- <li class="breadcrumb-item"><a href="#">Library</a></li> -->
