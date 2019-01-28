@@ -59,12 +59,11 @@
           <div id="side-menu">
             <ul class="list-group">
               <li class="list-group-item pr-1"><i class="fas fa-home"></i> <%= link_to 'Home', dashboard_index_path %>
-              <li class="list-group-item pr-1" data-toggle="collapse" data-target="#employers" aria-expanded="true" aria-controls="collapseOne"><i class="fas fa-users"></i> <%= link_to 'Employers', employers_path %>
-                <!--
+              <li class="list-group-item pr-1" data-toggle="collapse" data-target="#employers" aria-expanded="true" aria-controls="collapseOne" id="employer-menu-option"><i class="fas fa-users"></i> <%= link_to 'Employers', employers_path %>
                 <ul id="employers" class="collapse" aria-labelledby="headingOne" data-parent="#side-menu">
-                  <li class="list-group-item pb-0">Option 1</li>
+                  <li class="list-group-item pb-0"><span id="employerName"></span></li>
                   <li class="list-group-item pb-0">Option 2</li>
-                </ul> -->
+                </ul>
               </li>
               <li class="list-group-item pr-1" data-toggle="collapse" data-target="#tpa" aria-expanded="true" aria-controls="collapseOne"><i class="fas fa-cogs"></i> TPA <br />
                 <ul id="tpa" class="collapse" aria-labelledby="headingOne" data-parent="#side-menu">

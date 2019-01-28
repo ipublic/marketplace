@@ -5,6 +5,8 @@ import 'datatables';
 
 export default class extends Controller {
 
+  static targets = ["selectedEmployer"]
+
   initialize() {
     let table = $('#employerDataTable').DataTable({
       "data": [
@@ -35,24 +37,24 @@ export default class extends Controller {
         // ...
     ],
     "columns": [
-        { "data": "name" },
+        { "data": "name",
+          "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+              $(nTd).html("<a href='' data-action='click->employers#goToEmployer' data-target='employers.selectedEmployer'>"+oData.name+"</a>");
+          }
+        },
         { "data": "fein" },
         { "data": "tpa" },
         { "data": "active" },
     ]
     });
-
-    table.on( 'select', function ( e, dt, type, indexes ) {
-    if ( type === 'row' ) {
-        var data = table.rows( indexes ).data().pluck( 'id' );
-
-
-    }
-    console.log(table)
-} );
   }
 
-  loadDataTableData() {
-    
+  goToEmployer(event) {
+    setTimeout(() => {
+      document.querySelector('.fa-bars').click();
+      document.getElementById('employers').classList.add('show')
+      let selectedEmployerName = event.target.innerHTML;
+      document.getElementById('employerName').innerHTML = selectedEmployerName;
+    },400);
   }
 }
