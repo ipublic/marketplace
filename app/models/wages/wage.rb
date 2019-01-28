@@ -20,6 +20,7 @@ module Wages
 
 	  validates_presence_of :person_party_id, :state_qtr_ui_total_wages, :state_qtr_ui_excess_wages, :state_qtr_ui_taxable_wages
 
+    index({ person_party_id: 1})
 
 	  def person_party=(new_person_party)
       if new_person_party.nil?

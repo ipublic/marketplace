@@ -1,9 +1,12 @@
-class Determinations::Determination
-  include Mongoid::Document
+module Determinations
+	class Determination
+	  include Mongoid::Document
 
-  belongs_to :effective_period
+	  belongs_to :effective_period
 
-  field :determination_timestamp,	type: Time
+	  field :determined_at,	type: Time
 
-
+	  has_many 		:timespans, 
+	  						class_name: 'TimeSpans:Timespan'
+	end
 end

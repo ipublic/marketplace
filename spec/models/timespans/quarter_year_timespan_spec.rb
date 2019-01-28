@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Timespans::QuarterYearTimespan, type: :model do
 
-	let(:year)							{ Date.today.year }
-	let(:quarter)						{ 1 }
-	let(:quarter_too_large)	{ 5 }
-	let(:quarter_too_small) { 0 }
-	let(:year_too_large)		{ Timespans::YEAR_MAXIMUM + 1 }
-	let(:year_too_small) 		{ Timespans::YEAR_MINIMUM - 1 }
+	let(:year)							      { Date.today.year }
+	let(:quarter)						      { 2 }
+	let(:quarter_too_large)       { 5 }
+	let(:quarter_too_small)       { 0 }
+  let(:calendar_year_timespan)  { FactoryBot.build(:timespans_calendar_year_timespan) }
 
   let(:params) do
     {
+      calendar_year_timespan: calendar_year_timespan,
     	year:			year,
       quarter:	quarter,
     }
