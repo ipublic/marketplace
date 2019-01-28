@@ -69,6 +69,10 @@ footer {
   display: none;
 }
 
+.table .thead-dark th {
+  font-weight: bold;
+}
+
 /* Show the checkmark when checked */
 .cb-container input:checked ~ .checkmark:after {
   display: block;
@@ -127,5 +131,22 @@ footer {
     color: #fff;
     font-weight: 300;
     font-size: 18px;
+  }
+}
+
+// Overides datatables styles for table
+table.dataTable thead th {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+table.dataTable tbody td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#employerDataTable_filter {
+  input {
+
   }
 }
