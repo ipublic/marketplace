@@ -1,9 +1,6 @@
 module Timespans
 	class QuarterYearTimespan < Timespan
 
-	  # embedded_in	:calendar_year_timespan,
-	  # 						class_name: 'Timespans::CalendarYearTimespan'
-
 		attr_readonly :year, :quarter, :begin_on, :end_on
 
 	  field :year, 		type: Integer
