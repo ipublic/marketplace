@@ -14,8 +14,11 @@ module Timespans
     # validates_presence_of :begin_on, :end_on
     validate :ascending_dates
 
+    index({ title: 1}, {unique: true})
+
     # scope :find_on, ->(date){ where(:begin_on.lte => date, :end_on.gte => date).to_a unless date.blank?; binding.pry }
-    scope :find_on,   	->(date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
+    # scope :find_on,     ->(date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
+    scope :find_on,     ->(date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
     scope :find_title,  ->(compare_title){ where(:title => compare_title) unless compare_title.blank? }
 
     after_validation :initialize_timespan

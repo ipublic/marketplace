@@ -3,8 +3,8 @@ module Timespans
 
 		attr_readonly :year, :month, :begin_on, :end_on
 
-    field :month, type: Integer
     field :year,  type: Integer
+    field :month, type: Integer
 
 	  belongs_to	:calendar_year_timespan,
 	  						class_name: 'Timespans::CalendarYearTimespan'
@@ -17,7 +17,8 @@ module Timespans
 	            								greater_than_or_equal_to: 1, less_than_or_equal_to: 12
 	            							}
 
-    index({ year: 1, month: 1 }, {unique: true} )
+	  # Mongoid stores inherited classes as STI.  Year index is created in calendar_year_timespan
+    index({ month: 1 })
 
     scope :month_of_year, ->(year, month){}
 

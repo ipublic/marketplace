@@ -59,11 +59,6 @@ module Timespans
 	    context "with all required arguments" do
 	      subject {described_class.new(params) }
 
-	      it "should be valid" do
-	        subject.validate
-	        expect(subject).to be_valid
-	      end
-
 	      it "should compose a correct title" do
 	        subject.validate
 	        expect(subject.title).to eq "#{year}"
@@ -78,6 +73,11 @@ module Timespans
 	    		subject.validate
 	    		expect(subject.month_timespans.size).to eq 12
 	    	end
+
+	      it "should be valid" do
+	        subject.validate
+	        expect(subject).to be_valid
+	      end
 
 	      context "and it is saved" do
 

@@ -1,5 +1,5 @@
 module Wages
-	class TipWageEntry
+	class TipWageEntry < Wage
 
     field :hours_worked,							type: Integer
 

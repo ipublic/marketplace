@@ -1,5 +1,5 @@
 module Wages
-	class NonexemptWageEntry
+	class NonexemptWageEntry < Wage
 
     field :hours_worked,							type: Integer
     

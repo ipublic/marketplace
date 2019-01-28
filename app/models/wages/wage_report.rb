@@ -1,4 +1,7 @@
 module Wages
+
+	TAXABLE_WAGES_MAXIMUM = 9_000
+	
 	class WageReport
 	  include Mongoid::Document
 

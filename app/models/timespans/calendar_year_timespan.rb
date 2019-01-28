@@ -1,19 +1,20 @@
 module Timespans
 	class CalendarYearTimespan < Timespan
 
+		attr_readonly :year, :begin_on, :end_on
+
     field :year,  type: Integer
 
     has_many	:quarter_year_timespans,
-    						class_name: 'Timespans::QuarterYearTimespan'
+    						class_name: 'Timespans::QuarterYearTimespan', 
+    						autosave: true
 
     has_many	:month_timespans,
-    						class_name: 'Timespans::MonthTimespan'
+    						class_name: 'Timespans::MonthTimespan', 
+    						autosave: true
 
-    index({ year: 1}, {unique: true})
-
-    index({ 'month_timespans.year': 1,
-    				'month_timespans.month': 1 },
-    				{unique: true})
+    # index({ year: 1}, {unique: true})
+    index({ year: 1})
 
 	  validates :year, 
 	  					presence: true,
@@ -21,9 +22,6 @@ module Timespans
 	            								greater_than_or_equal_to: YEAR_MINIMUM, 
 	            								less_than_or_equal_to: YEAR_MAXIMUM
 	            							}
-
-    validates_presence_of :quarter_year_timespans, :month_timespans
-
 
     private
 
@@ -52,12 +50,5 @@ module Timespans
     def initialize_title
 			write_attribute(:title, "#{year}") if title.blank?
 		end
-	end
-
-	class SeedCalendarYear
-		
-		# (Timespans::YEAR_MINIMUM..Timespans::YEAR_MAXIMUM).each do |calendar_year|
-		# end
-		
 	end
 end

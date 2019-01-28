@@ -16,93 +16,36 @@ RSpec.describe Timespans::Timespan, type: :model do
   end
 
   context "A new Timespan instance" do
-    context "with no arguments" do
-      subject { described_class.new }
-
-      it "should not be valid" do
-        subject.validate
-        expect(subject).to_not be_valid
-      end
-    end
-
-    context "without required params" do
-      context "that's missing begin_on" do
-        subject { described_class.new(params.except(:begin_on)) }
-
-        it "should be invalid" do
-          subject.validate
-          expect(subject).to_not be_valid
-          expect(subject.errors[:begin_on]).to include("can't be blank")
-        end
-      end
-
-      context "that's missing end_on" do
-        subject { described_class.new(params.except(:end_on)) }
-
-        it "should be invalid" do
-          subject.validate
-          expect(subject).to_not be_valid
-          expect(subject.errors[:end_on]).to include("can't be blank")
-        end
-      end
-    end
-
-    context "with invalid params" do
-      context "and end_on preceeds begin_on" do
-        let(:invalid_end_on)  { begin_on - 1.day }
-
-        subject { described_class.new(params) }
-        before { subject.end_on = invalid_end_on }
-
-        it "should not be valid" do
-          subject.validate
-          expect(subject).to_not be_valid
-          expect(subject.errors[:begin_on].first).to match(/must be earlier than End on/)
-        end
-      end
-    end
-
-    context "with all valid params" do
-      subject { described_class.new(params) }
-
-      it "should be valid" do
-        subject.validate
-        expect(subject).to be_valid
-      end
-
-      context "and it's saved" do
-
-        it "should be findable" do
-          subject.save!
-          expect(described_class.find(subject.id)).to eq subject
-        end
-      end
-    end
   end
 
-  describe "class methods", dbclean: :after_each do
+  describe "class methods" do
     context ".find_on" do
       let(:next_year)         { Date.today.year + 1 }
       let(:next_begin_on)     { Date.new(next_year, 1, 1) }
       let(:next_end_on)       { Date.new(next_year, 12, 31) }
+      # let!(:match_period)       { described_class.create!(title: "match_period", begin_on: begin_on, end_on: end_on) }
+      # let!(:next_match_period)  { described_class.create!(title: "next_match_period", begin_on: next_begin_on, end_on: next_end_on) }
 
-      context "with two persisted consecutive periods" do
-        let!(:match_period)       { described_class.create!(title: "match_period", begin_on: begin_on, end_on: end_on) }
-        let!(:next_match_period)  { described_class.create!(title: "next_match_period", begin_on: next_begin_on, end_on: next_end_on) }
+      context "seeded timespan collection" do
 
-        it "should have exactly 2 date period instances" do
-          expect(described_class.all.size).to eq 2
+        it "the collection should be loaded" do
+          expect(described_class.all.size).to be > 1
         end
 
-        it "should find each period by matching passed date" do
-          expect( Timespans::Timespan.find_on(match_period.begin_on).first).to eq match_period
-          expect(described_class.find_on(next_match_period.begin_on).first).to eq next_match_period
+        context "and a date with a matching record in the collection" do
+
+          it "should find each period by matching passed date" do
+            expect( described_class.find_on(next_begin_on).entries).to eq [next_begin_on]
+          end
         end
+
+        context "and a date with no matching record in the collection"
 
         it "should return nil for non-matching date", :aggregate_failures do
           expect(described_class.find_on(match_period.begin_on - 1.day)).to eq []
         end
       end
+
     end
   end
 
