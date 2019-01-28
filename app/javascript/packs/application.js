@@ -3,6 +3,7 @@ import Turbolinks from 'turbolinks';
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 import 'bootstrap-material-design';
+import 'datatables/media/css/jquery.dataTables.css';
 import './alerts';
 import '../src/application.scss';
 import '../images/does.png';
