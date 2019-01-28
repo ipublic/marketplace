@@ -8,6 +8,7 @@
     "bootstrap-material-design": "^4.1.1",
     "caniuse-lite": "^1.0.30000697",
     "counterup": "^1.0.2",
+    "datatables": "^1.10.18",
     "datepicker": "^0.0.0",
     "jquery": "^3.3.1",
     "owl.carousel": "^2.3.4",

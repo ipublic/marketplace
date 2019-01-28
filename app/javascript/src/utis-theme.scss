@@ -93,6 +93,16 @@ footer {
   }
 }
 
+#side-menu {
+  ul.list-group {
+    color: #ffffff;
+    a {
+      color: #ffffff;
+      text-decoration: none;  
+    }
+  }
+}
+
 .sign-in-card, .sign-up-card, .forgot-password-card {
   margin-top: 90px;
   .card-img-top {
