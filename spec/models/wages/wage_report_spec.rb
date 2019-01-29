@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Wages
-	RSpec.describe WageReport, type: :model do
+	RSpec.describe WageReport, type: :model, dbclean: :after_each do
 
     it { is_expected.to be_mongoid_document }
     it { is_expected.to have_timestamps }

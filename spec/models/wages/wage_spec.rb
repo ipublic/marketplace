@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Wages
-	RSpec.describe Wage, type: :model do
+	RSpec.describe Wage, type: :model, dbclean: :after_each do
 
 		let(:person_party)								{ Parties::PersonParty.create(current_first_name: "Mary", current_last_name: "Poppins") }
 		let(:state_qtr_ui_total_wages)		{ 40_125.32 }

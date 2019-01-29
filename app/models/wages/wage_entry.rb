@@ -14,7 +14,8 @@ module Wages
 	  field :submitted_at, 		type: Time, 	default: ->{ Time.now }
 
 	  embeds_one	:wage,
-	  						class_name: 'Wages::Wage'
+	  						class_name: 'Wages::Wage',
+	  						autobuild: true
 
 		validates_presence_of :wage, :submission_kind, :submitted_at
 

@@ -10,21 +10,17 @@ module Parties
 	  field :contact_method, 		type: String, default: "Only Electronic communications"
 
 
-	  has_many 		:party_role_kinds,
-								class_name: "Parties::PartyRoleKind"
-
-		has_many		:notices,
-								class_name: "Notices::Notice"
-
-		has_many 		:financial_accounts,
-								class_name: "FinancialAccounts::FinancialAccount"
-
 	  embeds_many :party_roles, 
 								class_name: "Parties::PartyRole"
 
 	  embeds_many :determinations,
 	  						class_name: "Determinations::Determination"
 
+	  embeds_many :documents, as: :documentable,
+	  						class_name: '::Document'
+
+		has_many		:notices,
+								class_name: "Notices::Notice"
 
 	  scope :ui_group_sponsors,		->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
 		scope :ui_tpas, 						->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
@@ -41,7 +37,7 @@ module Parties
 
 
 		index({ party_id: 1 })
-	  index({"party_role.kind" => 1})
+	  index({"party_roles" => 1})
 
 	  def has_role_kind?(role_kind)
 	  	party_roles.include?(role_kind)

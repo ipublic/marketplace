@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Timespans::Timespan, type: :model do
+RSpec.describe Timespans::Timespan, type: :model, dbclean: :after_each do
 
   let(:this_year)	{ Date.today.year }
   let(:begin_on)	{ Date.new(this_year, 1, 1) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Parties
-  RSpec.describe PersonParty, type: :model do
+  RSpec.describe PersonParty, type: :model, dbclean: :after_each do
 
     let(:current_first_name)      { "Mary" }
     let(:current_last_name)       { "Poppins" }
@@ -18,11 +18,10 @@ module Parties
       it { is_expected.to be_mongoid_document }
       it { is_expected.to have_fields(:party_id, :current_first_name, :current_last_name)}
 
+      it { is_expected.to embed_many(:person_names)}
       it { is_expected.to embed_many(:party_roles)}
-      it { is_expected.to embed_many(:party_relationships)}
-      it { is_expected.to embed_many(:determinations)}
-      it { is_expected.to have_many(:notices)}
-      it { is_expected.to have_many(:accounts)}
+      it { is_expected.to have_one(:party_ledger)}
+      it { is_expected.to have_one(:party_ledger_account_balance)}
 
       context "with no arguments" do
         subject { described_class.new }

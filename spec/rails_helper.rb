@@ -10,6 +10,7 @@ require 'rspec/rails'
 require 'mongoid-rspec'
 require 'shoulda/matchers'
 require 'factory_bot_rails'
+require 'database_cleaner'
 
 # FactoryBot.find_definitions
 
@@ -57,5 +58,14 @@ RSpec.configure do |config|
 
   config.include Mongoid::Matchers, type: :model
   config.include FactoryBot::Syntax::Methods
+  DatabaseCleaner.strategy = :truncation
+    config.after(:example, :dbclean => :after_each) do
+    DatabaseCleaner.clean
+  end
 
+  config.around(:example, :dbclean => :around_each) do |example|
+    DatabaseCleaner.clean
+    example.run
+    DatabaseCleaner.clean
+  end
 end

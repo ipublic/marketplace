@@ -52,6 +52,7 @@ group :development, :test do
   gem 'shoulda-matchers',             '~> 3'
   gem 'mongoid-rspec',                '~> 4'
   gem 'pry'
+  gem 'database_cleaner',       '~> 1.7'
 end
 
 group :development do

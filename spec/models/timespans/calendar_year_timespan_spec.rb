@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Timespans
-	RSpec.describe CalendarYearTimespan, type: :model do
+	RSpec.describe CalendarYearTimespan, type: :model, dbclean: :after_each do
 
 	  let(:year)							{ Date.today.year }
 	  let(:year_too_large)		{ Timespans::YEAR_MAXIMUM + 1 }
