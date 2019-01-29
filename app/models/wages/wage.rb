@@ -18,7 +18,7 @@ module Wages
 	  field :state_qtr_ui_taxable_wages,	type: BigDecimal
 
 
-	  # validates_presence_of :person_party_id, :state_qtr_ui_total_wages, :state_qtr_ui_excess_wages, :state_qtr_ui_taxable_wages
+	  validates_presence_of :person_party_id, :state_qtr_ui_total_wages, :state_qtr_ui_excess_wages, :state_qtr_ui_taxable_wages
 
     index({ person_party_id: 1})
 

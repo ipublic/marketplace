@@ -12,8 +12,9 @@
         <% @reports.each do |report|%>
               <tbody>
                 <tr>
+                <%binding.pry%>
                 
-                  <th scope="row"><%=link_to "#{report.timespans.first.title}", wage_report_path(report.id)%></th>
+                  <th scope="row"><%=link_to "#{report.timespans.last.title}", wage_report_path(report.id)%></th>
                   <td><%=report.status%></td>
                   <td><%=report.submission_kind%></td>
                 </tr>
