@@ -1,5 +1,5 @@
 $back: #17365D;
-
+$green:#019588;
 
 
 .bmd-layout-canvas{
@@ -17,7 +17,17 @@ $back: #17365D;
 #card{
   // padding:50px;
 }
+#plus{
+  font-size: 40px;
+  border-radius:1000px;
+  background-color: $green;
+  color:white;
+}
+#plus:hover{
+  background-color: white;
+  color:$green;
 
+}
 .buttons{
 }
 
