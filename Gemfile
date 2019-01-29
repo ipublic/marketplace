@@ -40,6 +40,7 @@ gem 'pundit',                   '~> 2.0'
 
 gem 'sassc',                    '~> 1.12'
 gem 'slim',                     '~> 3.0'
+
 # gem 'symmetric-encryption',     '~> 3.6'
 
 

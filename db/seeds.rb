@@ -25,14 +25,28 @@ person_first_names =  ["Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan",
 person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown"]
 
 1..30.times do 
- person  = Parties::PersonParty.create(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}")
- party = Parties::OrganizationParty.create(fein:"#{rand(000000000...999999999)}", legal_name:"#{legal_first_names.sample + legal_last_names.sample}", entity_kind:"#{Parties::OrganizationParty::ENTITY_KINDS.sample}", is_foreign_entity:false)
- 1..10.times do  
-  wage  = Wages::Wage.new(person_party_id:person.id, state_qtr_total_gross_wages: "#{rand(100...1000)}",state_qtr_ui_total_wages:"#{rand(100...1000)}",state_qtr_ui_excess_wages:"#{rand(100...1000)}",state_qtr_ui_taxable_wages:"#{rand(100...1000)}")
-  entry = Wages::WageEntry.new(wage: wage)
-  span = Timespans::Timespan.all.sample
-  Wages::WageReport.create!(organization_party:party, wage_entries:[entry], submission_kind:  "#{Wages::WageReport::SUBMISSION_KINDS.sample}", timespans:[span] , filing_method_kind: "#{Wages::WageReport::FILING_METHOD_KINDS.sample}", status: "#{Wages::WageReport::STATUS_KINDS.sample}" )
- end
+  person  = Parties::PersonParty.create(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}")
+  party = Parties::OrganizationParty.create(fein:"#{rand(000000000...999999999)}", legal_name:"#{legal_first_names.sample + legal_last_names.sample}", entity_kind:"#{Parties::OrganizationParty::ENTITY_KINDS.sample}", is_foreign_entity:false)
+  1..10.times do  
+    entries = []
+    1..10.times do 
+      wage  = Wages::Wage.new(person_party_id:person.id, state_qtr_total_gross_wages: "#{rand(100...1000)}",state_qtr_ui_total_wages:"#{rand(100...1000)}",state_qtr_ui_excess_wages:"#{rand(100...1000)}",state_qtr_ui_taxable_wages:"#{rand(100...1000)}")
+      entries <<  Wages::WageEntry.new(wage: wage, submission_kind: :orginal, submitted_at: Time.now) 
+    end 
+    span =  Timespans::Timespan.all.where('quarter' =>{'$in' => [1,2,3,4]}).sample
+    1..3.times do 
+      Wages::WageReport.create!(organization_party:party,
+                                wage_entries: entries,
+                                submission_kind:  "#{Wages::WageReport::SUBMISSION_KINDS.sample}",
+                                timespans:[span],
+                                filing_method_kind: "#{Wages::WageReport::FILING_METHOD_KINDS.sample}",
+                                status: "#{Wages::WageReport::STATUS_KINDS.sample}",
+                                total_wages:"#{rand(1000...10000)}",
+                                excess_wages:"#{rand(100...1000)}",
+                                ui_amount_due:"#{rand(500...1000)}" )
+    end
+      entries = []
+  end
 end
 
 puts "*"*80

@@ -48,7 +48,11 @@ module Wages
 	  											:submission_kind #:total_wages, 
 	  											# :excess_wages, :taxable_wages
 
-
+    def self.filter_by_date_and_status(quarter)
+      # require 'pry';
+      # binding.pry
+      where('timespans.begin_on' => quarter.begin_on).sort_by{|report|report.status}
+    end
 
 	end
 end
