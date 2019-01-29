@@ -9,6 +9,7 @@ export default class extends Controller {
 
   initialize() {
     let table = $('#employerDataTable').DataTable({
+      "bPaginate": false,
       "data": [
         {
             "name": "Amazon",
@@ -50,11 +51,8 @@ export default class extends Controller {
   }
 
   goToEmployer(event) {
-    setTimeout(() => {
-      document.querySelector('.fa-bars').click();
-      document.getElementById('employers').classList.add('show')
-      let selectedEmployerName = event.target.innerHTML;
-      document.getElementById('employerName').innerHTML = selectedEmployerName;
-    });
+    document.getElementById('employers').classList.add('show')
+    let selectedEmployerName = event.target.innerHTML;
+    document.getElementById('employerName').innerHTML = selectedEmployerName;
   }
 }
