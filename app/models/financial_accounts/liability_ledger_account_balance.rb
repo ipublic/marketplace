@@ -1,3 +1,6 @@
-class FinancialAccounts::LiabilityLedgerAccountBalance
-  include Mongoid::Document
+module FinancialAccounts
+	class LiabilityLedgerAccountBalance
+	  include Mongoid::Document
+	  
+	end
 end

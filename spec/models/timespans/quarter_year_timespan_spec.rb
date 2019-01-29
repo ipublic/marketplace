@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Timespans::QuarterYearTimespan, type: :model do
+RSpec.describe Timespans::QuarterYearTimespan, type: :model, dbclean: :after_each do
 
 	let(:year)							      { Date.today.year }
 	let(:quarter)						      { 2 }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Timespans::MonthTimespan, type: :model do
+RSpec.describe Timespans::MonthTimespan, type: :model, dbclean: :after_each do
 	let(:year)							       	{ Date.today.year }
 	let(:month)                    	{ 6 }
 	let(:abbrev_month)							{ Date::ABBR_MONTHNAMES[month] }

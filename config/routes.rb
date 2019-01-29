@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'get_roles', to: 'settings#get_roles'
     get 'get_keys', to: 'settings#get_keys'
     get 'get_permissions', to: 'settings#get_permissions'
+    delete 'remove_role_and_permissions', to: 'settings#remove_role_and_permissions'
   end
 
   root to: 'dashboard#index'

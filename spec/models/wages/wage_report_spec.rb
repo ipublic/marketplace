@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 module Wages
-	RSpec.describe WageReport, type: :model do
+	RSpec.describe WageReport, type: :model, dbclean: :after_each do
 
     it { is_expected.to be_mongoid_document }
     it { is_expected.to have_timestamps }
     it { is_expected.to belong_to(:organization_party)}
     it { is_expected.to embed_many(:wage_entries)}
-    it { is_expected.to have_many(:timespans)}
+    it { is_expected.to have_one(:timespan)}
 
     let(:organization_party)  { Parties::OrganizationParty.new() }
     let(:timespans)           { Timespans::Timespan.first.to_a }
@@ -25,7 +25,7 @@ module Wages
         wage_entries:               wage_entries,
         submission_kind:            submission_kind,
         filing_method_kind:         filing_method_kind,
-        total_wages:		            total_wages,
+        state_total_gross_wages:		state_total_gross_wages,
         excess_wages:	              excess_wages,
         taxable_wages:	            taxable_wages,
       }

@@ -55,6 +55,16 @@ class SettingsController < ApplicationController
     render json: {code: 200, message: 'Permissions updated'}
   end
 
+  def remove_role_and_permissions
+    permission = Permission.where(role_name: params[:data]).first
+    if permission && permission.filter_tokens.present?
+      permission.filter_tokens.destroy_all
+      permission.destroy
+    end
+    Role.where(name: params[:data]).first.destroy
+    render json: {code: 200, message: 'Role was successfully removed'}
+  end
+
   private
 
   def role_params

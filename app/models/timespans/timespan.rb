@@ -27,7 +27,18 @@ module Timespans
     scope :find_on,     ->(date){ where(:begin_on.lte => date, :end_on.gte => date) unless date.blank? }
     scope :find_title,  ->(compare_title){ where(:title => compare_title) unless compare_title.blank? }
 
-    after_validation :initialize_timespan
+    # after_validation :initialize_timespan
+    after_initialize :initialize_timespan
+
+    def predecessor
+      return nil unless begin_date.present?
+      preceding_timespans = self.find_on(begin_date - 1.day).entries
+      preceding_timespans.size == 1 ? preceding_timespans.first : nil
+    end
+
+    def kind
+      _type.to_s.demodulize.underscore.to_sym
+    end
 
     def between?(compare_date)
       range_present? && (compare_date.between?(begin_on, end_on)) ? true : false

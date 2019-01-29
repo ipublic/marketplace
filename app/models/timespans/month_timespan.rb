@@ -36,7 +36,7 @@ module Timespans
 
 			if year.present? && month.present?
 				write_attribute(:begin_on, beginning_of_month(year, month)) if begin_on.blank?
-				write_attribute(:end_on, beginning_of_month(year, month)) if end_on.blank?
+				write_attribute(:end_on, end_of_month(year, month)) if end_on.blank?
 				write_attribute(:title, "#{year} #{Date::ABBR_MONTHNAMES[month]}") if title.blank?
 			end
     end
