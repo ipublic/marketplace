@@ -5,8 +5,6 @@ class Determinations::UiContributionRateDetermination
   						class_name: "Parties::Party"
 
 
-  field :calendar_year_period_id, 					type: BSON::ObjectId
-  field :predecessor_id, 										type: BSON::ObjectId
   field :tax_rate, 													type: Float, default: 0.0
   field :administration_fee, 								type: Float, default: 0.0
   field :initial_tax_rate, 									type: Float, default: 0.0
@@ -16,6 +14,10 @@ class Determinations::UiContributionRateDetermination
   field :contribution_amount, 							type: BigDecimal, default: 0.0
   field :interest_earned_amount, 						type: BigDecimal, default: 0.0
   field :reserve_account_ending_balance, 		type: BigDecimal, default: 0.0
+
+  belongs_to	:timespan, 
+  						class_name: 'Timespans::Timespan'
+
 
   # Algorithm based on FL formula
 	def initialize(benefit_sponsor, next_calendar_year_period, determination_timespan = 3.years)
