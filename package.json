@@ -21,6 +21,7 @@
     "webpack-dev-middleware": "1.12.2"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.0",
     "webpack-dev-server": "2.11.2"
   }
 }
