@@ -3,7 +3,7 @@ require 'rails_helper'
 module Timespans
 	RSpec.describe CalendarYearTimespan, type: :model, dbclean: :after_each do
 
-	  let(:year)							{ Date.today.year }
+	  let(:year)							{ TimeKeeper.date_of_record.year }
 	  let(:year_too_large)		{ Timespans::YEAR_MAXIMUM + 1 }
 	  let(:year_too_small) 		{ Timespans::YEAR_MINIMUM - 1 }
 
@@ -94,5 +94,41 @@ module Timespans
 	      end
 	    end
 	  end
+
+	  describe "Class methods" do
+
+	    context ".find_on" do
+	      let(:next_year)         		{ year + 1 }
+	      let(:next_begin_on)     		{ Date.new(next_year, 1, 1) }
+	      let(:next_end_on)       		{ Date.new(next_year, 12, 31) }
+	      let!(:match_timespan)       { described_class.create!(year: year) }
+	      let!(:next_match_timespan)  { described_class.create!(year: next_year) }
+
+	      context "seeded timespan collection" do
+
+	        it "the collection should be loaded" do
+	          expect(described_class.all.size).to be > 1
+	        end
+
+	        context "and a date with a matching record in the collection" do
+
+	          it "should find timespan covered by date argument" do
+	            expect( described_class.find_on(next_begin_on).entries.first.begin_on).to eq next_begin_on
+	          end
+	        end
+
+	        context "and a date with no matching record in the collection"
+
+	        it "should return nil for non-matching date", :aggregate_failures do
+	          expect(described_class.find_on(match_timespan.begin_on - 1.day)).to eq []
+	        end
+	      end
+
+	    end
+	  end
+
+	  describe "Instance methods" do
+	  end
+  
 	end
 end
