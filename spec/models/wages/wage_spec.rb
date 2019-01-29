@@ -3,24 +3,26 @@ require 'rails_helper'
 module Wages
 	RSpec.describe Wage, type: :model, dbclean: :after_each do
 
-		let(:person_party)						{ Parties::PersonParty.create(current_first_name: "Mary", current_last_name: "Poppins") }
-		let(:state_qtr_total_wages)		{ 40_125.32 }
-		let(:state_qtr_excess_wages)	{  5_125.11 }
-		let(:state_qtr_taxable_wages) { state_qtr_total_wages - state_qtr_excess_wages }
+		let(:person_party)            { Parties::PersonParty.create(current_first_name: "Mary", current_last_name: "Poppins") }
+		let(:state_total_wages)       { 40_125.32 }
+		let(:state_excess_wages)      {  5_125.11 }
+		let(:state_taxable_wages)     { state_total_wages - state_excess_wages }
+    let(:timespan)                { Timespans::CalendarYearTimespan.new(year: TimeKeeper.date_of_record.year) }
 
     let(:params) do
       {
-      	person_party_id: 					person_party._id,
-        state_qtr_total_wages:		state_qtr_total_wages,
-        state_qtr_excess_wages:	  state_qtr_excess_wages,
-        state_qtr_taxable_wages:	state_qtr_taxable_wages,
+      	person_party_id:      person_party._id,
+        state_total_wages:    state_total_wages,
+        state_excess_wages:   state_excess_wages,
+        state_taxable_wages:	state_taxable_wages,
+        timespan:             timespan,
       }
     end
 
     describe "A new model instance" do
      	it { is_expected.to be_mongoid_document }
  			it { is_expected.to have_timestamps }
-      it { is_expected.to have_fields(:person_party_id, :state_qtr_total_wages, :state_qtr_excess_wages, :state_qtr_taxable_wages)}
+      it { is_expected.to have_fields(:person_party_id, :state_total_wages, :state_excess_wages, :state_taxable_wages)}
      	it { is_expected.to be_embedded_in(:wage_entry)}
 
       context "with no arguments" do
@@ -32,33 +34,33 @@ module Wages
         end
       end
 
-      context "with no state_qtr_total_wages" do
-        subject { described_class.new(params.except(:state_qtr_total_wages)) }
+      context "with no state_total_wages" do
+        subject { described_class.new(params.except(:state_total_wages)) }
 
         it "should not be valid" do
           subject.validate
           expect(subject).to_not be_valid
-          expect(subject.errors[:state_qtr_total_wages].first).to match(/can't be blank/)
+          expect(subject.errors[:state_total_wages].first).to match(/can't be blank/)
         end
       end
 
-      context "with no state_qtr_excess_wages" do
-        subject { described_class.new(params.except(:state_qtr_excess_wages)) }
+      context "with no state_excess_wages" do
+        subject { described_class.new(params.except(:state_excess_wages)) }
 
         it "should not be valid" do
           subject.validate
           expect(subject).to_not be_valid
-          expect(subject.errors[:state_qtr_excess_wages].first).to match(/can't be blank/)
+          expect(subject.errors[:state_excess_wages].first).to match(/can't be blank/)
         end
       end
 
-      context "with no state_qtr_taxable_wages" do
-        subject { described_class.new(params.except(:state_qtr_taxable_wages)) }
+      context "with no state_taxable_wages" do
+        subject { described_class.new(params.except(:state_taxable_wages)) }
 
         it "should not be valid" do
           subject.validate
           expect(subject).to_not be_valid
-          expect(subject.errors[:state_qtr_taxable_wages].first).to match(/can't be blank/)
+          expect(subject.errors[:state_taxable_wages].first).to match(/can't be blank/)
         end
       end
 
@@ -96,7 +98,7 @@ module Wages
       end
     end
 
-    describe "A new Wage without an assgiend PersonParty" do
+    describe "A new Wage without an assigned PersonParty" do
       let(:wage)     { described_class.new(params.except(:person_party_id)) }
 
       it "should not have an assigned PersonParty" do
