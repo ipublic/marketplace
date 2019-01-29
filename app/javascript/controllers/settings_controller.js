@@ -3,16 +3,18 @@ import Rails from 'rails-ujs'
 import $ from 'jquery'
 
 export default class extends Controller {
-  static targets = [ "roleName", "keyName", "permissionTable", "permissionsTableHeader", "checkboxValue" ]
+  static targets = [ "roleName", "keyName", "permissionTable", "permissionsTableHeader", "checkboxValue", "permissionAlert", "permissionTab" ]
 
   currentRoles = [];
   currentKeys = [];
   currentPermissions = [];
   selectedPermissions = [];
+  roleToRemove;
 
   initialize() {
     this.getRoles()
     this.getKeys()
+    this.permissionAlertTarget.style.display = 'none';
   }
 
   getRoles() {
@@ -157,7 +159,9 @@ export default class extends Controller {
     }
 
     let th1 = document.createElement("th");
+    let thActions = document.createElement("th");
     th1.innerText = "";
+    thActions.innerText = "Actions";
     tr.appendChild(th1)
 
     this.currentKeys.map((key, i) => {
@@ -165,6 +169,7 @@ export default class extends Controller {
       th.innerText = key;
       tr.appendChild(th)
     })
+    tr.appendChild(thActions)
   }
 
   loadTableRows() {
@@ -191,6 +196,14 @@ export default class extends Controller {
          `
          tr.appendChild(role)
       })
+
+      let button = document.createElement('button')
+      button.setAttribute('data-role', role)
+      button.setAttribute('data-action', 'click->settings#removePermission')
+      button.classList.add('btn', 'btn-raised', 'btn-danger', 'btn-sm', 'mt-1')
+      button.innerText = 'Remove'
+      tr.appendChild(button)
+
       tableBody.appendChild(tr)
     })
   }
@@ -246,7 +259,12 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(response => {
-      // console.log(response)
+      this.permissionAlertTarget.style.display = '';
+    })
+    .then(()=> {
+      setTimeout(() => {
+        this.permissionAlertTarget.style.display = 'none';
+      },3000);
     })
   }
 
@@ -267,6 +285,45 @@ export default class extends Controller {
         })
       })
     })
+  }
+
+
+  removePermission(element) {
+    this.roleToRemove = element.target.dataset.role;
+    $('#confirmationModal').modal('show');
+    document.getElementById('modalText').innerText = `Please confirm that you want to remove ${this.roleToRemove}`
+  }
+
+  performAction() {
+    $('#confirmationModal').modal('hide')
+    this.removeRoleAndPermissions();
+  }
+
+  removeRoleAndPermissions() {
+    fetch('/settings/1/remove_role_and_permissions', {
+      method: 'DELETE',
+      body: JSON.stringify({data: this.roleToRemove}),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': Rails.csrfToken()
+      },
+      credentials: 'same-origin',
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(response => {
+      if (response.code === 200) {
+        this.getRoles()
+        this.getKeys()
+      }
+    })
+    .then(()=> {
+      setTimeout(()=> {
+        document.getElementById('nav-permission-tab').click();
+      },300)
+    })
+
   }
 
 }
