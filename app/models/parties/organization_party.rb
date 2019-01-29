@@ -32,7 +32,7 @@ module Parties
 
 	  # embeds_many :documents, as: :documentable
 
-	  validates_presence_of :fein, :legal_name, :entity_kind, :is_foreign_entity
+	  validates_presence_of :fein, :legal_name, :is_foreign_entity
 
 		index({ entity_id: 1 },		{ unique: true})
     index({ legal_name: 1 })

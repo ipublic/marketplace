@@ -10,7 +10,9 @@ class WageReportsController <  ApplicationController
   end
   
   def show 
-   @report = Wages::WageReport.find(params[:id])
-   @entries = @report.wage_entries
+    @report = Wages::WageReport.find(params[:id])
+    @organization = @report.organization_party
+    @entries = @report.wage_entries
   end
+
 end

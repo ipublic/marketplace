@@ -32,9 +32,9 @@
                 <tr>
                   <td><%= link_to "#{report.status.capitalize}", wage_report_path(report)%></td>
                   <td><%=report.submission_kind.capitalize%></td>
-                  <td>$<%=report.total_wages%></td>
-                  <td>$<%=report.excess_wages%></td>
-                  <td>$<%=report.ui_amount_due%></td>
+                  <td>$<%=report.state_total_gross_wages%></td>
+                  <td>$<%=report.state_ui_taxable_wages%></td>
+                  <td>$<%=report.ui_total_due%></td>
                 </tr>
                 <%end%>
                 </tbody>
