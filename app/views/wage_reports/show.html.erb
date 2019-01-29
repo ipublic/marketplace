@@ -80,10 +80,10 @@
             <tr>
               <td scope="row"><%= entry.submission_kind.capitalize%></td>
               <td scope="row"><%= entry.submitted_at%></td>
-              <td>$<%= entry.wage.state_total_gross_wages%></td>
-              <td>$<%= entry.wage.state_total_wages%></td>
-              <td>$<%= entry.wage.state_excess_wages%></td>
-              <td>$<%= entry.wage.state_taxable_wages%></td>
+              <td>$ <%= entry.wage.state_total_gross_wages%></td>
+              <td>$ <%= entry.wage.state_total_wages%></td>
+              <td>$ <%= entry.wage.state_excess_wages%></td>
+              <td>$ <%= entry.wage.state_taxable_wages%></td>
             </tr>
           <%end%>
           </tbody>

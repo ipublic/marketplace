@@ -39,7 +39,10 @@ module Wages
 	  field :total_employees,						type: Integer
 
 	  embeds_many	:wage_entries,
-	  						class_name: 'Wages::WageEntry'
+                class_name: 'Wages::WageEntry'
+    
+    # embeds_many	:wages,
+	  # 						class_name: 'Wages::Wage'
 
 	  belongs_to	:organization_party,
 	  						class_name: 'Parties::OrganizationParty'
