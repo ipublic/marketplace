@@ -1,5 +1,6 @@
 <div class="card">
-  <div class="card-header" id= "card-header">Your Wage Reports</div>
+
+  <div class="card-header" id= "card-header">Report Span - <%=@report.timespans.first.title%></div>
     <div class="card-body">
       <div class="card">
       <table class="table table-striped">
@@ -9,16 +10,14 @@
           <th scope="col" class="card-header"id= "card-header">Status</div>
           <th scope="col" class="card-header"id= "card-header">Submission Kind</div>
         </tr>
-        <% @reports.each do |report|%>
               <tbody>
                 <tr>
-                
-                  <th scope="row"><%=link_to "#{report.timespans.first.title}", wage_report_path(report.id)%></th>
-                  <td><%=report.status%></td>
-                  <td><%=report.submission_kind%></td>
+                  <th scope="row"><%=@report.timespans.first.title%></th>
+                  <td><%=@report.status%></td>
+                  <td><%=@report.submission_kind%></td>
                 </tr>
               </tbody>
-              <%end%>
+
             </table>
           </div>
       </div>

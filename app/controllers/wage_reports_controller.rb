@@ -5,7 +5,10 @@ class WageReportsController <  ApplicationController
   
   def index
     organization = Parties::OrganizationParty.find(params[:organization_party_id])
-    require 'pry';
     @reports = organization.wage_reports
+  end
+  
+  def show 
+   @report = Wages::WageReport.find(params[:id])
   end
 end
