@@ -1,5 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Parties::OrganizationParty, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+module Parties
+	RSpec.describe OrganizationParty, type: :model do
+
+
+	end
 end

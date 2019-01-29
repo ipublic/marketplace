@@ -24,8 +24,8 @@ module Parties
 
 	  index({ key: 1, is_published: 1, start_date: 1, end_date: 1 })
 
-	  alias_method :is_published?, 			:is_published
-	  alias_method :has_related_party?, :has_related_party
+	  alias_method :is_published?, 				:is_published
+	  alias_method :has_related_parties?, :has_related_parties
 
 	  def title
 	  	title.present? ? title : key.to_s.gsub('_', ' ')

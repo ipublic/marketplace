@@ -4,7 +4,7 @@ module Parties
 	  include Mongoid::Timestamps
 
 		field	:party_id, 					type: Integer
-	  field :registered_on, 		type: Date, default: ->{ TimeKeeper.date_of_record }
+	  field :registered_on, 		type: Date, default: ->{Date.today} #{ TimeKeeper.date_of_record }
 
 	  field :profile_source, 		type: Symbol, default: :self_serve
 	  field :contact_method, 		type: String, default: "Only Electronic communications"
@@ -16,8 +16,8 @@ module Parties
 		has_many		:notices,
 								class_name: "Notices::Notice"
 
-		has_many 		:accounts,
-								class_name: "Accounts::Account"
+		has_many 		:financial_accounts,
+								class_name: "FinancialAccounts::FinancialAccount"
 
 	  embeds_many :party_roles, 
 								class_name: "Parties::PartyRole"

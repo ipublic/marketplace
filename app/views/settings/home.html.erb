@@ -1,0 +1,114 @@
+<div data-controller="settings">
+
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="true">Users</a>
+      <a class="nav-item nav-link" id="nav-role-tab" data-toggle="tab" href="#nav-role" role="tab" aria-controls="nav-role" aria-selected="false">Role</a>
+      <a class="nav-item nav-link" id="nav-key-tab" data-toggle="tab" href="#nav-key" role="tab" aria-controls="nav-key" aria-selected="false">Keys</a>
+      <a class="nav-item nav-link" id="nav-permission-tab" data-toggle="tab" data-action="settings#loadTableData" href="#nav-permission" role="tab" aria-controls="nav-permission" aria-selected="false">Permission</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
+      Im the user tab Content
+    </div>
+    <div class="tab-pane fade" id="nav-permission" role="tabpanel" aria-labelledby="nav-permission-tab">
+
+      <table class="table" data-target="settings.permissionTable">
+        <thead class="thead-dark">
+          <tr id="permissionsHeaderRow">
+          </tr>
+        </thead>
+        <tbody id="permissionsTableBody">
+        </tbody>
+      </table>
+      <button class="btn btn-primary" data-action="click->settings#submitPermissions">Submit</button>
+    </div>
+    <div class="tab-pane fade" id="nav-key" role="tabpanel" aria-labelledby="nav-key-tab">
+
+      <div class="row pl-3">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-uppercase">
+              Current Keys
+            </div>
+            <ul class="list-group list-group-flush" id="currentKeysList"></ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-uppercase">
+              Create New Key
+            </div>
+            <div class="card-body">
+              <%= form_with url: setting_create_key_path('12'), html: { data: { action: 'ajax:beforeSend->settings#validateForm'}, id:'keyForm'} do |form| %>
+                <div class="form-group">
+                  <label for="keyName" class="bmd-label-floating">Name</label>
+                  <%= form.text_field :name, id:'keyName', data: {action:'settings#keyNameValid', target:'settings.keyName'}, class:'form-control', required:true %>
+                  <span class="bmd-help">Please enter a valid key name.</span>
+                </div>
+                <br />
+                <div class="form-group">
+                  <%= form.submit class:'btn btn-primary btn-lg btn-raised btn-block mt-2' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane fade" id="nav-role" role="tabpanel" aria-labelledby="nav-role-tab">
+      <div class="row pl-3">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-uppercase">
+              Current Roles
+            </div>
+            <ul class="list-group list-group-flush" id="currentRolesList"></ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-uppercase">
+              Create New Role
+            </div>
+            <div class="card-body">
+              <%= form_with url: setting_create_role_path('12'), html: { data: { action: 'ajax:beforeSend->settings#validateForm'}, id:'roleForm'} do |form| %>
+                <div class="form-group">
+                  <label for="roleName" class="bmd-label-floating">Name</label>
+                  <%= form.text_field :name, id:'roleName', data: {action:'settings#roleNameValid', target:'settings.roleName'}, class:'form-control', required:true %>
+                  <span class="bmd-help">Please enter a valid role name.</span>
+                </div>
+                <br />
+                <div class="form-group">
+                  <%= form.submit class:'btn btn-primary btn-lg btn-raised btn-block mt-2' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false" style="z-index:10000000">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="mdlTxt"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
