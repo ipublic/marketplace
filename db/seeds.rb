@@ -31,7 +31,7 @@ person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson"
   wage  = Wages::Wage.new(person_party_id:person.id, state_qtr_total_gross_wages: "#{rand(100...1000)}",state_qtr_ui_total_wages:"#{rand(100...1000)}",state_qtr_ui_excess_wages:"#{rand(100...1000)}",state_qtr_ui_taxable_wages:"#{rand(100...1000)}")
   entry = Wages::WageEntry.new(wage: wage)
   span = Timespans::Timespan.all.sample
-  Wages::WageReport.create!(organization_party:party, wage_entries:[entry], submission_kind: :original, timespans:[span] , filing_method_kind: :upload)
+  Wages::WageReport.create!(organization_party:party, wage_entries:[entry], submission_kind:  "#{Wages::WageReport::SUBMISSION_KINDS.sample}", timespans:[span] , filing_method_kind: "#{Wages::WageReport::FILING_METHOD_KINDS.sample}", status: "#{Wages::WageReport::STATUS_KINDS.sample}" )
  end
 end
 

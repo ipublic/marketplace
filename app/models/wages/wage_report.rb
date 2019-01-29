@@ -9,7 +9,7 @@ module Wages
 	  SUBMISSION_KINDS 		= [:original, :ammended, :estimated]
 	  FILING_METHOD_KINDS = [:upload, :manual_entry, :no_wages]
 
-	  STATUS_KINDS 				= [:processed]
+	  STATUS_KINDS 				= [:processed, :submitted, :terminated]
 
 		# attr_readonly :submission_kind, :submitted_at
 
