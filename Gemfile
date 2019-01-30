@@ -7,6 +7,8 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+gem 'jquery-rails'
+
 # Use webpacker to manage application-like JavaScript in Rails
 gem 'webpacker', '~> 3.5.5'
 # Use devise for authentication
@@ -40,6 +42,7 @@ gem 'pundit',                   '~> 2.0'
 
 gem 'sassc',                    '~> 1.12'
 gem 'slim',                     '~> 3.0'
+
 # gem 'symmetric-encryption',     '~> 3.6'
 
 

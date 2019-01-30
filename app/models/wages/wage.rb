@@ -11,7 +11,8 @@ module Wages
 	  field :person_party_id,					type: BSON::ObjectId
 	  field :timespan_id,							type: BSON::ObjectId
 
-	  field :state_total_gross_wages,	type: BigDecimal
+    field :state_total_gross_wages,	type: BigDecimal
+    
 	  field :state_total_wages,				type: BigDecimal
 	  field :state_excess_wages,			type: BigDecimal
 	  field :state_taxable_wages,			type: BigDecimal
