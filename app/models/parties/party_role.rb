@@ -3,10 +3,13 @@ module Parties
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-	  embedded_in :party,
+	  # embedded_in :party,
+	  # 						class_name: "Parties:Party"
+
+	  belongs_to :party,
 	  						class_name: "Parties:Party"
 
-	  field :kind_id, type: BSON::ObjectId
+	  # field :kind_id, type: BSON::ObjectId
 
 	  # Date this party_role becomes effective
 	  field :start_date, type: Date
@@ -14,7 +17,6 @@ module Parties
 	  # Date this party_role is no longer in effect
 	  field :end_date, type: Date
 
-	  delegate :key,					to: :party_role_kind, allow_nil: false
 	  delegate :title, 				to: :party_role_kind, allow_nil: true
 	  delegate :description, 	to: :party_role_kind, allow_nil: true
 
@@ -22,11 +24,6 @@ module Parties
 	  						class_name: "Parties::PartyRoleKind",
 	  						autobuild: true
 
-	  embeds_one 	:party_relationship_kind,
-	  						class_name: "Parties::PartyRelationshipKind"
-
-		embeds_one	:related_party,
-								class_name: "Parties::Party"
 
 	  def is_active?
 	  	end_date.blank? || end_date >= Date.today
@@ -36,7 +33,7 @@ module Parties
       if new_kind.nil?
         write_attribute(:kind_id, nil)
       else
-        raise ArgumentError.new("expected PartyRoleKind") unless new_kind.is_a? Parties::PartyRoleKind 
+        raise ArgumentError.new("expected Parties::PartyRoleKind") unless new_kind.is_a? Parties::PartyRoleKind 
         write_attribute(:kind_id, new_kind._id)
       end
       @kind = new_kind

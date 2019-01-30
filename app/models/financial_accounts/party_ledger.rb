@@ -11,5 +11,12 @@ module FinancialAccounts
 	  has_many		:fianancial_accounts,
 	  						class_name: 'FinancialAccounts::FinancialAccount'
 
+		has_many		:party_ledger_account_balances,
+								class_name: 'Parties::PartyLedgerAccountBalance',
+	  						autobuild: true
+
+		has_many		:timespans,
+								class_name: 'Timespans:Timespan'
+								
 	end
 end

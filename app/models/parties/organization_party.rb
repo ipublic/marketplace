@@ -31,14 +31,6 @@ module Parties
     has_many 		:wage_reports, 
     						class_name: "Wages::WageReport"
 
-    has_one			:party_ledger,
-    						class_name: 'Parties::PartyLedger',
-	  						autobuild: true
-
-		has_one			:party_ledger_account_balance,
-								class_name: 'Parties::PartyLedgerAccountBalance',
-	  						autobuild: true
-
 	  embeds_many :naics_classifications,
 	  						class_name: 'Parties::NaicsClassification'
 

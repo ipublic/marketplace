@@ -7,17 +7,24 @@ module Parties
 	  field :registered_on, 		type: Date, default: ->{Date.today} #{ TimeKeeper.date_of_record }
 
 	  field :profile_source, 		type: Symbol, default: :self_serve
-	  field :contact_method, 		type: String, default: "Only Electronic communications"
+	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
-	  embeds_many :party_roles, 
+	  has_one			:party_ledger, 
+								class_name: "Parties::PartyRole",
+	  						autobuild: true
+
+	  has_many		:party_roles, 
 								class_name: "Parties::PartyRole"
 
-	  embeds_many :determinations,
+	  has_many		:determinations,
 	  						class_name: "Determinations::Determination"
 
-	  embeds_many :documents, as: :documentable,
+	  has_many		:documents, as: :documentable,
 	  						class_name: '::Document'
+
+		has_many		:cases,
+								class_name: "Cases::Case"
 
 		has_many		:notices,
 								class_name: "Notices::Notice"
