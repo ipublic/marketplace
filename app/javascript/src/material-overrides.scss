@@ -17,16 +17,21 @@ $green:#019588;
 #card{
   // padding:50px;
 }
+.input{
+  color: $green;
+}
 #plus{
-  font-size: 40px;
+  font-size: 25px;
   border-radius:1000px;
   background-color: $green;
   color:white;
 }
+.th-sm{
+  color: $green;
+}
 #plus:hover{
   background-color: white;
   color:$green;
-
 }
 .buttons{
 }
