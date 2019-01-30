@@ -4,7 +4,9 @@ import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 import 'bootstrap-material-design';
 import 'datatables/media/css/jquery.dataTables.css';
-import './alerts';
+import './jquery.steps.min';
+import './jquery.validate.min';
+import './steps';
 import '../src/application.scss';
 import '../images/does.png';
 import '@fortawesome/fontawesome-free';

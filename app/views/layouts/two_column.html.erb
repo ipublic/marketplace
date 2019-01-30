@@ -48,14 +48,14 @@
             <ul class="list-group">
               <li class="list-group-item pr-1 side-menu-item" data-toggle="collapse" data-target="#myAccount" aria-expanded="true" aria-controls="collapseOne" id="my-account">My Account</li>
               <ul id="myAccount" class="collapse pl-0" aria-labelledby="headingOne" data-parent="#side-menu">
-                <li class="list-group-item pb-0 pl-3"><i class="fas fa-user"></i></i> My Profile</li>
-                <li class="list-group-item pb-0 pl-3"><i class="fas fa-envelope"></i> Messages</li>
+                <li class="list-group-item pb-0 pl-3 mb-1"><i class="fas fa-user"></i></i> My Profile</li>
+                <li class="list-group-item pb-0 pl-3 mb-1"><i class="fas fa-envelope"></i> Messages</li>
                 <li class="list-group-item pb-0 pl-3"><i class="fas fa-power-off"></i> <%= link_to "Log Out", destroy_user_session_path %></li>
                 <hr class="mt-4">
               </ul>
 
               <li class="list-group-item pr-1"><i class="fas fa-home mr-3"></i> <%= link_to 'Dashboard', dashboard_index_path %>
-              <li class="list-group-item pr-1 side-menu-item" data-toggle="collapse" data-target="#employers" aria-expanded="true" aria-controls="collapseOne" id="employer-menu-option"><i class="fas fa-users mr-3"></i> <%= link_to 'Employers', employers_path %>
+              <li class="list-group-item pr-1" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne" id="employer-menu-option"><i class="fas fa-users mr-3"></i> <%= link_to 'Employers', employers_path %>
                 <ul id="employers" class="collapse" aria-labelledby="headingOne" data-parent="#side-menu">
                   <li class="list-group-item pb-0 pl-0"><span id="employerName"></span></li>
                   <li class="list-group-item pb-0 pl-0">Wage Reports</li>
@@ -63,6 +63,7 @@
                   <li class="list-group-item pb-0 pl-0">Profile</li>
                 </ul>
               </li>
+
               <li class="list-group-item pr-1 side-menu-item" data-toggle="collapse" data-target="#tpa" aria-expanded="true" aria-controls="collapseOne"><i class="fas fa-cogs  mr-3"></i> TPA <br />
                 <ul id="tpa" class="collapse" aria-labelledby="headingOne" data-parent="#side-menu">
                   <li class="list-group-item pb-0 pl-0"><%= link_to 'Roles', settings_home_path %></li>
@@ -79,7 +80,7 @@
         </main>
       </div>
       <footer class="pt-2 pb-2 pl-3">
-        <i class="far fa-copyright"></i> 2019 IdeaCrew Inc
+        <i class="fas fa-copyright"></i> 2019 IdeaCrew Inc
       </footer>
     </div>
   </body>
