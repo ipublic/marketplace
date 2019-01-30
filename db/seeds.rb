@@ -32,7 +32,7 @@ person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson"
     span =  Timespans::Timespan.all.where('quarter' =>{'$in' => [1,2,3,4]}).sample
       1..10.times do 
         entry = Wages::WageEntry.new(submission_kind: :original, submitted_at: Time.now) 
-        wage  = Wages::Wage.new(person_party_id:person.id,
+        wage  = Wages::Wage.new(person_party_id: Parties::PersonParty.all.last.id,
                                 state_total_gross_wages: "#{rand(100...1000)}",
                                 timespan_id:span.id,
                                 state_taxable_wages:"#{rand(100...1000)}",
