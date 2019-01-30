@@ -2,38 +2,37 @@ $back: #17365D;
 $green:#019588;
 
 
-.bmd-layout-canvas{
-  height: calc(100vh - 88px);
+.bmd-layout-canvas {
+  height: calc(100vh - 88px) !important;
 }
 
 .bmd-layout-drawer {
-  background-color: $back;
+  background-color: #188ef4 !important;
 }
 
 #card-header{
   color:white;
   background-color: $back
 }
-#card{
-  // padding:50px;
-}
+
 .input{
   color: $green;
 }
+
 #plus{
   font-size: 21px;
   border-radius:1000px;
   background-color: $green;
   color:white;
 }
+
 .th-sm{
   color: $green;
 }
+
 #plus:hover{
   background-color: white;
   color:$green;
-}
-.buttons{
 }
 
 #single-button{
@@ -42,6 +41,7 @@ $green:#019588;
   background: $back
 
 }
+
 #single-button:hover{
   background-color: white;
   color:$back
