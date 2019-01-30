@@ -7,27 +7,26 @@ module Wages
     it { is_expected.to have_timestamps }
     it { is_expected.to belong_to(:organization_party)}
     it { is_expected.to embed_many(:wage_entries)}
-    it { is_expected.to have_one(:timespan)}
+    it { is_expected.to belong_to(:timespan)}
 
     let(:organization_party)  { Parties::OrganizationParty.new() }
-    let(:timespans)           { Timespans::Timespan.first.to_a }
+    let(:timespan)            { Timespans::CalendarYearTimespan.new(year: TimeKeeper.date_of_record.year) }
     let(:wage_entries)        { Wages::WageEntry.new().to_a }
     let(:submission_kind)     { :original }
     let(:filing_method_kind)  { :upload }
-		let(:total_wages)         { 40_125.32 }
+    let(:state_total_gross_wages) { 60_101.54 }
+    let(:total_wages)         { 40_125.32 }
 		let(:excess_wages)        {  5_125.11 }
 		let(:taxable_wages)       { total_wages - excess_wages }
 
     let(:params) do
       {
         organization_party:         organization_party,
-        timespans:                  timespans,
+        timespan:                   timespan,
         wage_entries:               wage_entries,
         submission_kind:            submission_kind,
         filing_method_kind:         filing_method_kind,
         state_total_gross_wages:		state_total_gross_wages,
-        excess_wages:	              excess_wages,
-        taxable_wages:	            taxable_wages,
       }
     end
 
@@ -42,33 +41,33 @@ module Wages
         end
       end
 
-      context "with no total_wages" do
-        subject { described_class.new(params.except(:total_wages)) }
+      context "with no state_total_gross_wages" do
+        subject { described_class.new(params.except(:state_total_gross_wages)) }
 
         it "should not be valid" do
           subject.validate
           expect(subject).to_not be_valid
-          expect(subject.errors[:total_wages].first).to match(/can't be blank/)
+          expect(subject.errors[:state_total_gross_wages].first).to match(/can't be blank/)
         end
       end
 
-      context "with no excess_wages" do
-        subject { described_class.new(params.except(:excess_wages)) }
+      context "with no filing_method_kind" do
+        subject { described_class.new(params.except(:filing_method_kind)) }
 
         it "should not be valid" do
           subject.validate
           expect(subject).to_not be_valid
-          expect(subject.errors[:excess_wages].first).to match(/can't be blank/)
+          expect(subject.errors[:filing_method_kind].first).to match(/can't be blank/)
         end
       end
 
-      context "with no taxable_wages" do
-        subject { described_class.new(params.except(:taxable_wages)) }
+      context "with no submission_kind" do
+        subject { described_class.new(params.except(:submission_kind)) }
 
         it "should not be valid" do
           subject.validate
           expect(subject).to_not be_valid
-          expect(subject.errors[:taxable_wages].first).to match(/can't be blank/)
+          expect(subject.errors[:submission_kind].first).to match(/can't be blank/)
         end
       end
 

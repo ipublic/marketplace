@@ -26,7 +26,6 @@ module Wages
 	  field :state_ui_total_wages, 			type: BigDecimal
 	  field :state_ui_taxable_wages, 		type: BigDecimal
 	  field :state_ui_excess_wages, 		type: BigDecimal
-	  field :state_ui_excess_wages, 		type: BigDecimal
 
 	  field :ui_tax_amount, 			type: BigDecimal
 	  field :ui_admin_fee_amount,	type: BigDecimal
@@ -49,8 +48,7 @@ module Wages
 	  						class_name: 'Timespans::Timespan'
 
 	  validates_presence_of :organization_party, :timespan, :wage_entries, :filing_method_kind,
-	  											:submission_kind, :total_wages, 
-	  											:excess_wages, :taxable_wages
+	  											:submission_kind, :state_total_gross_wages 
 
     index({ organization_party_id: 1, timespan_id: 1 })
     index({ timespan_id: 1 })
