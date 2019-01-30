@@ -22,7 +22,7 @@ module Wages
       inclusion: { in: SUBMISSION_KINDS, message: "%{value} is not a valid submission kind" },
       allow_blank: false
 
-    after_initialize :build_wage
+    # after_initialize :build_wage
 
     delegate :timespan, 								to: :wage_report
     delegate :person_party, 						to: :wage

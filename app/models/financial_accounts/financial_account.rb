@@ -6,19 +6,19 @@ module FinancialAccounts
 	  field :title, 			type: String
 	  field :opened_on, 	type: Date, default: ->{ Date.today }
 
-	  embeds_many		:contribution_rates,
-	  							class_name: 'FinancialAccounts::ContributionRate'
+	  # embeds_many		:contribution_rates,
+	  # 							class_name: 'FinancialAccounts::ContributionRate'
 
 	  belongs_to		:party,
 	  							class_name: 'Parties::Party'
 
-	  has_many 			:financial_transactions,
-	  							class_name: 'FinancialAccounts::FinancialTransactions'
+	  # has_many 			:financial_transactions,
+	  # 							class_name: 'FinancialAccounts::FinancialTransactions'
 
 	  belongs_to 		:timespan, 
-	  							class_name: 'TimeSpans:Timespan'
+	  							class_name: 'TimeSpans:Timespan', optional:true
 
-		validates_presence_of :opened_on, :party, :timespan
+		# validates_presence_of :opened_on, :party
 
 
     def contribution_rates

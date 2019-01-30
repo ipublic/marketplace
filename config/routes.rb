@@ -6,7 +6,17 @@ Rails.application.routes.draw do
 
   resources :dashboard
 
-  resources :employers
+  resources :employers do 
+    resources :wage_reports, shallow: true do 
+      resources :wage_entries
+    end
+  end
+
+  # resources : do 
+
+
+  # end
+
 
   resources :settings do
     post 'create_role', to: 'settings#create_role', as: 'create_role'

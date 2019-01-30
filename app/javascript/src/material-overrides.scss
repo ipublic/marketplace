@@ -1,7 +1,62 @@
-.bmd-layout-canvas{
-  height: calc(100vh - 88px);
+$back: #17365D;
+$green:#019588;
+
+
+.bmd-layout-canvas {
+  height: calc(100vh - 88px) !important;
 }
 
 .bmd-layout-drawer {
-  background-color: #188ef4;
+  background-color: #188ef4 !important;
+}
+
+#card-header{
+  color:white;
+  background-color: $back
+}
+
+.input{
+  color: $green;
+}
+
+#plus{
+  font-size: 21px;
+  border-radius:1000px;
+  background-color: $green;
+  color:white;
+}
+
+.th-sm{
+  color: $green;
+}
+
+#plus:hover{
+  background-color: white;
+  color:$green;
+}
+
+#single-button{
+  color:white;
+  margin:10px;
+  background: $back
+
+}
+
+#single-button:hover{
+  background-color: white;
+  color:$back
+}
+
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+  bottom: .5em;
 }

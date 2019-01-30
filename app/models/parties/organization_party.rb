@@ -1,18 +1,6 @@
 module Parties
 	class OrganizationParty < Party
 
-	  ENTITY_KINDS = [
-	    :tax_exempt_organization,
-	    :c_corporation,
-	    :s_corporation,
-	    :partnership,
-	    :limited_liability_corporation,
-	    :limited_liability_partnership,
-	    :household_employer,
-	    :governmental_employer,
-	    :foreign_embassy_or_consulate,
-	  ]
-
 	  # Shared Unemployment Insurance and PFL ID
 	  field :entity_id,					type: Integer
 
@@ -44,12 +32,9 @@ module Parties
       numericality: true,
       uniqueness: true
 
-    validates :entity_id,
-      presence: true,
-      numericality: true,
-      uniqueness: true
+	  # embeds_many :documents, as: :documentable
 
-	  validates_presence_of	:legal_name, :is_foreign_entity
+	  validates_presence_of :fein, :legal_name, :is_foreign_entity
 
 		index({ entity_id: 1 },		{ unique: true})
     index({ legal_name: 1 })

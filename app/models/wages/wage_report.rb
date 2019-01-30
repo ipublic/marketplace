@@ -9,7 +9,7 @@ module Wages
 	  SUBMISSION_KINDS 				= [:original, :ammended, :estimated]
 	  FILING_METHOD_KINDS 		= [:upload, :manual_entry, :no_wages]
 
-	  STATUS_KINDS 				= [:processed]
+	  STATUS_KINDS 				= [:processed, :submitted, :terminated]
 
 		# attr_readonly :submission_kind, :submitted_at
 
@@ -39,16 +39,32 @@ module Wages
 	  field :total_employees,						type: Integer
 
 	  embeds_many	:wage_entries,
-	  						class_name: 'Wages::WageEntry'
+                class_name: 'Wages::WageEntry'
+    
+    # embeds_many	:wages,
+	  # 						class_name: 'Wages::Wage'
 
 	  belongs_to	:organization_party,
 	  						class_name: 'Parties::OrganizationParty'
 
+	  embeds_many 		:timespans, 
+	  						class_name: 'Timespans::Timespan'
+
+	  validates_presence_of :organization_party, :timespans, :wage_entries, :filing_method_kind,
+	  											:submission_kind #:total_wages, 
+	  											# :excess_wages, :taxable_wages
+
+    def self.filter_by_date_and_status(quarter)
+      # require 'pry';
+      # binding.pry
+      where('timespans.begin_on' => quarter.begin_on).sort_by{|report|report.status}
+    end
 	  belongs_to	:timespan, 
 	  						class_name: 'Timespans::Timespan'
 
-	  validates_presence_of :organization_party, :timespan, :wage_entries, :filing_method_kind,
-	  											:submission_kind, :state_total_gross_wages 
+	  # validates_presence_of :organization_party, :timespan, :wage_entries, :filing_method_kind,
+	  # 											:submission_kind, :total_wages, 
+	  # 											:excess_wages, :taxable_wages
 
     index({ organization_party_id: 1, timespan_id: 1 })
     index({ timespan_id: 1 })
@@ -82,7 +98,7 @@ module Wages
 	  end
 
 	  def sum_employees
-	  	wage.entries.size
+	  	wage_entries.size
 	  end
 
 	  private 

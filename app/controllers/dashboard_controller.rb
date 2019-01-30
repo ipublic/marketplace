@@ -3,5 +3,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
   
   def index
+    require 'pry';
+    # binding.pry
   end
 end
