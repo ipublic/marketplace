@@ -12,7 +12,17 @@ class WageReportsController <  ApplicationController
   def show 
     @report = Wages::WageReport.find(params[:id])
     @organization = @report.organization_party
+    require 'pry';
+    # binding.pry
     @entries = @report.wage_entries
+    @entry  =  @report.wage_entries.new
+
+  end
+
+  def create 
+    @entry  =  @report.wage_entries.new
+    require 'pry';
+    binding.pry
   end
 
 end
