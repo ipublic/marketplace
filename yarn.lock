@@ -3449,11 +3449,6 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-jquery-steps@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/jquery-steps/-/jquery-steps-1.1.0.tgz#0ceee0b0d2e49143981ad120d458ed56ea8e1924"
-  integrity sha1-DO7gsNLkkUOYGtEg1FjtVuqOGSQ=
-
 jquery@>=1.5, jquery@>=1.7, jquery@>=1.8.3, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
