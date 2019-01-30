@@ -19,16 +19,18 @@ module Parties
     has_many 		:wage_reports, 
     						class_name: "Wages::WageReport"
 
-    has_one			:party_ledger,
-    						class_name: 'Parties::PartyLedger',
-	  						autobuild: true
+	  embeds_many :naics_classifications,
+	  						class_name: 'Parties::NaicsClassification'
 
-		has_one			:party_ledger_account_balance,
-								class_name: 'Parties::PartyLedgerAccountBalance',
-	  						autobuild: true
+    validates :entity_kind,
+      inclusion: { in: ENTITY_KINDS, message: "%{value} is not a valid business entity kind" },
+      allow_blank: false
 
-	  # embeds_many :naics_classifications,
-	  # 						class_name: 'Parties::NaicsClassifications'
+    validates :fein,
+      presence: true,
+      length: { is: 9, message: "%{value} is not a valid FEIN" },
+      numericality: true,
+      uniqueness: true
 
 	  # embeds_many :documents, as: :documentable
 
