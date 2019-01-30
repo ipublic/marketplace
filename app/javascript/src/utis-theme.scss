@@ -110,14 +110,24 @@ li.side-menu-item:after {
 
 .navbar-toggler {
   .fa-bars {
-    color: $back;
+    color: #ffffff;
+  }
+}
+
+#side-menu {
+  ul.list-group {
+    color: #ffffff;
+    a {
+      color: #ffffff;
+      text-decoration: none;
+    }
   }
 }
 
 .sign-in-card, .sign-up-card, .forgot-password-card {
   margin-top: 90px;
   .card-img-top {
-    background: linear-gradient(to right, $back 0%, #316ce8 100%);
+    background: linear-gradient(to right, #188ef4 0%, #316ce8 100%);
     color: #ffffff;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -125,7 +135,7 @@ li.side-menu-item:after {
 }
 
 .uits-nav {
-  background: linear-gradient(to right, $back 0%, #316ce8 100%);
+  background: linear-gradient(to right, #188ef4 0%, #316ce8 100%);
   .fa-user-circle, .fa-envelope, .fa-bell {
     color: #ffffff;
   }
