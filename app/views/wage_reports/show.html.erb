@@ -1,6 +1,6 @@
 
 <div class="card">
-  <div class="card-header" id= "card-header">Wage Report Overview for <%="#{@organization.legal_name.capitalize}"%> - <%=@report.timespans.first.title%></div>
+  <div class="card-header" id= "card-header">Wage Report Overview for <%="#{@organization.legal_name.capitalize}"%> - <%=@report.timespan.title%></div>
     <div class = "card-body">
       <div class = "card">
         <div class="accordion md-accordion" id="accordionEx" role="tablist" >
@@ -15,11 +15,11 @@
                   <tbody>
                     <tr>
                       <td>Begin Date</td>
-                      <td ><%=@report.timespans.first.begin_on%></td>
+                      <td ><%=@report.timespan.begin_on%></td>
                     </tr>
                     <tr>
                       <td>End Date</td>
-                      <td><%=@report.timespans.first.end_on%></td>
+                      <td><%=@report.timespan.end_on%></td>
                     </tr>
                     <tr>
                       <td class="card-header">Submitted At</td>
@@ -80,7 +80,7 @@
           <tbody>
           <% @entries.each do |entry| %>
             <tr>
-              <td><%= entry.try(:wage).try(:person_party).try(:current_first_name)%></td>
+              <td><%= entry.try(:wage).try(:person_party).try(:current_first_name) + " " + entry.try(:wage).try(:person_party).try(:current_last_name)%></td>
               <td scope="row"><%= entry.submission_kind.capitalize%></td>
               <td scope="row"><%= entry.submitted_at%></td>
 

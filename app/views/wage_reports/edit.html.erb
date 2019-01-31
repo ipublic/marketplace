@@ -21,7 +21,7 @@
                   <%= wage_field.hidden_field :id %>
                   <div class="row">
                     <div class="col form-control">
-                      <%="#{entry.try(:wage).try(:person_party).try(:current_first_name) + entry.try(:wage).try(:person_party).try(:current_last_name) }" %>
+                      <%="#{entry.try(:wage).try(:person_party).try(:current_first_name) +" " + entry.try(:wage).try(:person_party).try(:current_last_name) }" %>
                     </div>
                     <div class= 'col'>
                       <%= wage_field.text_field :state_total_gross_wages, :class =>" input form-control" %>
@@ -39,22 +39,25 @@
               <%end%>
           <%end%>
         <%end%>
-          <%= f.fields_for :wage, @entry.wage do |field| %>
-            <div class="row " >
-              <div >
-              <%= field.text_field :person_party, placeholder:" New Employee", :class =>" input form-control" %>
+          <%= f.fields_for :new_wage_entry do |field| %>
+            <div class="row ">
+              <div class = "col">
+              <%= field.text_field :person_first_name, placeholder:"Employee First Name", required: true, :class =>" input form-control" %>
+              </div>
+              <div class = "col">
+              <%= field.text_field :person_last_name, placeholder: "Employee Last Name",required: true, :class =>" input form-control" %>
               </div>
               <div class="col">
-                <%= field.number_field :state_total_gross_wages, placeholder:"Total Gross Wages", :class =>"input form-control" %>
+                <%= field.number_field :state_total_gross_wages, placeholder:"Total Gross Wages", required: true,:class =>"input form-control" %>
               </div>
               <div class="col">
-                  <%= field.number_field :state_total_wages, placeholder:" State Total Wages",  :class =>"input  form-control" %>
+                  <%= field.number_field :state_total_wages, placeholder:" State Total Wages", required: true, :class =>"input  form-control" %>
               </div>
               <div class="col">
-              <%= field.number_field :state_excess_wages, placeholder:"State Excess Wages",  :class =>"input  form-control" %>
+              <%= field.number_field :state_excess_wages, placeholder:"State Excess Wages", required: true, :class =>"input  form-control" %>
               </div>
               <div class="col">
-                <%= field.number_field :state_taxable_wages, placeholder:"State Taxable Wages",  :class =>"input  form-control" %>
+                <%= field.number_field :state_taxable_wages, placeholder:"State Taxable Wages",  required: true, :class =>"input  form-control" %>
               </div>
               <% end %>
               </div>

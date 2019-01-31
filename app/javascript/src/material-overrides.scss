@@ -1,10 +1,10 @@
-$back: #17365D;
+$blue: #355575;
 $green:#019588;
 
 .bmd-layout-canvas {
   height: calc(100vh - 88px) !important;
 }
-.at-a-glance h3{
+.at-a-glance h5{
   margin:30px;
   color: $green;
   padding-left:6px;
@@ -12,7 +12,7 @@ $green:#019588;
 }
 
 .radio{
-  background-color:$back;
+  background-color:$blue; 
 }
 
 .bmd-layout-drawer {
@@ -26,7 +26,7 @@ $green:#019588;
 }
 #card-header{
   color:white;
-  background-color: $back
+  background-color: $blue
 }
 
 .input{
@@ -37,8 +37,7 @@ $green:#019588;
 }
 
 #plus{
-  font-size: 16px;
-  border-radius:100%;
+  font-size: 10px;
   background-color: $green;
   color:white;
 }
@@ -55,13 +54,13 @@ $green:#019588;
 #single-button{
   color:white;
   margin:10px;
-  background: $back
+  background: $blue
 
 }
 
 #single-button:hover{
   background-color: white;
-  color:$back
+  color:$blue
 }
 
 

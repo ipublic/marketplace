@@ -3,7 +3,7 @@ module Wages
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-	  SUBMISSION_KINDS = [:original, :ammended]
+	  SUBMISSION_KINDS = [:original, :amended]
 
 		# attr_readonly :submission_kind, :submitted_at
 

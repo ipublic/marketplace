@@ -21,8 +21,8 @@ puts "Creating Organization Parties and Wage Reports"
 
 legal_first_names = ["Tom's","John's", "Bob's", "Jan's", "Kathy's"]
 legal_last_names = ["Cook House","Car Rental", "Burgers", "Autobody","Jewelry"]
-person_first_names =  ["Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan", "Kristen"]
-person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown"]
+person_first_names =  ["Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan", "Kristen", "Jack","Cindy","Linda", "Elliot","Hannah","Kara", "Alexis", "Gabe"]
+person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown", "Harris", "Hessen", "Golden", "Waithe"]
 1..30.times do 
    Parties::PersonParty.create!(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}")
 end
@@ -35,6 +35,7 @@ end
   (1..10).each do  |i| 
     entries = []
     span =  Timespans::Timespan.all.where('quarter' =>{'$in' => [1,2,3,4]})[i]
+
       1..10.times do 
         person = Parties::PersonParty.all.sample
         entry = Wages::WageEntry.new(submission_kind: :original, submitted_at: Time.now) 
@@ -47,14 +48,12 @@ end
                                 wage_entry: entry )
         entries << entry
       end
-    (1..3).each do 
        report =  Wages::WageReport.create!(organization_party: party,
                                   timespan: span,
                                   submission_kind:  "#{Wages::WageReport::SUBMISSION_KINDS.sample}",
-                                  timespans:[span],
                                   wage_entries: entries,
                                   filing_method_kind: "#{Wages::WageReport::FILING_METHOD_KINDS.sample}",
-                                  status: "#{Wages::WageReport::STATUS_KINDS.sample}",
+                                  status: :submitted,
                                   state_total_gross_wages:"#{rand(10000...100000)}",
                                   state_ui_taxable_wages:"#{rand(100...1000)}",
                                   ui_total_due:"#{rand(500...1000)}",
@@ -72,7 +71,6 @@ end
       report.save!
     end
   end
-end
 puts "*"*80
 
 puts "Creating Indexes"

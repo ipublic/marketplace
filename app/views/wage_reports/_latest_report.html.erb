@@ -14,19 +14,19 @@
           </td>
           <td class="td-sm">UI Amount Due
           </td>
-          <td class="td-sm">Ammend
+          <td class="td-sm">Actions
           </td>
         </tr>
       </thead>
       <tbody>
-        <% @organization.wage_reports.filter_by_date_and_status(@all_quarters.first).each do |report|%>
+        <% @current_reports.each do |current_report|%>
         <tr>
-          <td><%= link_to "#{report.status.capitalize}", wage_report_path(report)%></td>
-          <td><%=report.submission_kind.capitalize%></td>
-          <td>$<%=report.state_total_gross_wages%></td>
-          <td>$<%=report.state_ui_taxable_wages%></td>
-          <td>$<%=report.ui_total_due%></td>
-          <td> <%=link_to '+', edit_wage_report_path(report), :class => "btn btn-outline-primary btn-rounded ", :id => "plus"  %></td>
+          <td><%= link_to "#{current_report.status.capitalize}", wage_report_path(current_report)%></td>
+          <td><%=current_report.submission_kind.capitalize%></td>
+          <td><%=number_to_currency(current_report.state_total_gross_wages)%></td>
+          <td><%=number_to_currency(current_report.state_ui_taxable_wages)%></td>
+          <td><%=number_to_currency(current_report.ui_total_due)%></td>
+          <td> <%=link_to 'Amend', edit_wage_report_path(current_report), :class => "btn btn-outline-primary btn-rounded ", :id => "plus"  %></td>
         </tr>
         <%end%>
       </tbody>

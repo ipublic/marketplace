@@ -6,7 +6,7 @@ module Wages
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-	  SUBMISSION_KINDS 				= [:original, :ammended, :estimated]
+	  SUBMISSION_KINDS 				= [:original, :amended, :estimated]
 	  FILING_METHOD_KINDS 		= [:upload, :manual_entry, :no_wages]
 
 	  STATUS_KINDS 				= [:processed, :submitted, :terminated]
@@ -50,15 +50,11 @@ module Wages
 	  has_many 		:timespans, 
 	  						class_name: 'Timespans::Timespan'
 
-	  validates_presence_of :organization_party, :timespans, :wage_entries, :filing_method_kind,
+	  validates_presence_of :organization_party, :wage_entries, :filing_method_kind,
 	  											:submission_kind #:total_wages, 
 	  											# :excess_wages, :taxable_wages
 
-    def self.filter_by_date_and_status(quarter)
-      # require 'pry';
-      # binding.pry
-      where('timespans.begin_on' => quarter.begin_on).sort_by{|report|report.status}
-    end
+
 	  belongs_to	:timespan, 
 	  						class_name: 'Timespans::Timespan'
 
@@ -75,16 +71,20 @@ module Wages
     	write_attributes(sum_all_state_wages)
     end
 
-	  def sum_state_total_wages
-	  	wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.state_total_gross_wages  }
+    def sum_state_total_wages
+	  	wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_total_gross_wages)  }
 	  end
 
-	  def sum_state_excess_wages
-	  	wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.state_excess_wages  }
+    def sum_state_excess_wages
+      wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_excess_wages)  }
+
+	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_excess_wages  }
 	  end
 
-	  def sum_state_taxable_wages
-	  	wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.state_taxable_wages  }
+    def sum_state_taxable_wages
+      wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_taxable_wages)  }
+
+	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_taxable_wages  }
 	  end
 
 	  # Calculate all wage values in one pass -- higher performance on large wage reports
@@ -97,43 +97,18 @@ module Wages
 	  	end
 	  end
 
-    def self.latest(org)
-      org.wage_reports.sort{|a,b| b.timespan.begin_on - a.timespan.begin_on}.first
-    end
-
 	  def sum_employees
 	  	wage_entries.size
     end
+
+    def self.find_and_filter_wage_reports(org)
+      org.wage_reports.sort{|a,b|b.timespan.begin_on - a.timespan.begin_on}
+    end
+
+    def self.find_and_filter_wage_reports_by_quarter(org, quarter)
+      org.wage_reports.select{|d|d.timespan.begin_on == quarter.begin_on} 
+    end
     
-    def update_entries(params)
-      wage_entry_ids =  self.wage_entries.map(&:_id)
-      wage_entry_ids.each do |id|
-        wage = self.wage_entries.find(id).wage
-        wage_params =  params[:wages_wage_report][:wage_entries][id.to_s][:wage]
-        wage.update_attributes!(
-          state_total_gross_wages: wage_params[:state_total_gross_wages],
-          state_total_wages:wage_params[:state_total_wages],
-          state_excess_wages: wage_params[:state_excess_wages],
-          state_taxable_wages:wage_params[:state_taxable_wages]
-        )
-        self.update_attributes(submission_kind: :ammended, submitted_at: Time.now.to_date)
-        self.save!
-      end
-      require 'pry';
-      binding.pry
-    end
-
-    def clone_report
-      cloned_report = self.clone 
-      self.wage_entries.each do |we|
-        new_wage = we.wage.clone
-        new_we = we.clone
-        new_we.wage = new_wage
-        cloned_report.wage_entries  << new_we
-        cloned_report.save!
-      end
-
-    end
 
 	  private 
 

@@ -1,5 +1,5 @@
 <div class="card-body">
-  <div class="card">
+<div class="card">
   <li class="list-group-item active">Older Reports Versions </li>
   <% @all_quarters[1..@all_quarters.length].each do |quarter|%>
   <div class="accordion md-accordion" id="accordionEx" role="tablist" >
@@ -22,12 +22,12 @@
           </th>
           <th class="th-sm">UI Amount Due
           </th>
-          <th class="th-sm">Ammend
+          <th class="th-sm">Actions
           </th>
         </tr>
       </thead>
       <tbody>
-      <% @organization.wage_reports.filter_by_date_and_status(quarter).each do |report|%>
+      <% @org_reports.each do |report|%>
           <tr>
             <td><%= link_to "#{report.status.capitalize}", wage_report_path(report)%></td>
             <td><%=report.submission_kind.capitalize%></td>
@@ -35,7 +35,7 @@
             <td>$<%=report.state_ui_taxable_wages%></td>
             <td>$<%=report.ui_total_due%></td>
             <td>          
-              <%=link_to '+', edit_wage_report_path(report), :class => "btn btn-outline-primary btn-rounded ", :id => "plus"  %>
+              <%=link_to 'Amend', edit_wage_report_path(report), :class => "btn btn-outline-primary btn-rounded ", :id => "plus"  %>
             </td>
           </tr>
           <%end%>

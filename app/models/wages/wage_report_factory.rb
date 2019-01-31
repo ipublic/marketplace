@@ -7,6 +7,55 @@ module Wages
       new(organization_party, args).wage_report
     end
 
+
+
+    def self.add_entries(report, wage_params)
+     person =  Parties::PersonParty.create!(current_first_name: wage_params[:person_first_name],current_last_name: wage_params[:person_last_name] )
+     entry =  report.wage_entries.new(submission_kind: :amended, submitted_at: Time.now)
+     entry.wage = Wages::Wage.new(
+      person_party_id: person.id,
+      timespan_id: report.timespan.id,
+      state_total_gross_wages: wage_params[:state_total_gross_wages],
+      state_total_wages:wage_params[:state_total_wages],
+      state_excess_wages: wage_params[:state_excess_wages],
+      state_taxable_wages:wage_params[:state_taxable_wages]
+     )
+
+     entry.save
+     report.save
+    end
+
+    def self.update_clone(id,cloned_report, wage_params)
+      wage = cloned_report.wage_entries.find(id).wage
+      wage.update_attributes!(
+        state_total_gross_wages: wage_params[:state_total_gross_wages],
+        state_total_wages:wage_params[:state_total_wages],
+        state_excess_wages: wage_params[:state_excess_wages],
+        state_taxable_wages:wage_params[:state_taxable_wages]
+      )
+      cloned_report.update_attributes(submission_kind: :ammended, 
+      submitted_at: Time.now.to_date,
+      state_total_gross_wages: cloned_report.sum_state_total_wages,
+      state_ui_excess_wages: cloned_report.sum_state_excess_wages,
+      state_ui_taxable_wages: cloned_report.sum_state_taxable_wages,
+      )
+      cloned_report.save!
+    end
+
+    def self.amend(report, report_timespan, params)
+      cloned_report = report.clone 
+      wage_entry_ids =  cloned_report.wage_entries.map(&:_id)
+
+      if params[:wages_wage_report][:new_wage_entry][:person_first_name].present?
+        add_entries(cloned_report, params[:wages_wage_report][:new_wage_entry])
+      end
+      wage_entry_ids.each do |id|
+        if params[:wages_wage_report][:wage_entries][id.to_s]
+          update_clone(id,cloned_report,  params[:wages_wage_report][:wage_entries][id.to_s][:wage])
+        end
+      end
+    end
+
     def initialize(organization_party, report_timespan, args)
       @organization_party = organization_party
       @wage_report = organization_party.wage_reports.new
