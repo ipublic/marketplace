@@ -5,8 +5,7 @@ class Parties::PartyRelationshipKind
   embedded_in :party_relationship,
   						class_name: "Parties::PartyRelationship"
 
-  field :party_role_kind,	type: String
-  field :kind,						type: String
+  field :key,             type: Symbol
   field :title,						type: String
   field :description,			type: String
 

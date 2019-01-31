@@ -15,6 +15,8 @@ module Parties
 	  field :gender, 							type: String
   	field :dob, 								type: Date
 
+  	delegate :party_relationships, to: :party_roles
+
   	embeds_many	:person_names,
   							class_name: "Parties::PersonName"
 
@@ -33,6 +35,7 @@ module Parties
 
 	  index({current_last_name: 1, current_first_name: 1})
 	  index({current_first_name: 1, current_last_name: 1})
+	  index({ssn: 1}, {sparse: true})
 	  index({dob: 1}, {sparse: true})
 
 	  scope :employed_by, 	-> (party){} # party_relationship of employment, with 
