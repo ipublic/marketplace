@@ -10,6 +10,9 @@ module Parties
 	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
+	  embeds_many		:party_roles, 
+									class_name: "Parties::PartyRole"
+
 	  embeds_many		:documents, as: :documentable,
 	  							class_name: '::Document'
 
@@ -20,9 +23,6 @@ module Parties
 	  has_many		:party_ledger_account_balances, 
 								class_name: "FinancialAccounts::PartyLedgerAccountBalance"
 
-	  has_many		:party_roles, 
-								class_name: "Parties::PartyRole"
-
 	  has_many		:determinations,
 	  						class_name: "Determinations::Determination"
 
@@ -32,6 +32,8 @@ module Parties
 		has_many		:notices,
 								class_name: "Notices::Notice"
 
+		scope :associated_parties,	->{ where("party_roles.related_party_id": _id) }
+		
 	  scope :ui_group_sponsors,		->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
 		scope :ui_tpas, 						->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
 		scope :ui_tpa_agents, 			->{ any_in(party_roles: [:unemployment_insurance_tpa_agent]) } 	# need to check end_date for active
@@ -47,7 +49,9 @@ module Parties
 
 
 		index({ party_id: 1 })
-	  index({"party_roles" => 1})
+	  index({"party_roles.party_role_kind_id": 1})
+	  index({"party_roles.related_party_id": 1}, {sparse: true})
+
 
 	  def has_role_kind?(role_kind)
 	  	party_roles.include?(role_kind)
