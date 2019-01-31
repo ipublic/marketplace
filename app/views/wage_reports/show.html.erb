@@ -63,40 +63,7 @@
           <a data-toggle="collapse" data-parent="#accordionEx" href="#entries">
             <li class="list-group-item">Wage Entries </li>
           </a>
-        </div>
-      <div id="entries" class="card-body collapse hide">
-        <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-          <div class="card-header" role="tab">
-          <a data-toggle="collapse" data-parent="#accordionEx" href="#new-entry-table">
-            <button id="plus" class="btn btn-outline-primary btn-rounded ">+</button>
-          </a>
-          </div>
-        </div>
-        <div id= "new-entry-table" class="card-body collapse hide">
-        <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-            <%= form_for @report, url: wage_report_path(@report), method: :put do |f| %>
-              <%= f.fields_for :wage do |field| %>
-              <div class="row">
-              <div class="col">
-              <%= select_tag 'people', options_for_select(@people.collect{ |u|[ u.current_first_name, u.id ] }.unshift("Choose Employee")), :class =>" input form-control"%>
-              </div>
-                <div class="col">
-                <%= field.number_field :state_total_gross_wages, placeholder:"Total Gross Wages", :class =>" input form-control" %>
-                </div>
-                <div class="col">
-                  <%= field.number_field :state_total_wages, placeholder:" State Total Wages",  :class =>"input  form-control" %>
-                </div>
-                <div class="col">
-               <%= field.number_field :state_excess_wages, placeholder:"State Excess Wages",  :class =>"input  form-control" %>
-               </div>
-               <div class="col">
-                <%= field.number_field :state_taxable_wages, placeholder:"State Taxable Wages",  :class =>"input  form-control" %>
-                </div>
-                <% end %>
-              <%= f.submit 'Add Entry', :class =>"btn btn-outline-primary btn-rounded input " %>
-            <% end %>
-          </div>
-        </div>
+
     </div>
       <table class="table table-striped ">
       <thead>

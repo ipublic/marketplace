@@ -5,11 +5,27 @@ $green:#019588;
 .bmd-layout-canvas{
   height: calc(100vh - 88px);
 }
+.at-a-glance h3{
+  margin:30px;
+  color: $green;
+  padding-left:6px;
+  border-left: 2px solid $back;
+}
+.at {
+  h3{
+    transition-property: size 2s;
+  }
+}
 
 .bmd-layout-drawer {
   background-color: $back;
 }
-
+.wage-report-edit-headers td{
+  font-size:16px;
+}
+.edit-wage-report-card{
+  margin-left:20px;
+}
 #card-header{
   color:white;
   background-color: $back
@@ -20,9 +36,12 @@ $green:#019588;
 .input{
   color: $green;
 }
+#button-row{
+  margin-top:20px;
+}
 #plus{
-  font-size: 21px;
-  border-radius:1000px;
+  font-size: 16px;
+  border-radius:100%;
   background-color: $green;
   color:white;
 }

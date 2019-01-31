@@ -97,9 +97,43 @@ module Wages
 	  	end
 	  end
 
+    def self.latest(org)
+      org.wage_reports.sort{|a,b| b.timespan.begin_on - a.timespan.begin_on}.first
+    end
+
 	  def sum_employees
 	  	wage_entries.size
-	  end
+    end
+    
+    def update_entries(params)
+      wage_entry_ids =  self.wage_entries.map(&:_id)
+      wage_entry_ids.each do |id|
+        wage = self.wage_entries.find(id).wage
+        wage_params =  params[:wages_wage_report][:wage_entries][id.to_s][:wage]
+        wage.update_attributes!(
+          state_total_gross_wages: wage_params[:state_total_gross_wages],
+          state_total_wages:wage_params[:state_total_wages],
+          state_excess_wages: wage_params[:state_excess_wages],
+          state_taxable_wages:wage_params[:state_taxable_wages]
+        )
+        self.update_attributes(submission_kind: :ammended, submitted_at: Time.now.to_date)
+        self.save!
+      end
+      require 'pry';
+      binding.pry
+    end
+
+    def clone_report
+      cloned_report = self.clone 
+      self.wage_entries.each do |we|
+        new_wage = we.wage.clone
+        new_we = we.clone
+        new_we.wage = new_wage
+        cloned_report.wage_entries  << new_we
+        cloned_report.save!
+      end
+
+    end
 
 	  private 
 
