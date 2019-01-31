@@ -18,15 +18,6 @@ module Parties
   	embeds_many	:person_names,
   							class_name: "Parties::PersonName"
 
-  	embeds_many	:party_roles,
-  							class_name: "Parties::PersonName"
-
-    # has_one			:party_ledger,
-    # 						class_name: 'Parties::PartyLedger'
-
-		# has_one			:party_ledger_account_balance,
-		# 						class_name: 'Parties::PartyLedgerAccountBalance'
-
 
 	  # embeds_many :addresses
 	  # embeds_many :phones

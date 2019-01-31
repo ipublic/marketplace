@@ -19,9 +19,6 @@ module Parties
       it { is_expected.to have_fields(:party_id, :current_first_name, :current_last_name)}
 
       it { is_expected.to embed_many(:person_names)}
-      it { is_expected.to embed_many(:party_roles)}
-      it { is_expected.to have_one(:party_ledger)}
-      it { is_expected.to have_one(:party_ledger_account_balance)}
 
       context "with no arguments" do
         subject { described_class.new }

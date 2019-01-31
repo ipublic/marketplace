@@ -7,7 +7,7 @@ class Parties::PartyRelationshipKind
 
   field :party_role_kind,	type: String
   field :kind,						type: String
-  field :name,						type: String
+  field :title,						type: String
   field :description,			type: String
 
   # embeds_many :party_roles, as: :role_castable

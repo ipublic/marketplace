@@ -1,6 +1,16 @@
 module Parties
 	class OrganizationParty < Party
 
+      ENTITY_KINDS =[
+        :tax_exempt_organization,
+        :c_corporation,
+        :s_corporation,
+        :partnership,
+        :limited_liability_corporation,
+        :limited_liability_partnership,
+        :household_employer,
+      ]
+
 	  # Shared Unemployment Insurance and PFL ID
 	  field :entity_id,					type: Integer
 

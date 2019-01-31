@@ -10,18 +10,21 @@ module Parties
 	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
+	  embeds_many		:documents, as: :documentable,
+	  							class_name: '::Document'
+
 	  has_one			:party_ledger, 
 								class_name: "Parties::PartyRole",
 	  						autobuild: true
+
+	  has_many		:party_ledger_account_balances, 
+								class_name: "FinancialAccounts::PartyLedgerAccountBalance"
 
 	  has_many		:party_roles, 
 								class_name: "Parties::PartyRole"
 
 	  has_many		:determinations,
 	  						class_name: "Determinations::Determination"
-
-	  has_many		:documents, as: :documentable,
-	  						class_name: '::Document'
 
 		has_many		:cases,
 								class_name: "Cases::Case"
