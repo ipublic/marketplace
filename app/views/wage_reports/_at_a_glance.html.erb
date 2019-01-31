@@ -2,21 +2,28 @@
   <div class="card">
     <li class="list-group-item active">At a Glance </li>
     <div class = "at-a-glance col">
-      <div class = "card ">
       <div class = "card-body at">
 
-      <h3>Current UI Wages Paid-  <%="#{number_to_currency(@current_report.ui_paid_amount)}"%></h3>
+      <h3>Current UI Wages Paid- <span class = 'number'> <%="#{number_to_currency(@current_report.ui_paid_amount)}"%></span></h3>
       </div>
+     <div class = "card-body at">
+
+      <h3>Current UI Amount Due- <span class = 'number'> <%="#{number_to_currency(@current_report.ui_amount_due)}"%></span></h3>
      </div>
-     <div class = "card">
-      <h3>Current UI Amount Due-  <%="#{number_to_currency(@current_report.ui_amount_due)}"%></h3>
+
+     <div class = "card-body at">
+
+      <h3>Current Total Wages - <span class = 'number'> <%="#{number_to_currency(@current_report.state_total_gross_wages)}"%></span></h3>
      </div>
-     <div class = "card">
-      <h3>Current Total Wages -  <%="#{number_to_currency(@current_report.state_total_gross_wages)}"%></h3>
-     </div>
-     <div class = "card">
-     <h3>Next report due -  <%="#{@current_report.timespan.end_on.to_date}"%></h3>
+
+     <div class = "card-body at">
+
+     <h3>Next report due -  <span class = 'number'><%="#{@current_report.timespan.end_on.to_date}"%></span></h3>
     </div>
     </div>
+
   </div>
 </div>
+
+
+

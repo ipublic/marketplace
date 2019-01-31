@@ -9,12 +9,11 @@ $green:#019588;
   margin:30px;
   color: $green;
   padding-left:6px;
-  border-left: 2px solid $back;
+  border-left: 2px solid $green;
 }
-.at {
-  h3{
-    transition-property: size 2s;
-  }
+
+.radio{
+  background-color:$back;
 }
 
 .bmd-layout-drawer {
