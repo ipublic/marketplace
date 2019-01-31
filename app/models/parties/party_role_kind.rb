@@ -15,9 +15,9 @@ module Parties
 	  field :related_party_kinds,			type: Array, default: []
 
 	  # Used for enabling/disabling role kinds over time
-	  # field :is_published, 					type: Boolean, default: true
-	  # field :start_date, 						type: Date
-	  # field :end_date, 							type: Date
+	  field :is_published, 					type: Boolean, default: true
+	  field :start_date, 						type: Date
+	  field :end_date, 							type: Date
 
 	  embeds_one 	:party_relationship_kind,
 	  						class_name: "Parties::PartyRelationshipKind"

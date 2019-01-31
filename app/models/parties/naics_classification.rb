@@ -3,7 +3,7 @@ module Parties
 	  include Mongoid::Document
 
 	  embedded_in :organization_party,
-	  						class_name: 'Parties::organizationParty'
+	  						class_name: 'Parties::OrganizationParty'
 
 		field :code, 				type: String
 		field :title, 			type: String
