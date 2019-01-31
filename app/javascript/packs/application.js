@@ -12,6 +12,7 @@ import '../images/does.png';
 import '@fortawesome/fontawesome-free';
 import '@fortawesome/fontawesome-free/scss/solid.scss';
 import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+import swal from 'sweetalert';
 
 Rails.start()
 Turbolinks.start()
