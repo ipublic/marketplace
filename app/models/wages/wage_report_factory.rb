@@ -33,7 +33,7 @@ module Wages
         state_excess_wages: wage_params[:state_excess_wages],
         state_taxable_wages:wage_params[:state_taxable_wages]
       )
-      cloned_report.update_attributes(submission_kind: :ammended, 
+      cloned_report.update_attributes(submission_kind: :amended, 
       submitted_at: Time.now.to_date,
       state_total_gross_wages: cloned_report.sum_state_total_wages,
       state_ui_excess_wages: cloned_report.sum_state_excess_wages,
