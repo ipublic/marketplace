@@ -11,6 +11,8 @@ gem 'puma', '~> 3.11'
 # Use webpacker to manage application-like JavaScript in Rails
 gem 'webpacker', '~> 3.5.5'
 # Use devise for authentication
+gem "font-awesome-rails"
+
 gem 'devise'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
