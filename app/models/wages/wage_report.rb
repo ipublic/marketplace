@@ -47,7 +47,7 @@ module Wages
 	  belongs_to	:organization_party,
 	  						class_name: 'Parties::OrganizationParty'
 
-	  embeds_many 		:timespans, 
+	  has_many 		:timespans, 
 	  						class_name: 'Timespans::Timespan'
 
 	  validates_presence_of :organization_party, :timespans, :wage_entries, :filing_method_kind,

@@ -3,22 +3,6 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   initialize() {
 
-    //Custom design form example
-        $(".tab-wizard").steps({
-            headerTag: "h6",
-            bodyTag: "section",
-            transitionEffect: "fade",
-            titleTemplate: '<span class="step">#index#</span> #title#',
-            labels: {
-                finish: "Submit"
-            },
-            onFinished: function (event, currentIndex) {
-                swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
-
-            }
-        });
-
-
         var form = $(".validation-wizard").show();
 
         $(".validation-wizard").steps({
@@ -36,7 +20,7 @@ export default class extends Controller {
                 return form.validate().settings.ignore = ":disabled", form.valid()
             },
             onFinished: function (event, currentIndex) {
-                swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+                swal("Form Submitted!", "Your employer registration has been received check email for next steps.");
             }
         }), $(".validation-wizard").validate({
             ignore: "input[type=hidden]",
@@ -57,6 +41,6 @@ export default class extends Controller {
                 }
             }
         })
-        
+
   }
 }

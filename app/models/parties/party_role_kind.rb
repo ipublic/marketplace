@@ -4,9 +4,6 @@ module Parties
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-	  belongs_to	:party,
-	  						class_name: "Parties::Party"
-
 	  field :key,										type: Symbol
 	  field :title, 								type: String
 	  field :description, 					type: String
@@ -19,6 +16,12 @@ module Parties
 	  field :start_date, 						type: Date
 	  field :end_date, 							type: Date
 
+	  embeds_one 	:party_relationship_kind,
+	  						class_name: "Parties::PartyRelationshipKind"
+
+		embeds_one	:related_party,
+								class_name: "Parties::Party"
+
 	  # Associate a business rule for validating a role instance
 	  embeds_one :eligibility_policy
 
@@ -29,6 +32,10 @@ module Parties
 
 	  def title
 	  	title.present? ? title : key.to_s.gsub('_', ' ')
+	  end
+
+	  def key=(new_key)
+	  	write_attribute(:key, new_key.to_s.underscore.to_sym)
 	  end
 
 	  def publish

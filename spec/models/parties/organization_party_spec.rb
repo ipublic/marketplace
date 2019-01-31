@@ -2,6 +2,8 @@ require 'rails_helper'
 
 module Parties
 	RSpec.describe OrganizationParty, type: :model, dbclean: :after_each do
+    it { is_expected.to have_many(:wage_reports)}
+    it { is_expected.to embed_many(:naics_classifications)}
 
 	  let(:legal_name) 										{ "Acme Widgets, Inc" }
 	  let(:fein) 													{ "065872626" }

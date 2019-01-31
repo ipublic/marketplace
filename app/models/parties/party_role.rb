@@ -6,46 +6,67 @@ module Parties
 	  embedded_in :party,
 	  						class_name: "Parties:Party"
 
-	  field :kind_id, type: BSON::ObjectId
+	  field :party_role_kind_id, 	type: BSON::ObjectId
+	  field :related_party_id, 		type: BSON::ObjectId
 
-	  # Date this party_role becomes effective
-	  field :start_date, type: Date
+	  # Date this role becomes effective for subject party
+	  field :start_date, 					type: Date, default: ->{ TimeKeeper.date_of_record }
 
-	  # Date this party_role is no longer in effect
-	  field :end_date, type: Date
+	  # Date this rolerole is no longer in effect for subject_party
+	  field :end_date, 						type: Date
 
-	  delegate :key,					to: :party_role_kind, allow_nil: false
+	  validates_presence_of :party_role_kind_id, :start_date
+	  validate :related_party_presence
+
 	  delegate :title, 				to: :party_role_kind, allow_nil: true
 	  delegate :description, 	to: :party_role_kind, allow_nil: true
-
-	  embeds_one 	:party_role_kind,
-	  						class_name: "Parties::PartyRoleKind",
-	  						autobuild: true
-
-	  embeds_one 	:party_relationship_kind,
-	  						class_name: "Parties::PartyRelationshipKind"
-
-		embeds_one	:related_party,
-								class_name: "Parties::Party"
 
 	  def is_active?
 	  	end_date.blank? || end_date >= Date.today
 	  end
 
-	  def kind=(new_kind)
-      if new_kind.nil?
-        write_attribute(:kind_id, nil)
+	  def party_role_kind=(new_party_role_kind)
+      if new_party_role_kind.nil?
+        write_attribute(:new_party_role_kind, nil)
       else
-        raise ArgumentError.new("expected PartyRoleKind") unless new_kind.is_a? Parties::PartyRoleKind 
-        write_attribute(:kind_id, new_kind._id)
+        raise ArgumentError.new("expected Parties::PartyRoleKind") unless new_party_role_kind.is_a? Parties::PartyRoleKind
+        write_attribute(:party_role_kind_id, new_party_role_kind._id)
       end
-      @kind = new_kind
+      @party_role_kind = new_party_role_kind
+	  end
+	  
+	  def party_role_kind
+	    return nil if party_role_kind_id.blank?
+	    return @party_role_kind if defined? @party_role_kind
+	    @party_role_kind = Parties::PartyRoleKind.find(party_role_kind_id)
 	  end
 
-	  def kind
-	    return nil if kind_id.blank?
-	    return @kind if defined? @kind
-	    @kind = Parties::PartyRoleKind(kind_id)
+	  # Setter for Party instance associated through this Role
+	  def related_party=(new_related_party)
+      if new_related_party.nil?
+        write_attribute(:new_related_party, nil)
+      else
+        raise ArgumentError.new("expected Parties::Party") unless new_related_party.is_a? Parties::Party
+        write_attribute(:related_party_id, new_related_party._id)
+      end
+      @related_party = new_related_party
+	  end
+	  
+	  # Getter for Party instance associated through this Role
+	  def related_party
+	    return nil if related_party_id.blank?
+	    return @related_party if defined? @related_party
+	    @related_party = Parties::Party.find(related_party_id)
+	  end
+
+	  private
+
+	  def related_party_presence
+	  	if party_role_kind.has_related_parties?
+	  		errors.add if related_party.blank?
+  		else
+  			errors.add if related_party.present?
+	  	end
 	  end
 
 		def roles
@@ -84,17 +105,20 @@ module Parties
 			{kind: :organization_contact, from_party: :dan_person, from_role: :hr_manager, 	to_party: :dc_pflts_dept, to_role: :pflts_agency}
 		end
 
-    def dan_person
-      { 
-	    	party_roles: [
-		    	{role_kind: :person, relationship_kind: :employment, related_party: :ideacrew_organization },
+		# Acting as
+    def party_role_kind_roles
+    	list = [:employee, :family_member, :contact]
+      [
+		    	Parties::PartyRole.new({role_kind: :employee, relationship_kind: :employment, related_party: :ideacrew_organization }),
 		    	{role_kind: :employee, relationship_kind: :employment, related_party: :ideacrew_organization },
 		    	{role_kind: :contact, relationship_kind: :organization_contact, related_party: :ideacrew_organization },
 	    	]
-	    }
     end
 
-    def ideacrew_organization
+    def organization_party_roles
+    	kinds = [:regulatory_agency, :household]
+    	organization_unit_kinds = [:parent_organization, :subsidiary, :department, :division]
+    	uits_kinds = [:site_owner, :successor] 
     	{
     		party_roles: [
     			{role_kind: :employer, relationship_kind: :employment, related_party: :dan_person },
