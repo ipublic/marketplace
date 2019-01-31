@@ -1,7 +1,6 @@
 $back: #17365D;
 $green:#019588;
 
-
 .bmd-layout-canvas {
   height: calc(100vh - 88px) !important;
 }
@@ -17,7 +16,7 @@ $green:#019588;
 }
 
 .bmd-layout-drawer {
-  background-color: #188ef4 !important;
+  background-color: #355575 !important;
 }
 .wage-report-edit-headers td{
   font-size:16px;
@@ -36,6 +35,7 @@ $green:#019588;
 #button-row{
   margin-top:20px;
 }
+
 #plus{
   font-size: 16px;
   border-radius:100%;
@@ -76,4 +76,18 @@ table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
   bottom: .5em;
+}
+
+.wizard-content .wizard > .steps > ul > li.current .step {
+  border-color: #355575 !important;
+  color: #355575 !important;
+}
+
+.wizard-content .wizard > .steps > ul > li.done .step {
+  background-color: #355575 !important;
+  border-color: #355575 !important;
+}
+
+li.first.done:after, li.current:before, li.done:before, li.done:after {
+  background-color: #355575 !important;
 }

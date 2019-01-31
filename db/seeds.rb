@@ -27,7 +27,11 @@ person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson"
    Parties::PersonParty.create!(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}")
 end
 1..30.times do 
-  party = Parties::OrganizationParty.create!(fein:"#{rand(000000000...999999999)}", legal_name:"#{legal_first_names.sample + " " + legal_last_names.sample}", is_foreign_entity:false)
+  party = Parties::OrganizationParty.create!(fein:"#{rand(111111111...999999999)}",
+   legal_name:"#{legal_first_names.sample + " " + legal_last_names.sample}",
+    is_foreign_entity:false,
+    entity_kind: Parties::OrganizationParty::ENTITY_KINDS.sample
+    )
   (1..10).each do  |i| 
     entries = []
     span =  Timespans::Timespan.all.where('quarter' =>{'$in' => [1,2,3,4]})[i]
