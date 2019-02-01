@@ -104,13 +104,11 @@ module Parties
 
 
     def create_party_role_kinds
-    	# Site Owner is super user across system -- only assign to one organization
-      Parties::PartyRoleKind.create!(key: :site_owner, title: 'Site Owner')
 
+    	## PersonParty Roles ##
       Parties::PartyRoleKind.create!(key: :employee, title: 'Employee')
-      Parties::PartyRoleKind.create!(key: :employer, title: 'Employer')
       Parties::PartyRoleKind.create!(key: :owner_or_officer, title: 'Owner/Officer')
-      Parties::PartyRoleKind.create!(key: :employer, title: 'Contractor')
+      Parties::PartyRoleKind.create!(key: :contractor, title: 'Contractor')
 
       Parties::PartyRoleKind.create!(key: :self, title: 'Self')
       Parties::PartyRoleKind.create!(key: :spouse, title: 'Spouse')
@@ -121,12 +119,22 @@ module Parties
       Parties::PartyRoleKind.create!(key: :primary_contact, title: 'Primary Contact')
       Parties::PartyRoleKind.create!(key: :secondary_contact, title: 'Secondary Contact')
 
+      # UITS/PFL 
+      Parties::PartyRoleKind.create!(key: :tpa_agent, title: 'TPA Agent')
+      Parties::PartyRoleKind.create!(key: :ui_claiment, title: 'Unemployment Insurance Claiment')
+
+
+      ## OrganizationParty Roles ##
       Parties::PartyRoleKind.create!(key: :parent_organization, title: 'Parent Organization')
       Parties::PartyRoleKind.create!(key: :subsiary, title: 'Subsiary')
       Parties::PartyRoleKind.create!(key: :department, title: 'Department')
       Parties::PartyRoleKind.create!(key: :division, title: 'Division')
       Parties::PartyRoleKind.create!(key: :internal_organization, title: 'Internal Organization')
       Parties::PartyRoleKind.create!(key: :other_organization_unit, title: 'Other Organization Unit')
+      Parties::PartyRoleKind.create!(key: :employer, title: 'Employer')
+
+    	# Site Owner is super user across system -- only assign to one organization
+      Parties::PartyRoleKind.create!(key: :site_owner, title: 'Site Owner')
 
       # Corporate Entity Kinds
       Parties::PartyRoleKind.create!(key: :s_corporation, title: 'S Corporation')
@@ -136,6 +144,12 @@ module Parties
       Parties::PartyRoleKind.create!(key: :non_profit_501c3, title: 'Non Profit 501c(3) Corporation')
       Parties::PartyRoleKind.create!(key: :other_non_profit, title: 'Other Non Profit')
       Parties::PartyRoleKind.create!(key: :household_employer, title: 'Household Employer')
+      Parties::PartyRoleKind.create!(key: :regulatory_agency, title: 'Regulatory Agency')
+
+      # UITS/PFL 
+      Parties::PartyRoleKind.create!(key: :tpa, title: 'Third Party Administrator')
+      Parties::PartyRoleKind.create!(key: :tpa_agent, title: 'TPA Agent')
+
     end
 
     def create_party_relationship_kinds
@@ -182,6 +196,13 @@ module Parties
 	                                                Parties::PartyRoleKind.find_by(key: :domestic_partner),
 	                                                Parties::PartyRoleKind.find_by(key: :child),
 	                                                Parties::PartyRoleKind.find_by(key: :dependent),
+	                                              ]
+                                              )
+
+      Parties::PartyRelationshipKind.create!(	key: :family_rollup, title: 'TPA Relationship',
+                                              party_role_kinds: [
+	                                                Parties::PartyRoleKind.find_by(key: :tpa),
+	                                                Parties::PartyRoleKind.find_by(key: :employer),
 	                                              ]
                                               )
     end
