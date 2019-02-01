@@ -65,15 +65,15 @@ module Parties
 	  end
 
 	  def add_party_role(new_role)
-	  	if new_role.valid?
-		  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
-			  	party_roles << new_role # unless party_roles_by_kind(new_role)
-			  # end
-			end
+	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
+		  # end
+
+	  	party_roles << new_role # unless party_roles_by_kind(new_role)
+
 	  	party_roles
 	  end
 
-	  def drop_party_role(dropped_role)
+	  def end_party_role(ended_role)
 
 	  	party_roles
 	  end

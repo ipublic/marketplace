@@ -8,9 +8,6 @@ module Parties
 	  field :title, 								type: String
 	  field :description, 					type: String
 
-	  field :has_related_parties,		type: Boolean, 	default: false
-	  # field :related_party_kinds,		type: Array, 		default: []
-
 	  # Used for enabling/disabling role kinds over time
 	  field :is_published, 					type: Boolean, 	default: true
 	  field :start_date, 						type: Date, 		default: ->{ TimeKeeper.date_of_record }
@@ -19,23 +16,27 @@ module Parties
 	  has_and_belongs_to_many	:party_relationship_kinds,
 	  												class_name: "Parties::PartyRelationshipKind"
 
-		# embeds_one	:related_party,
-		# 						class_name: "Parties::Party"
-
 	  # Associate a business rule for validating a role instance
-	  has_one 	:eligibility_policy
+		# belongs_to 							:eligibility_policy,
+		# 												class_name: 'EligibilityPolicies::EligibilityPolicy'
 
-	  # validates_presence_of :key, :title
+
+	  # before_validation :assign_key_and_title
+
+	  validates_presence_of :key, :title
 
 	  index({ key: 1, is_published: 1, start_date: 1, end_date: 1 })
 
 	  # before_validation :set_key
 
 	  alias_method :is_published?, 				:is_published
-	  # alias_method :has_related_parties?, :has_related_parties
+
+	  def defined_relationships
+	  	party_relationship_kinds.reduce([]) { |list, kind| list << kind if kind.party_role_kinds.include? self }
+	  end
 
 	  def key=(new_key)
-	  	write_attribute(:key, new_key.to_s.underscore.to_sym)
+	  	write_attribute(:key, text_to_symbol(new_key))
 	  end
 
 	  def publish
@@ -52,11 +53,18 @@ module Parties
 
 	  private
 
-	  def set_key
-	  	key = title if key.blank?
+	  def assign_key_and_title
+	  	write_attribute(:key, text_to_symbol(title)) if key.blank? && title.present?
+	  	write_attribute(:title, symbol_to_text(title)) if title.blank? && key.present?
 	  end
+
+		def text_to_symbol(text)
+			text.to_s.underscore.to_sym
+		end
+
+  	def symbol_to_text(symbol)
+  		symbol.to_s.titleize
+  	end
+
 	end
-
 end
-
-

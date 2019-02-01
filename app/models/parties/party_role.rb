@@ -1,34 +1,51 @@
+# A Person or Organization may play different roles on the system.  Roles may be used for different purposes, including:
+# 	* storing different infomrmation about a Party
+# 	* defining authorization/access privilidges 
+# 
+# This class manages roles assigned to instances.  A Role may be declarative, 
 module Parties
-	class PartyRole
-	  include Mongoid::Document
-	  include Mongoid::Timestamps
+  class PartyRole
+    include Mongoid::Document
+    include Mongoid::Timestamps
 
-	  embedded_in :party,
-	  						class_name: "Parties:Party"
+    embedded_in :party,
+      					class_name: "Parties:Party"
 
-	  field :party_role_kind_id, 	type: BSON::ObjectId
-	  field :related_party_id, 		type: BSON::ObjectId
+    field :party_role_kind_id, 	type: BSON::ObjectId
+    field :related_party_id, 		type: BSON::ObjectId
 
-	  # Date this role becomes effective for subject party
-	  field :start_date, 					type: Date, default: ->{ TimeKeeper.date_of_record }
+    # Date this role becomes effective for subject party
+    field :start_date, 					type: Date, default: ->{ TimeKeeper.date_of_record }
 
-	  # Date this rolerole is no longer in effect for subject_party
-	  field :end_date, 						type: Date
+    # Date this rolerole is no longer in effect for subject_party
+    field :end_date, 						type: Date
 
-	  validates_presence_of :party_role_kind_id, :start_date
-	  validate :related_party_presence
+    validates_presence_of :party_role_kind_id, :start_date
+    validate :validate_related_party
 
-	  delegate :key, 					to: :party_role_kind, allow_nil: true
-	  delegate :title, 				to: :party_role_kind, allow_nil: true
-	  delegate :description, 	to: :party_role_kind, allow_nil: true
-	  delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
-	  delegate :eligibility_policy, 	to: :party_role_kind, allow_nil: true
+    delegate :key, 												to: :party_role_kind, allow_nil: true
+    delegate :title, 											to: :party_role_kind, allow_nil: true
+    delegate :description, 								to: :party_role_kind, allow_nil: true
+    delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
+    # delegate :eligibility_policy, 				to: :party_role_kind, allow_nil: true
 
-	  def is_active?
-	  	end_date.blank? || end_date >= Date.today
-	  end
+    def is_active?
+      end_date.blank? || end_date > TimeKeeper.date_of_record
+    end
 
-	  def party_role_kind=(new_party_role_kind)
+    # Deactive this role
+    def end_role(new_end_date = TimeKeeper.date_of_record)
+    	related_party.end_role(new_end_date)
+    	write_attribute(:end_date, new_end_date)
+    end
+
+    # Restore a previously deactiviated role
+    def reinstate_role
+    	related_party.reinstate_role(new_end_date)
+    	write_attribute(:end_date, nil)
+    end
+
+    def party_role_kind=(new_party_role_kind)
       if new_party_role_kind.nil?
         write_attribute(:new_party_role_kind, nil)
       else
@@ -36,16 +53,16 @@ module Parties
         write_attribute(:party_role_kind_id, new_party_role_kind._id)
       end
       @party_role_kind = new_party_role_kind
-	  end
-	  
-	  def party_role_kind
-	    return nil if party_role_kind_id.blank?
-	    return @party_role_kind if defined? @party_role_kind
-	    @party_role_kind = Parties::PartyRoleKind.find(party_role_kind_id)
-	  end
+    end
 
-	  # Setter for Party instance associated through this Role
-	  def related_party=(new_related_party)
+    def party_role_kind
+      return nil if party_role_kind_id.blank?
+      return @party_role_kind if defined? @party_role_kind
+      @party_role_kind = Parties::PartyRoleKind.find(party_role_kind_id)
+    end
+
+    # Setter for Party instance associated through this Role
+    def related_party=(new_related_party)
       if new_related_party.nil?
         write_attribute(:new_related_party, nil)
       else
@@ -53,95 +70,121 @@ module Parties
         write_attribute(:related_party_id, new_related_party._id)
       end
       @related_party = new_related_party
-	  end
-	  
-	  # Getter for Party instance associated through this Role
-	  def related_party
-	    return nil if related_party_id.blank?
-	    return @related_party if defined? @related_party
-	    @related_party = Parties::Party.find(related_party_id)
-	  end
-
-	  private
-
-	  def related_party_presence
-	  	if party_relationship_kinds.present?
-
-	  		errors.add(:related_party, "party_role #{title} requires a related party instance") if related_party.blank?
-	  		errors.add(:related_party, "party_role #{title} related party kinds #{party_relationship_kinds.inspect} don't match party_relationship definition") unless party_roles_match?
-  		else
-  			errors.add(:related_party, "unexpected related_party #{related_party.inspect} for party_role #{title}") if related_party.present?
-	  	end
-	  end
-
-	  # Party roles must match valid role-to-role relationship definition
-	  # Compare Roles for this and associated party
-	  def party_roles_match?
-	  	return false if related_party.blank?
-    	party_relationship_kinds.sort == [party_role_kind.key, related_party.party_role_kind.key].sort
-  	end
-
-
-
-		def roles
-			[
-				:uits_primary_contact,
-				:uits_secondary_contact,
-				:uits_owner_officer,
-
-			]
-
-		end
-
-
-		def dc_does_organization
-			{
-				party_roles: [
-					{kind: :internal_organization},
-					{kind: :parent_organization}
-				]
-			}
-		end
-
-		def dc_uits_dept
-			{
-				party_roles: [
-					{kind: :internal_organization},
-					{kind: :subsidiary_organization}
-				]
-			}
-		end
-
-
-		def relationship_kind
-			{kind: :employment, 	from_party: :dan_person, from_role: :employee, 		to_party: :ideacrew_organization, to_role: :employer}
-			{kind: :organization_contact, from_party: :dan_person, from_role: :hr_manager, 	to_party: :dc_uits_dept, to_role: :uits_agency}
-			{kind: :organization_contact, from_party: :dan_person, from_role: :hr_manager, 	to_party: :dc_pflts_dept, to_role: :pflts_agency}
-		end
-
-		# Acting as
-    def party_role_kind_roles
-    	list = [:employee, :family_member, :contact]
-      [
-		    	Parties::PartyRole.new({role_kind: :employee, relationship_kind: :employment, related_party: :ideacrew_organization }),
-		    	{role_kind: :employee, relationship_kind: :employment, related_party: :ideacrew_organization },
-		    	{role_kind: :contact, relationship_kind: :organization_contact, related_party: :ideacrew_organization },
-	    	]
     end
 
-    def organization_party_roles
-    	kinds = [:regulatory_agency, :household]
-    	organization_unit_kinds = [:parent_organization, :subsidiary, :department, :division]
-    	uits_kinds = [:site_owner, :successor] 
-    	{
-    		party_roles: [
-    			{role_kind: :employer, relationship_kind: :employment, related_party: :dan_person },
-    		]
-    	}
-	    { kind: :customer, related_party: :dchbx }
-	    { kind: :lklj}
-	  end
+    # Getter for Party instance associated through this Role
+    def related_party
+      return nil if related_party_id.blank?
+      return @related_party if defined? @related_party
+      @related_party = Parties::Party.find(related_party_id)
+    end
+
+    private
+
+    def validate_related_party
+      if party_relationship_kinds.present?
+
+        errors.add(:related_party, "party_role #{title} requires a related party instance") if related_party.blank?
+        errors.add(:related_party, "party_role #{title} related party kinds #{party_relationship_kinds.inspect} don't match party_relationship definition") unless party_roles_match?
+      else
+        errors.add(:related_party, "unexpected related_party #{related_party.inspect} for party_role #{title}") if related_party.present?
+      end
+
+    end
+
+    # Party roles must match
+    # Compare Roles for this and associated party
+    def party_roles_match?
+      return false if related_party.blank?
+
+      #TODO Develop validation for valid role-to-role relationship pairing
+      true
+    end
 
 
-	end
+
+    def create_party_role_kinds
+    	# Site Owner is super user across system -- only assign to one organization
+      Parties::PartyRoleKind.create!(key: :site_owner, title: 'Site Owner')
+
+      Parties::PartyRoleKind.create!(key: :employee, title: 'Employee')
+      Parties::PartyRoleKind.create!(key: :employer, title: 'Employer')
+      Parties::PartyRoleKind.create!(key: :owner_or_officer, title: 'Owner/Officer')
+      Parties::PartyRoleKind.create!(key: :employer, title: 'Contractor')
+
+      Parties::PartyRoleKind.create!(key: :self, title: 'Self')
+      Parties::PartyRoleKind.create!(key: :spouse, title: 'Spouse')
+      Parties::PartyRoleKind.create!(key: :domestic_partner, title: 'Domestic Partner')
+      Parties::PartyRoleKind.create!(key: :child, title: 'Child')
+      Parties::PartyRoleKind.create!(key: :dependent, title: 'Dependent')
+
+      Parties::PartyRoleKind.create!(key: :primary_contact, title: 'Primary Contact')
+      Parties::PartyRoleKind.create!(key: :secondary_contact, title: 'Secondary Contact')
+
+      Parties::PartyRoleKind.create!(key: :parent_organization, title: 'Parent Organization')
+      Parties::PartyRoleKind.create!(key: :subsiary, title: 'Subsiary')
+      Parties::PartyRoleKind.create!(key: :department, title: 'Department')
+      Parties::PartyRoleKind.create!(key: :division, title: 'Division')
+      Parties::PartyRoleKind.create!(key: :internal_organization, title: 'Internal Organization')
+      Parties::PartyRoleKind.create!(key: :other_organization_unit, title: 'Other Organization Unit')
+
+      # Corporate Entity Kinds
+      Parties::PartyRoleKind.create!(key: :s_corporation, title: 'S Corporation')
+      Parties::PartyRoleKind.create!(key: :c_corporation, title: 'C Corporation')
+      Parties::PartyRoleKind.create!(key: :limited_liability_corporation, title: 'Limited Liability Corporation')
+      Parties::PartyRoleKind.create!(key: :limited_liability_partnership, title: 'Limited Liability Partnership')
+      Parties::PartyRoleKind.create!(key: :non_profit_501c3, title: 'Non Profit 501c(3) Corporation')
+      Parties::PartyRoleKind.create!(key: :other_non_profit, title: 'Other Non Profit')
+      Parties::PartyRoleKind.create!(key: :household_employer, title: 'Household Employer')
+    end
+
+    def create_party_relationship_kinds
+      Parties::PartyRelationshipKind.create!(	key: :employment, title: 'Employment',
+                                              party_role_kinds: [
+	                                                Parties::PartyRoleKind.find_by(key: :employee),
+	                                                Parties::PartyRoleKind.find_by(key: :employer),
+	                                                Parties::PartyRoleKind.find_by(key: :owner_or_officer),
+	                                              ]
+                                              )
+
+      Parties::PartyRelationshipKind.create!(	key: :organization_rollup, title: 'Organization Contact',
+                                              party_role_kinds: [
+	                                                Parties::PartyRoleKind.find_by(key: :primary_contact),
+	                                                Parties::PartyRoleKind.find_by(key: :secondary_contact),
+	                                              ]
+                                              )
+
+      Parties::PartyRelationshipKind.create!(	key: :organization_entity, title: 'Organization Entity',
+                                              party_role_kinds: [
+	                                                Parties::PartyRoleKind.find_by(key: :parent_organization),
+	                                                Parties::PartyRoleKind.find_by(key: :subsiary),
+	                                                Parties::PartyRoleKind.find_by(key: :department),
+	                                                Parties::PartyRoleKind.find_by(key: :division),
+	                                                Parties::PartyRoleKind.find_by(key: :other_organization_unit),
+	                                              ]
+                                              )
+
+
+      Parties::PartyRelationshipKind.create!(	key: :organization_rollup, title: 'Organization Rollup',
+                                              party_role_kinds: [
+	                                                Parties::PartyRoleKind.find_by(key: :parent_organization),
+	                                                Parties::PartyRoleKind.find_by(key: :subsiary),
+	                                                Parties::PartyRoleKind.find_by(key: :department),
+	                                                Parties::PartyRoleKind.find_by(key: :division),
+	                                                Parties::PartyRoleKind.find_by(key: :other_organization_unit),
+	                                              ]
+                                              )
+
+      Parties::PartyRelationshipKind.create!(	key: :family_rollup, title: 'Family Rollup',
+                                              party_role_kinds: [
+	                                                Parties::PartyRoleKind.find_by(key: :self),
+	                                                Parties::PartyRoleKind.find_by(key: :spouse),
+	                                                Parties::PartyRoleKind.find_by(key: :domestic_partner),
+	                                                Parties::PartyRoleKind.find_by(key: :child),
+	                                                Parties::PartyRoleKind.find_by(key: :dependent),
+	                                              ]
+                                              )
+    end
+
+  end
 end
