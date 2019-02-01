@@ -1,4 +1,3 @@
-require 'pry'
 class WageReportsController <  ApplicationController
   layout 'two_column'
   before_action :authenticate_user!
