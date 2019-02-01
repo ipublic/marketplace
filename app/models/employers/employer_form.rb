@@ -47,6 +47,10 @@ module Employers
     attribute :contribution_info, Employers::ContributionInfoForm
     attribute :employer_info, Employers::EmployerInfoForm
 
+    def self.for_new
+      self.new
+    end
+
     def self.for_create(params)
       form = self.new(params)
       #form.service.load_form_metadata(form)
