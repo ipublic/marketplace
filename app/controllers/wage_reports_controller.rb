@@ -39,7 +39,7 @@ class WageReportsController <  ApplicationController
   def create 
     if params[:commit] == "Add Entry"
       report =  Wages::WageReport.find(params[:wages_wage_report][:report_id]) 
-      Wages::WageReportFactory.add_entries(report, params[:wages_wage_report][:new_wage_entry])
+      Wages::WageReportFactory.add_entries(report, params)
     else 
       Wages::WageReportFactory.create_report(params)
     end
@@ -54,7 +54,7 @@ class WageReportsController <  ApplicationController
     if params[:commit] == "Cancel" ||  params[:commit] == "Save"
       redirect_to edit_wage_report_path(@report)
     else
-      Wages::WageReportFactory.amend(@report, @report.timespan, params)
+      Wages::WageReportFactory.amend(@report, params)
       redirect_to employer_wage_reports_path(@report.organization_party)
     end
   end

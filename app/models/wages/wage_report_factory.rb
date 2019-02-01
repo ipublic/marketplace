@@ -8,7 +8,6 @@ module Wages
     end
 
     def initialize
-      @current_report = []
       @organization_party = organization_party
       @wage_report = organization_party.wage_reports.new
       @wage_report_template = nil
@@ -27,10 +26,10 @@ module Wages
       @current_report
     end
 
-    def self.amend(report, report_timespan, params)
+    def self.amend(report, params)
       cloned_report = report.clone 
       if params[:wages_wage_report][:new_wage_entry][:person_first_name].present?
-        add_entries(cloned_report, params[:wages_wage_report][:new_wage_entry])
+        add_entries(cloned_report, params)
       end
       wage_entry_ids = cloned_report.wage_entries.map(&:_id)
       wage_entry_ids.each do |id|
@@ -39,8 +38,10 @@ module Wages
         end
       end
     end
+    
+    def self.add_entries(report, params)
+      wage_params = params[:wages_wage_report][:new_wage_entry]
 
-    def self.add_entries(report, wage_params)
       person =  Parties::PersonParty.create!(current_first_name: wage_params[:person_first_name],current_last_name: wage_params[:person_last_name] )
       entry =  report.wage_entries.new(submission_kind: :amended, submitted_at: Time.now)
       entry.wage = Wages::Wage.new(
@@ -53,7 +54,11 @@ module Wages
       )
       entry.save
       report.save
-      set_current_report(report)
+      if params[:commit] == "Add Entry"
+        set_current_report(report)
+      else 
+        set_current_report(nil)
+      end
     end
 
     def self.update_clone(id,cloned_report, wage_params)
