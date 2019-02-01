@@ -72,20 +72,27 @@ module Wages
     end
 
     def sum_state_total_wages
-	  	wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_total_gross_wages)  }
+	  	wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_total_gross_wages)  }
 	  end
 
     def sum_state_excess_wages
-      wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_excess_wages)  }
+      wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_excess_wages)  }
 
 	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_excess_wages  }
 	  end
 
     def sum_state_taxable_wages
-      wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_taxable_wages)  }
-
+      wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_taxable_wages)  } 
 	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_taxable_wages  }
-	  end
+    end
+    
+    def ui_total_due
+        0.05 * sum_state_total_wages
+    end
+
+    def sum_state_ui_total_wages
+      0.05 * sum_state_total_wages
+    end
 
 	  # Calculate all wage values in one pass -- higher performance on large wage reports
 	  def sum_all_state_wages

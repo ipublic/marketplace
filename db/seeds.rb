@@ -46,6 +46,7 @@ end
                                 state_total_wages:"#{rand(1000...10000)}",
                                 state_excess_wages:"#{rand(100...1000)}",
                                 wage_entry: entry )
+
         entries << entry
       end
        report =  Wages::WageReport.create!(organization_party: party,
@@ -65,6 +66,7 @@ end
                                   ui_amount_due:"#{rand(100...400)}",
                                   total_employees: entries.size )
       report.wage_entries.each do |entry|
+        
         entry.wage.save!
         entry.save!
       end
