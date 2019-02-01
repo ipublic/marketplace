@@ -3,7 +3,7 @@ module FinancialAccounts
   include Mongoid::Document
 
 	  field :effective_on,				type: Date
-	  field :determined_at,				type: Time
+	  field :determined_at,				type: Time, default: TimeKeeper.date_of_record
 
 	  embedded_in	:financial_account,
 	  						class_name: 'FinancialAccounts::FinancialAccount'

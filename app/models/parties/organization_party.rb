@@ -1,16 +1,6 @@
 module Parties
 	class OrganizationParty < Party
 
-      ENTITY_KINDS =[
-        :tax_exempt_organization,
-        :c_corporation,
-        :s_corporation,
-        :partnership,
-        :limited_liability_corporation,
-        :limited_liability_partnership,
-        :household_employer,
-      ]
-
 	  # Shared Unemployment Insurance and PFL ID
 	  field :entity_id,					type: Integer
 
@@ -31,10 +21,6 @@ module Parties
 
 	  embeds_many :naics_classifications,
 	  						class_name: 'Parties::NaicsClassification'
-
-    validates :entity_kind,
-      inclusion: { in: ENTITY_KINDS, message: "%{value} is not a valid business entity kind" },
-      allow_blank: false
 
     validates :fein,
       presence: true,

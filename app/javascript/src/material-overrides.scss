@@ -18,7 +18,7 @@ $green:#019588;
   color:white;
 }
 .radio{
-  background-color:$blue; 
+  // background-color:$blue; Commenting out due to globally styling inputs outside of wage reports
 }
 .wage-report-table, #entries{
   color:$blue;

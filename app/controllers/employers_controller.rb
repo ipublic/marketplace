@@ -6,8 +6,14 @@ class EmployersController < ApplicationController
   end
 
   def new
+    @employer = Employers::EmployerForm.for_new
   end
 
   def create
+    @employer = Employers::EmployerForm.for_create(params.permit[:address_info,
+                                                                 :contact_info,
+                                                                 :contribution_info,
+                                                                 :employer_info])
+    @employer.save
   end
 end

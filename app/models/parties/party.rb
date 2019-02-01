@@ -10,6 +10,9 @@ module Parties
 	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
+	  # has_and_belongs_to_many :party_relationships, 
+	  # 												class_name: 'Parties::PartyRelationship'
+
 	  embeds_many		:party_roles, 
 									class_name: "Parties::PartyRole"
 
@@ -17,8 +20,7 @@ module Parties
 	  							class_name: '::Document'
 
 	  has_one			:party_ledger, 
-								class_name: "Parties::PartyRole",
-	  						autobuild: true
+								class_name: "Parties::PartyRole"
 
 	  has_many		:party_ledger_account_balances, 
 								class_name: "FinancialAccounts::PartyLedgerAccountBalance"
@@ -33,7 +35,7 @@ module Parties
 								class_name: "Notices::Notice"
 
 		scope :associated_parties,	->{ where("party_roles.related_party_id": _id) }
-		
+
 	  scope :ui_group_sponsors,		->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
 		scope :ui_tpas, 						->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
 		scope :ui_tpa_agents, 			->{ any_in(party_roles: [:unemployment_insurance_tpa_agent]) } 	# need to check end_date for active
@@ -52,9 +54,22 @@ module Parties
 	  index({"party_roles.party_role_kind_id": 1})
 	  index({"party_roles.related_party_id": 1}, {sparse: true})
 
+	  def active_party_roles_by_key(role_key)
+	  	party_roles_by_key(role_key).reduce([]) { |active_list, role| active_list << role if role.is_active? }
+	  end
 
-	  def has_role_kind?(role_kind)
-	  	party_roles.include?(role_kind)
+	  # Find roles that match passed key
+	  def party_roles_by_key(role_key)
+	  	party_roles.select { |party_role| party_role if party_role.key == role_key }
+	  end
+
+	  def active_party_roles_for(compare_role)
+	  	party_roles_for(compare_role).reduce([]) { |list, role| list << role if role.is_active? }
+	  end
+
+	  # Find both declaritive roles and roles with specific relationships
+	  def party_roles_for(compare_role)
+	  	party_roles.select { |party_role| party_role if party_role == compare_role }
 	  end
 
 	  def has_relationship?(relationship_kind)
@@ -62,14 +77,15 @@ module Parties
 	  end
 
 	  def add_party_role(new_role)
-	  	if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
-		  	party_roles << new_role unless party_roles_by_kind(new_role)
-		  end
+	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
+		  # end
+
+	  	party_roles << new_role # unless party_roles_by_kind(new_role)
 
 	  	party_roles
 	  end
 
-	  def drop_party_role(dropped_role)
+	  def end_party_role(ended_role)
 
 	  	party_roles
 	  end
@@ -78,7 +94,7 @@ module Parties
 	  end
 
 	  def active_party_roles_by_kind(role_kind)
-	  	party_roles_by_kind(role_kind).reduce([]) { |list, role| ist << role.kind if role.is_active? }
+	  	party_roles_by_kind(role_kind).reduce([]) { |list, role| list << role.kind if role.is_active? }
 	  end
 
 	  def party_roles_by_kind(role_kind)
