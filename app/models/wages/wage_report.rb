@@ -65,7 +65,7 @@ module Wages
     index({ organization_party_id: 1, timespan_id: 1 })
     index({ timespan_id: 1 })
 
-    before_save :sum_employees
+    # before_save :sum_employees
 
     def set_state_wages
     	write_attributes(sum_all_state_wages)
@@ -90,6 +90,13 @@ module Wages
         0.05 * sum_state_total_wages
     end
 
+        
+    def ui_paid_amount
+      0.1 * sum_state_total_wages
+  end
+
+
+    
     def sum_state_ui_total_wages
       0.05 * sum_state_total_wages
     end
@@ -105,7 +112,7 @@ module Wages
 	  end
 
 	  def sum_employees
-	  	wage_entries.size
+	  	wage_entries.compact.uniq.size
     end
 
     def self.find_and_filter_wage_reports(org)

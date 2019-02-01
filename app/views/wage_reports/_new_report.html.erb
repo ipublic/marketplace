@@ -4,22 +4,22 @@
         <a data-toggle="collapse" data-parent="#accordionEx" href="#new-report">
             <li class="list-group-item" id="card-header">Start a new Wage Report </li>
         </a>
-        <div id= "new-report" class="collapse hide" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
-          <div>
-            <%= radio_button_tag :filing_method_kind, 'upload',  :class => 'radio' %> 
-            <%= label :filing_method_kind, 'upload' %>
-          </div>
-          <div>
-            <%= radio_button_tag :filing_method_kind, 'no_wages', :class => 'radio' %>
-            <%= label :filing_method_kind, 'no_wages' %>
-          </div>
-          <div>
-            <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true, :class => 'radio' %>
-            <%= label :filing_method_kind, 'manual_entry' %>
-          </div>
-          <div>
-          <%= link_to 'Create Report', employer_wage_reports_path(@organization, "nil"), :nil_report => "true",:class => "btn btn-outline-primary btn-rounded ", :id => "start-report", method: :post %>
-          </div>
+          <div id= "new-report" class="collapse hide" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+            <div>
+              <%= radio_button_tag :filing_method_kind, 'upload',  :class => 'radio' %> 
+              <%= label :filing_method_kind, 'upload' %>
+            </div>
+            <div>
+              <%= radio_button_tag :filing_method_kind, 'no_wages', :class => 'radio' %>
+              <%= label :filing_method_kind, 'no_wages' %>
+            </div>
+            <div>
+              <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true, :class => 'radio' %>
+              <%= label :filing_method_kind, 'manual_entry' %>
+            </div>
+            <div>
+            <%= link_to 'Create Report', controller: 'wage_reports', action: "new", employer_id: @organization.id, report: "new", :class => "btn btn-outline-primary btn-rounded  start-report", method: :post %>
+            </div>
         </div>
     </div>
   </div>

@@ -1,18 +1,17 @@
 <%if @current_report.present?  %>
-
-      <%if params[:action] == "new"%>
-  <div class = "page-footer card-body">
-    <div class = "card report-details" >
-      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-        <div class="card-header" id= "card-header"role="tab">
-            Wage Entries
-        </div>
-        </div>
-      <%= render :partial => 'wage_report_show_entries' %>
-      <%= render :partial => 'wage_report_show_footer' %>
-      <%else%>
-      <%= render :partial => 'wage_report_show_overview' %>
-    <% end%>
+   <%if params[:action] == "new"%>
+    <div class = "page-footer card-body">
+      <div class = "card report-details" >
+        <div class="accordion md-accordion" id="accordionEx" role="tablist" >
+          <div class="card-header" id= "card-header"role="tab">
+              Wage Entries
+          </div>
+          </div>
+        <%= render :partial => 'wage_report_show_entries' %>
+        <%= render :partial => 'wage_report_show_footer' %>
+        <%else%>
+        <%= render :partial => 'wage_report_show_overview' %>
+      <% end%>
+    </div>
   </div>
-</div>
 <% end%>

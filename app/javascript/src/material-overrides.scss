@@ -75,13 +75,18 @@ box-shadow: 1px 1px;
   color:white;
 }
 
-#start-report{
-  font-size: 15px;
+#start-report, .start-report{
+  font-size: 12px;
   background-color: $blue;
   margin-top:15px;
   color:white;
 }
-
+#new-report{
+  div{
+    margin:5px;
+  }
+  padding: 15px;
+}
 .th-sm{
   color: $blue;
 }
