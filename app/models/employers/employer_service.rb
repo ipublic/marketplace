@@ -8,8 +8,16 @@ module Employers
 
     def save(form)
       model_attributes = form_params_to_attributes(form)
-      sponsored_benefit = factory.call(package, model_attributes)
-      store(form, sponsored_benefit)
+      employee = factory.call(model_attributes)
+      store(form, employee)
+    end
+
+		def form_params_to_attributes(form)
+      form.attributes.except(:contribution_info)
+		end
+
+    def store(form, employee)
+      employee.save
     end
   end
 end

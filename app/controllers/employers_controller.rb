@@ -9,10 +9,10 @@ class EmployersController < ApplicationController
   end
 
   def create
-  end
-
-  def get_employers
-    @orgs = Parties::OrganizationParty.all
-    render json: { data: @orgs }
+    @employer = Employers::EmployerForm.for_create(params.permit[:address_info,
+                                                                 :contact_info,
+                                                                 :contribution_info,
+                                                                 :employer_info])
+    @employer.save
   end
 end
