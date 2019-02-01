@@ -1,44 +1,72 @@
-# module Employers
-#   class EmployerForm
-#     include Virtus.model
+module Employers
+  class AddressInfoForm
+    include Virtus.model
 
-#     attribute :contact_info, AddressInfoForm
-#     attribute :contact_info, ContactInfoForm
-#     attribute :contribution_info, ContributionInfoForm
-#     attribute :employer_info, EmployerInfoForm
+    attribute :kind, String
+    attribute :address_1, String
+    attribute :address_2, String
+    attribute :city, String
+    attribute :state, String
+    attribute :zip, String
+    attribute :area_code, Integer
+    attribute :number, Integer
+    attribute :extension, Integer
+  end
 
-#     def self.for_create(params)
-#       form = self.new(params)
-#       form.service.load_form_metadata(form)
-#       form
-#     end
+  class ContactInfoForm
+    include Virtus.model
 
-#     def service
-#       @service ||= EmployerService.new
-#     end
+    attribute :first_name, String
+    attribute :last_name, String
+    attribute :dob, Date
+    attribute :email, String
+    attribute :area_code, Integer
+    attribute :number, Integer
+  end
 
-#     def persist(update: false)
-#       return false unless self.valid?
-#       save_result, persisted_object = (update ? service.update(self) : service.save(self))
-#       return false unless save_result
-#       @show_page_model = persisted_object
-#       true
-#     end
+  class EmployerInfoForm
+    include Virtus.model
 
-#     def save
-#       persist
-#     end
-#   end
+    attribute :legal_name, String
+    attribute :dba, String
+    attribute :fein, String
+    attribute :kind, String
+    attribute :sic_code, String
+  end
 
-#   class ContactInfoForm
-#     include Virtus.model
-#   end
+  class ContributionInfoForm
+    include Virtus.model
+  end
 
-#   class EmployerInfoForm
-#     include Virtus.model
-#   end
+  class EmployerForm
+    include Virtus.model
+    include ActiveModel::Model
 
-#   class ContributionInfoForm
-#     include Virtus.model
-#   end
-# end
+    attribute :address_info, Employers::AddressInfoForm
+    attribute :contact_info, Employers::ContactInfoForm
+    attribute :contribution_info, Employers::ContributionInfoForm
+    attribute :employer_info, Employers::EmployerInfoForm
+
+    def self.for_create(params)
+      form = self.new(params)
+      #form.service.load_form_metadata(form)
+      form
+    end
+
+    def service
+      @service ||= EmployerService.new
+    end
+
+    def persist(update: false)
+      return false unless self.valid?
+      save_result, persisted_object = (update ? service.update(self) : service.save(self))
+      return false unless save_result
+      @show_page_model = persisted_object
+      true
+    end
+
+    def save
+      persist
+    end
+  end
+end
