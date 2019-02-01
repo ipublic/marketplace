@@ -150,6 +150,17 @@ module Parties
       Parties::PartyRoleKind.create!(key: :tpa, title: 'Third Party Administrator')
       Parties::PartyRoleKind.create!(key: :tpa_agent, title: 'TPA Agent')
 
+      Parties::PartyRoleKind.create!(key: :uits_liable, title: 'Unemployment Insurance Tax Liable')
+      Parties::PartyRoleKind.create!(key: :uits_exempt, title: 'Unemployment Insurance Tax Exempt')
+      Parties::PartyRoleKind.create!(key: :uits_contributing, title: 'UI Tax Contribution Payment Model')
+      Parties::PartyRoleKind.create!(key: :uits_reimbursing, title: 'UI Tax Reimbursement Payment Model')
+      Parties::PartyRoleKind.create!(key: :uits_qtr_filer, title: 'UI Tax Quarterly Filer')
+      Parties::PartyRoleKind.create!(key: :uits_annual_filer, title: 'UI Tax Annual Filer')
+
+      Parties::PartyRoleKind.create!(key: :pfl_liable, title: 'Paid Family Leave Tax Liable')
+      Parties::PartyRoleKind.create!(key: :pfl_exempt, title: 'Paid Family Leave Tax Exempt')
+      Parties::PartyRoleKind.create!(key: :pfl_opt_in, title: 'Paid Family Leave Tax Opted-In')
+
     end
 
     def create_party_relationship_kinds

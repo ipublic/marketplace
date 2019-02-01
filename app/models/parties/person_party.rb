@@ -41,48 +41,5 @@ module Parties
 	  scope :employed_by, 	-> (party){} # party_relationship of employment, with 
 	  scope :contacts_for, 	-> (party){}
 
-
-		def all_party_roles
-			super + [
-					:unemployment_insurance_individual_sponsor,
-					:unemployment_insurance_claiment,
-					:paid_family_leave_claiment,
-					:employee,
-					:health_insurance_contract_holder,
-	  			:patient_practitioner,
-				]
-		end
-
-
-		def individual_roles
-			[
-				:customer,
-				:supplier,
-			]
-		end
-
-
-		def seed_party_role_kinds
-			# Parties::PartyRoleKind.create(key: :employee, has_related_party: true, related_party_roles: [], 
-
-			Parties::PartyRoleKind.create({key: :unemployment_insurance_agency_administrator, title: "", description: "", is_published: true})
-
-			Parties::PartyRoleKind.create({key: :unemployment_insurance_group_sponsor, title: "", description: "An employer who manages unemployment insurance tax for its employees", is_published: true})
-			Parties::PartyRoleKind.create({key: :unemployment_insurance_individual_sponsor, title: "", description: "", is_published: true})
-			Parties::PartyRoleKind.create({key: :unemployment_insurance_tpa, title: "", description: "", is_published: true})
-			Parties::PartyRoleKind.create({key: :unemployment_insurance_tpa_agent, title: "", description: "", is_published: true})
-			Parties::PartyRoleKind.create({key: :unemployment_insurance_claiment, title: "", description: "", is_published: true})
-
-			Parties::PartyRoleKind.create({key: :paid_family_leave_group_sponsor, title: "", description: "", is_published: true})
-			Parties::PartyRoleKind.create({key: :paid_family_leave_tpa, title: "", description: "", is_published: true})
-			Parties::PartyRoleKind.create({key: :paid_family_leave_tpa_agent, title: "", description: "", is_published: true})
-			Parties::PartyRoleKind.create({key: :paid_family_leave_claiment, title: "", description: "", is_published: true})
-
-			Parties::PartyRoleKind.create({key: :employee, title: "", description: "", is_published: true})
-
-			Parties::PartyRoleKind.create({key: :health_insurance_group_sponsor, title: "", description: "An employer or organization who sponsors health insurance benefits for its members", is_published: true})
-			Parties::PartyRoleKind.create({key: :health_insurance_contract_holder, title: "", description: "", is_published: true})
-		end
-
 	end
 end
