@@ -2,219 +2,218 @@
 <div data-controller="employer-registrations">
 
   <!-- Validation wizard -->
-              <div class="row" id="validation">
-                  <div class="col-12">
-                      <div class="card wizard-content">
-                          <div class="card-body">
-                              <form action="#" class="validation-wizard wizard-circle">
-                                  <!-- Step 1 -->
-                                  <h6>Contact Info</h6>
-                                  <section>
-                                      <div class="row">
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="wfirstName2"> First Name :
-                                                      <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="text" class="form-control required" id="wfirstName2" name="firstName"> </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="wlastName2"> Last Name :
-                                                      <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="text" class="form-control required" id="wlastName2" name="lastName"> </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="wdate2">Date of Birth :
-                                                      <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="date" class="form-control required" id="wdate2"> </div>
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="wemailAddress2"> Email Address :
-                                                      <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="email" class="form-control required" id="wemailAddress2" name="emailAddress"> </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="areaCode">Area Code :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="tel" class="form-control required" id="areaCode" name="areaCode" maxlength="3"> </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="wphoneNumber2">Phone Number :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="tel" class="form-control required" id="wphoneNumber2" name="wphoneNumber2" maxlength="7"> </div>
-                                          </div>
-                                      </div>
-                                  </section>
-                                  <!-- Step 2 -->
-                                  <h6>Address Info</h6>
-                                  <section>
-                                      <div class="row">
-                                        <div class="col-md-9">
-                                          <div class="form-group">
-                                            <label for="address1">Address :
-                                              <span class="danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control required" id="address1" name="address1">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label for="kind1">Kind :
-                                              <span class="danger">*</span>
-                                            </label>
-                                            <select class="form-control required" id="kind1" name="kind1">
-                                              <option value="primary">Primary</option>
-                                              <option value="mailing">Mailing</option>
-                                              <option value="branch">Branch</option>
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <div class="form-group">
-                                            <label for="address2">Address 2 :
-                                            </label>
-                                            <input type="text" class="form-control" id="address2">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label for="city1">City :
-                                              <span class="danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control required" id="city1" name="city1">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label for="state1">State :
-                                              <span class="danger">*</span>
-                                            </label>
-                                            <select class="form-control required" id="state1" name="state1">
-                                              <option value="">SELECT STATE</option>
-                                              <option value="DC">DC</option>
-                                              <option value="MD">MD</option>
-                                              <option value="VA">VA</option>
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label for="zip1">Zip :
-                                              <span class="danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control required" id="zip1" name="zip1" maxlength="5">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <div class="form-group">
-                                            <label for="county1">County :
-                                              <span class="danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control required" id="county1" name="county1">
-                                          </div>
-                                        </div>
-                                      </div>
-                                  </section>
-                                  <!-- Step 3 -->
-                                  <h6>Company Info</h6>
-                                  <section>
-                                      <div class="row">
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="legalNAme">Legal Name :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="text" class="form-control required" id="legalName">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="dba">DBA :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="text" class="form-control required" id="dba" name="dba">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="fein">FEIN :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <input type="text" class="form-control required" id="fein" name="fein">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="kind">Kind :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <select class="form-control required" id="kind" name="kind">
-                                                    <option value="">Select Entity Kind</option>
-                                                    <option value="tax_exempt_organization">Tax Exempt Organization</option>
-                                                    <option value="c_corporation">C Corporation</option>
-                                                    <option value="s_corporation">S Corporation</option>
-                                                    <option value="partnership">Partnership</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <div class="form-group">
-                                                  <label for="companyType">Company Type :
-                                                    <span class="danger">*</span>
-                                                  </label>
-                                                  <select class="form-control required" id="companyType" name="companyType" data-action="change->employer-registrations#evidenceNeeded" data-target="employer-registrations.companyType">
-                                                    <option value="">Company Type</option>
-                                                    <option value="contributor">Contributor</option>
-                                                    <option value="reimbursable">Reimbursable</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-12 form-group d-none" data-target="employer-registrations.evidence">
-                                            <label for="exampleInputFile" class="bmd-label-floating">
-                                              Please provide evidence of your 501(c)(3) status
-                                            </label>
-                                            <input type="file" class="form-control-file" id="exampleInputFile">
-                                          </div>
-                                          <div class="col-md-12 d-none" data-target="employer-registrations.successor">
-                                            <label for="exampleInputFile" class="bmd-label-floating">
-                                              Is this organization a successor of a previous organization?
-                                            </label>
-                                            <div class="radio">
-                                              <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="yes" data-target="employer-registrations.previousOrganization">
-                                                Yes
-                                              </label>
-                                            </div>
-                                            <div class="radio">
-                                              <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="no" data-target="employer-registrations.previousOrganization">
-                                                No
-                                              </label>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </section>
-                                  <!-- Step 4 -->
-                                  <h6>Contribution Info</h6>
-                                  <section>
-                                      <div class="row mb-3" data-target="employer-registrations.message"></div>
-                                  </section>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
+  <div class="row" id="validation">
+    <div class="col-12">
+      <div class="card wizard-content">
+        <div class="card-body">
+          <%= form_for @employer, url: new_employer_path, html: { class: "validation-wizard wizard-circle" } do |f| %>
+            <!-- Step 1 -->
+            <h6>Contact Info</h6>
+            <section>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="wfirstName2"> First Name :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="wfirstName2" name="contact_info[first_name]"> </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="wlastName2"> Last Name :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="wlastName2" name="contact_info[last_name]"> </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="wdate2">Date of Birth :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="date" class="form-control required" id="wdate2" name="contact_info[dob]"> </div>
+                </div>
               </div>
-
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="wemailAddress2"> Email Address :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="email" class="form-control required" id="wemailAddress2" name="contact_info[email_address]"> </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="areaCode">Area Code :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="tel" class="form-control required" id="areaCode" name="contact_info[area_code]" maxlength="3"> </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="wphoneNumber2">Phone Number :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="tel" class="form-control required" id="wphoneNumber2" name="contact_info[phone_number]" maxlength="7"> </div>
+                </div>
+              </div>
+            </section>
+            <!-- Step 2 -->
+            <h6>Address Info</h6>
+            <section>
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <label for="address1">Address :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="address1" name="address_info[address_1]">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="kind1">Kind :
+                      <span class="danger">*</span>
+                    </label>
+                    <select class="form-control required" id="kind1" name="kind1">
+                      <option value="primary">Primary</option>
+                      <option value="mailing">Mailing</option>
+                      <option value="branch">Branch</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="address2">Address 2 :
+                    </label>
+                    <input type="text" class="form-control" id="address2" name="address_info[address_2]">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="city1">City :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="city1" name="address_info[city]">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="state1">State :
+                      <span class="danger">*</span>
+                    </label>
+                    <select class="form-control required" id="state1" name="address_info[state]">
+                      <option value="">SELECT STATE</option>
+                      <option value="DC">DC</option>
+                      <option value="MD">MD</option>
+                      <option value="VA">VA</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="zip1">Zip :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="zip1" name="address_info[zip]" maxlength="5">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="county1">County :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="county1" name="address_info[county]">
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- Step 3 -->
+            <h6>Company Info</h6>
+            <section>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="legalNAme">Legal Name :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="legalName" name="employer_info[legal_name]">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="dba">DBA :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="dba" name="employer_info[dba]">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="fein">FEIN :
+                      <span class="danger">*</span>
+                    </label>
+                    <input type="text" class="form-control required" id="fein" name="employer_info[fein]">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="kind">Kind :
+                      <span class="danger">*</span>
+                    </label>
+                    <select class="form-control required" id="kind" name="employer_info[kind]">
+                      <option value="">Select Entity Kind</option>
+                      <option value="tax_exempt_organization">Tax Exempt Organization</option>
+                      <option value="c_corporation">C Corporation</option>
+                      <option value="s_corporation">S Corporation</option>
+                      <option value="partnership">Partnership</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="companyType">Company Type :
+                      <span class="danger">*</span>
+                    </label>
+                    <select class="form-control required" id="companyType" name="employer_info[company_type]" data-action="change->employer-registrations#evidenceNeeded" data-target="employer-registrations.companyType">
+                      <option value="">Company Type</option>
+                      <option value="contributor">Contributor</option>
+                      <option value="reimbursable">Reimbursable</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12 form-group d-none" data-target="employer-registrations.evidence">
+                  <label for="exampleInputFile" class="bmd-label-floating">
+                    Please provide evidence of your 501(c)(3) status
+                  </label>
+                  <input type="file" class="form-control-file" id="exampleInputFile">
+                </div>
+                <div class="col-md-12 d-none" data-target="employer-registrations.successor">
+                  <label for="exampleInputFile" class="bmd-label-floating">
+                    Is this organization a successor of a previous organization?
+                  </label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="yes" data-target="employer-registrations.previousOrganization">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="no" data-target="employer-registrations.previousOrganization">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- Step 4 -->
+            <h6>Contribution Info</h6>
+            <section>
+              <div class="row mb-3" data-target="employer-registrations.message"></div>
+            </section>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

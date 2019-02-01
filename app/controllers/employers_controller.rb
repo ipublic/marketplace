@@ -6,6 +6,7 @@ class EmployersController < ApplicationController
   end
 
   def new
+    @employer = Employers::EmployerForm.for_new
   end
 
   def create
