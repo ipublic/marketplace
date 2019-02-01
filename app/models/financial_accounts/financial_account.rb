@@ -3,23 +3,20 @@ module FinancialAccounts
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-	  field :title, 			type: String
-	  field :opened_on, 	type: Date, default: ->{ Date.today }
+	  field :title, 						type: String
+	  field :opened_on, 				type: Date, default: ->{ TimeKeeper.date_of_record }
+	  field :current_balance, 	type: BigDecimal, default: 0.0
 
 	  # embeds_many		:contribution_rates,
 	  # 							class_name: 'FinancialAccounts::ContributionRate'
 
-	  belongs_to		:party,
-	  							class_name: 'Parties::Party'
+	  belongs_to		:party_ledger,
+	  							class_name: 'FinancialAccounts::PartyLedger'
 
 	  # has_many 			:financial_transactions,
 	  # 							class_name: 'FinancialAccounts::FinancialTransactions'
 
-	  belongs_to 		:timespan, 
-	  							class_name: 'TimeSpans:Timespan', optional:true
-
-		# validates_presence_of :opened_on, :party
-
+	  validates_presence_of :title, :opened_on
 
     def contribution_rates
       contribution_rates.order(effective_on: :desc).order(determined_at: :desc)

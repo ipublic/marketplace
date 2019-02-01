@@ -2,19 +2,20 @@ module FinancialAccounts
   class UiFinancialAccount < FinancialAccount
     include Mongoid::Document
 
-    PAYMENT_TYPES 				= [:contribute, :reimburse, ]
-    WAGE_FILING_SCHEDULES = [:quarter, :annual]
-
-    field :payment_type, 					type: Symbol
-    field :wage_filing_schedule, 	type: Symbol
-
-    embeds_many :filing_statuses 	# wage report filed for timespans
-    embeds_many :payment_status		# financial transactions for timespans
-
     # Initial date employer became liable for UI tax
-    field :liability_date,        type: Date 
+    field :initial_liability_date,        type: Date 
+    field :status,                        type: Symbol, default: :active
 
-    field :status,                type: Symbol, default: :active
+    field :ledger_system_account_id,      type: BSON::ObjectId
+
+    field :current_payment_type,          type: Symbol
+    field :current_wage_filing_schedule,  type: Symbol
+
+    embeds_many :filing_statuses    # wage report filed for timespans
+    embeds_many :payment_status     # financial transactions for timespans
+
+
+    validates_presence_of :initial_liability_date, :status, :current_payment_type, :current_wage_filing_schedule
 
     # Account states:
     # Current
@@ -24,12 +25,9 @@ module FinancialAccounts
     # Closed
     #   Reason: Written Off
 
-    before_save :set_title
+    def assign_schedule_and_payment
 
-    private
-
-    def set_title
-      write_attribute(:title, "Unemployment Insurance Account") if title.blank?
+      
     end
 
   end

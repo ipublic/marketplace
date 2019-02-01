@@ -17,5 +17,11 @@ module FinancialAccounts
 		has_many		:timespans,
 								class_name: 'Timespans:Timespan'
 
+
+		delegate :party_roles, to: :party
+
+		def add_financial_account(new_financial_account)
+		end
+
 	end
 end

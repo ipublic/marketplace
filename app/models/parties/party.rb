@@ -20,8 +20,7 @@ module Parties
 	  							class_name: '::Document'
 
 	  has_one			:party_ledger, 
-								class_name: "Parties::PartyRole",
-	  						autobuild: true
+								class_name: "Parties::PartyRole"
 
 	  has_many		:party_ledger_account_balances, 
 								class_name: "FinancialAccounts::PartyLedgerAccountBalance"
@@ -55,9 +54,22 @@ module Parties
 	  index({"party_roles.party_role_kind_id": 1})
 	  index({"party_roles.related_party_id": 1}, {sparse: true})
 
+	  def active_party_roles_by_key(role_key)
+	  	party_roles_by_key(role_key).reduce([]) { |active_list, role| active_list << role if role.is_active? }
+	  end
 
-	  def has_role_kind?(role_kind)
-	  	party_roles.include?(role_kind)
+	  # Find roles that match passed key
+	  def party_roles_by_key(role_key)
+	  	party_roles.select { |party_role| party_role if party_role.key == role_key }
+	  end
+
+	  def active_party_roles_for(compare_role)
+	  	party_roles_for(compare_role).reduce([]) { |list, role| list << role if role.is_active? }
+	  end
+
+	  # Find both declaritive roles and roles with specific relationships
+	  def party_roles_for(compare_role)
+	  	party_roles.select { |party_role| party_role if party_role == compare_role }
 	  end
 
 	  def has_relationship?(relationship_kind)
