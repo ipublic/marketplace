@@ -13,7 +13,7 @@ class WageReportsController <  ApplicationController
   def new
     @report = Wages::WageReport.new 
     @organization = Parties::OrganizationParty.find(params[:employer_id])
-    if params[:format] == "new"
+    if params[:report] == "new"
       Wages::WageReportFactory.set_current_report(nil)
     end
     @current_report = Wages::WageReportFactory.get_current_report

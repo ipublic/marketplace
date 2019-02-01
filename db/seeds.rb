@@ -101,15 +101,21 @@ puts "Creating Organization Parties and Wage Reports"
 
 legal_first_names = ["Tom's","John's", "Bob's", "Jan's", "Kathy's"]
 legal_last_names = ["Cook House","Car Rental", "Burgers", "Autobody","Jewelry"]
-person_first_names =  ["Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan", "Kristen", "Jack","Cindy","Linda", "Elliot","Hannah","Kara", "Alexis", "Gabe"]
-person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown", "Harris", "Hessen", "Golden", "Waithe"]
+person_first_names =  ["Bill", "Dan", "Chevy","Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan", "Kristen", "Jack","Cindy","Linda", "Elliot","Jane","Martina","Hannah","Kara", "Alexis", "Gabe"]
+person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown", "Harris", "Hessen", "Golden", "Waithe","Murray","Aykroyd","Chase", "Curtin", "williams"]
 1..30.times do
    Parties::PersonParty.create!(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}")
 end
+
 1..30.times do
-  party = Parties::OrganizationParty.create!(fein:"#{rand(111111111...999999999)}",
+ Parties::OrganizationParty.create!(
+    fein:"#{rand(111111111...999999999)}",
     legal_name:"#{legal_first_names.sample + " " + legal_last_names.sample}",
     is_foreign_entity: false)
+end
+
+parties = Parties::OrganizationParty.all 
+parties.each do |party|
   (1..10).each do  |i|
     entries = []
     span =  Timespans::Timespan.all.where('quarter' =>{'$in' => [1,2,3,4]})[i]
@@ -149,8 +155,8 @@ end
         entry.save!
       end
       report.save!
-    end
   end
+end
 puts "*"*80
 
 puts "Creating Indexes"
