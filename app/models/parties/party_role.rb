@@ -116,8 +116,11 @@ module Parties
       Parties::PartyRoleKind.create!(key: :child, title: 'Child')
       Parties::PartyRoleKind.create!(key: :dependent, title: 'Dependent')
 
-      Parties::PartyRoleKind.create!(key: :primary_contact, title: 'Primary Contact')
-      Parties::PartyRoleKind.create!(key: :secondary_contact, title: 'Secondary Contact')
+      Parties::PartyRoleKind.create!(key: :ui_primary_contact, title: 'UI Primary Contact')
+      Parties::PartyRoleKind.create!(key: :ui_secondary_contact, title: 'UI Secondary Contact')
+
+      Parties::PartyRoleKind.create!(key: :pfl_primary_contact, title: 'PFL Primary Contact')
+      Parties::PartyRoleKind.create!(key: :pfl_secondary_contact, title: 'PFL Secondary Contact')
 
       # UITS/PFL 
       Parties::PartyRoleKind.create!(key: :tpa_agent, title: 'TPA Agent')
@@ -172,10 +175,11 @@ module Parties
 	                                              ]
                                               )
 
-      Parties::PartyRelationshipKind.create!(	key: :organization_rollup, title: 'Organization Contact',
+      Parties::PartyRelationshipKind.create!(	key: :ui_contact, title: 'Organization UI Contact',
                                               party_role_kinds: [
-	                                                Parties::PartyRoleKind.find_by(key: :primary_contact),
-	                                                Parties::PartyRoleKind.find_by(key: :secondary_contact),
+	                                                Parties::PartyRoleKind.find_by(key: :ui_primary_contact),
+	                                                Parties::PartyRoleKind.find_by(key: :ui_secondary_contact),
+	                                                Parties::PartyRoleKind.find_by(key: :employer),
 	                                              ]
                                               )
 
