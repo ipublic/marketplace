@@ -10,4 +10,9 @@ class EmployersController < ApplicationController
 
   def create
   end
+
+  def get_employers
+    @orgs = Parties::OrganizationParty.all
+    render json: { data: @orgs }
+  end
 end
