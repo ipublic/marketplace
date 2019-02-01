@@ -2,6 +2,7 @@
   "name": "marketplace",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.0",
     "@rails/webpacker": "3.5",
     "aos": "^2.3.4",
     "bootstrap": "^4.2.1",
@@ -22,7 +23,6 @@
     "webpack-dev-middleware": "1.12.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.0",
     "webpack-dev-server": "2.11.2"
   }
 }
