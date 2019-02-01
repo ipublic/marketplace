@@ -10,6 +10,7 @@ module Timespans
     field :title,     type: String
     field :begin_on,  type: Date
     field :end_on,    type: Date
+    field :type,      type: String
 
     has_many  :wage_reports,
               class_name: 'Wages::WageReport'
@@ -34,6 +35,10 @@ module Timespans
       return nil unless begin_date.present?
       preceding_timespans = self.find_on(begin_date - 1.day).entries
       preceding_timespans.size == 1 ? preceding_timespans.first : nil
+    end
+
+    def self.current_timespan
+      where(:begin_on.lte => Time.now, :end_on.gte => Time.now)[1]
     end
 
     def kind

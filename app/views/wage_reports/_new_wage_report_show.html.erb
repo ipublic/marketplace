@@ -1,93 +1,18 @@
-
 <%if @current_report.present?  %>
-  <div class="card-body">
-    <div class="card">
+
+      <%if params[:action] == "new"%>
+  <div class = "page-footer card-body">
+    <div class = "card report-details" >
       <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-          <a data-toggle="collapse" data-parent="#accordionEx" href="#new-entry">
-            <li class="list-group-item" id = "card-header"> You New Report </li>
-          </a>
-      </div>
-      <div class="" id="new-entry" role="tablist" >
-              <div class= 'card-body'>
-                <div class="row ">
-                  <div class = "col">
-                    <table class="table wage-report-table">
-                    <tbody>
-                      <tr>
-                        <td>Begin Date</td>
-                        <td ><%=@current_report.timespan.begin_on%></td>
-                      </tr>
-                      <tr>
-                        <td>End Date</td>
-                        <td><%=@current_report.timespan.end_on%></td>
-                      </tr>
-                      <tr>
-                        <td class="card-header">Submitted At</td>
-                        <td ><%=@current_report.submitted_at.to_date%></td>
-                      </tr>
-                      <tr>
-                        <td class="card-header">Status</td>
-                        <td ><%=@current_report.status.capitalize%></td>
-                      </tr>
-                      <tr>
-                        <td class="card-header">Submission Kind</td>
-                        <td ><%=@current_report.submission_kind.capitalize%></td>
-                      </tr>
-                      <tr>
-                        <td  class="card-header">Total State Gross Wages</td>
-                        <td > $<%=@current_report.state_total_gross_wages%></td>
-                      </tr>
-                      <tr>
-                        <td class="card-header">Total State UI Wages</td>
-                        <td>$<%=@current_report.state_ui_total_wages%></td>
-                      </tr>
-                      <tr>
-                        <td class="card-header"> State UI Taxable Wages</td>
-                        <td>$<%=@current_report.state_ui_taxable_wages%></td>
-                      </tr>
-                      <tr>
-                        <td class="card-header"> State UI Excess Wages</td>
-                        <td>$<%=@current_report.state_ui_excess_wages%></td>
-                      </tr>
-                    </tbody>
-                  </table>
- <% if @entries.present? %>
-    <div class="card">
-      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-        <a data-toggle="collapse" data-parent="#accordionEx" href="#entries">
-          <li class="list-group-item" id = "card-header">Wage Entries </li>
-        </a>
-      </div>
-      <div class="card-body">
-      <table  class="table table-striped  ">
-        <thead>
-          <tr>
-            <th class="th-sm">Employee</th>
-            <th class="th-sm">Submission Kind</th>
-            <th class="th-sm">Submitted At</th>
-            <th class="th-sm">Total Gross Wages</th>
-            <th class="th-sm">Total Wages</th>
-            <th class="th-sm">Excess Wages</th>
-            <th class="th-sm">Taxable Wages</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @entries.each do |entry| %>
-            <tr>
-              <td><%= entry.try(:wage).try(:person_party).try(:current_first_name) + " " + entry.try(:wage).try(:person_party).try(:current_last_name)%></td>
-              <td scope="row"><%= entry.submission_kind.capitalize%></td>
-              <td scope="row"><%= entry.submitted_at.to_date%></td>
-              <td>$ <%= entry.try(:wage).try(:state_total_gross_wages)%></td>
-              <td>$ <%= entry.try(:wage).try(:state_total_wages)%></td>
-              <td>$ <%= entry.try(:wage).try(:state_excess_wages)%></td>
-              <td>$ <%= entry.try(:wage).try(:state_taxable_wages)%></td>
-            </tr>
-          <%end%>
-        </tbody>
-      </table>
-    </div>
+        <div class="card-header" id= "card-header"role="tab">
+            Wage Entries
+        </div>
+        </div>
+      <%= render :partial => 'wage_report_show_entries' %>
+      <%= render :partial => 'wage_report_show_footer' %>
+      <%else%>
+      <%= render :partial => 'wage_report_show_overview' %>
+    <% end%>
   </div>
-        <% end%>
-        <% end%>
-      </div>
 </div>
+<% end%>
