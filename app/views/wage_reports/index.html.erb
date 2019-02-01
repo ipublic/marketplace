@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header" id= "card-header">Your Wage Reports</div>
+  <div class="card-header" id= "card-header"><%= @organization.legal_name %> Wage Reports</div>
   <%= render :partial => "at_a_glance" %>
   <%= render :partial => "new_report" %>
 
@@ -7,4 +7,3 @@
   <%= render :partial => "older_reports" %>
   </div>
 </div>
-

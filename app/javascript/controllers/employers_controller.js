@@ -6,7 +6,6 @@ import 'datatables';
 export default class extends Controller {
 
   static targets = ["selectedEmployer"]
-  employers = [];
 
   initialize() {
     let table = $('#employerDataTable').DataTable({
@@ -33,5 +32,7 @@ export default class extends Controller {
     let employerId = event.target.dataset.id;
     document.getElementById('employerName').innerHTML = selectedEmployerName;
     document.getElementById('employerWageReport').setAttribute("href", `/employers/${employerId}/wage_reports`);
+    this.employerName = selectedEmployerName;
   }
+
 }

@@ -9,12 +9,66 @@
       <a class="nav-item nav-link" id="nav-role-tab" data-toggle="tab" href="#nav-role" role="tab" aria-controls="nav-role" aria-selected="false">Roles</a>
       <a class="nav-item nav-link" id="nav-key-tab" data-toggle="tab" href="#nav-key" role="tab" aria-controls="nav-key" aria-selected="false">Keys</a>
       <a class="nav-item nav-link" id="nav-permission-tab" data-toggle="tab" data-action="settings#loadTableData" href="#nav-permission" role="tab" aria-controls="nav-permission" aria-selected="false">Permissions</a>
+      <a class="nav-item nav-link" id="uits-settings-tab" data-toggle="tab" href="#uits-settings" role="tab" aria-controls="uits-key" aria-selected="false">UITS Settings</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
       Im the user tab Content
     </div>
+
+    <div class="tab-pane fade" id="uits-settings" role="tabpanel" aria-labelledby="uits-settings-tab">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Configuration Settings</h6>
+              <ul class="list-group">
+                <li class="list-group-item">Quarter 1 Reporting Deadline</li>
+                <li class="list-group-item">Quarter 2 Reporting Deadline</li>
+                <li class="list-group-item">Quarter 3 Reporting Deadline</li>
+                <li class="list-group-item">Quarter 4 Reporting Deadline</li>
+                <li class="list-group-item">Annual Reporting Deadline</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Picklist Values</h6>
+              <ul class="list-group">
+                <li class="list-group-item">
+                  Select field to edit its set values
+                </li>
+                <li class="list-group-item"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Integration Channels</h6>
+              <ul class="list-group">
+                <li class="list-group-item">Department of Labor</li>
+                <li class="list-group-item">Internal Revenue Service</li>
+                <li class="list-group-item">Integration 3</li>
+                <li class="list-group-item">Integration 4</li>
+                <li class="list-group-item">Integration 5</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
     <div class="tab-pane fade" id="nav-permission" role="tabpanel" aria-labelledby="nav-permission-tab">
 
       <table class="table table-striped table-sm" data-target="settings.permissionTable">
@@ -112,6 +166,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Confirmation Modal -->
   <div class="modal" tabindex="-1" role="dialog" id="confirmationModal" data-backdrop="false">
