@@ -4,15 +4,22 @@ $green:#019588;
 .bmd-layout-canvas {
   height: calc(100vh - 88px) !important;
 }
-.at-a-glance h5{
-  margin:30px;
-  color: $green;
+.at-a-glance h6{
+  color: $blue;
   padding-left:6px;
-  border-left: 2px solid $green;
+  border-left: 2px solid $blue;
 }
 
 .radio{
   background-color:$blue; 
+}
+.wage-report-table, #entries{
+  color:$blue;
+}
+.wage-report-table tr td{
+// border-left: 2px solid $blue;
+margin-bottom:2px;
+box-shadow: 1px 1px;
 }
 
 .bmd-layout-drawer {
@@ -30,7 +37,7 @@ $green:#019588;
 }
 
 .input{
-  color: $green;
+  color: $blue;
 }
 #button-row{
   margin-top:20px;
@@ -38,17 +45,24 @@ $green:#019588;
 
 #plus{
   font-size: 10px;
-  background-color: $green;
+  background-color: $blue;
+  color:white;
+}
+
+#start-report{
+  font-size: 15px;
+  background-color: $blue;
+  margin-top:15px;
   color:white;
 }
 
 .th-sm{
-  color: $green;
+  color: $blue;
 }
 
 #plus:hover{
   background-color: white;
-  color:$green;
+  color:$blue;
 }
 
 #single-button{

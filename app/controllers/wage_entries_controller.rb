@@ -14,8 +14,7 @@ class WageEntriesController <  ApplicationController
   end
 
   def create 
-    require 'pry';
-    binding.pry
+
     @report = Wages::WageReport.find(params[:id]) 
     @report.wage_entries.create(params)
 
@@ -26,8 +25,8 @@ class WageEntriesController <  ApplicationController
     @report = Wages::WageReport.find(params[:id]) 
    wage =  Wages::Wage.new
     entry = @report.wage_entries.new(submission_kind: :ammended)
-    require 'pry';
-     binding.pry
+    # require 'pry';
+    #  binding.pry
   end
 
 end

@@ -50,7 +50,7 @@ module Wages
 	  has_many 		:timespans, 
 	  						class_name: 'Timespans::Timespan'
 
-	  validates_presence_of :organization_party, :wage_entries, :filing_method_kind,
+	  validates_presence_of :organization_party, :filing_method_kind,
 	  											:submission_kind #:total_wages, 
 	  											# :excess_wages, :taxable_wages
 
@@ -109,6 +109,7 @@ module Wages
       org.wage_reports.select{|d|d.timespan.begin_on == quarter.begin_on} 
     end
     
+
 
 	  private 
 
