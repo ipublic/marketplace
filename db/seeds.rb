@@ -51,51 +51,51 @@ Parties::PartyRoleKind.create!(key: :other_non_profit, title: 'Other Non Profit'
 Parties::PartyRoleKind.create!(key: :household_employer, title: 'Household Employer')
 
 puts "Creating PartyRelationshipKinds"
-Parties::PartyRelationshipKind.create!(	key: :employment, title: 'Employment',
-                                        party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by!(key: :employee),
-                                            Parties::PartyRoleKind.find_by!(key: :employer),
-                                            Parties::PartyRoleKind.find_by!(key: :owner_or_officer),
-                                          ]
-                                        )
+Parties::PartyRelationshipKind.create!(key: :employment, title: 'Employment',
+                                       party_role_kinds: [
+                                           Parties::PartyRoleKind.find_by!(key: :employee),
+                                           Parties::PartyRoleKind.find_by!(key: :employer),
+                                           Parties::PartyRoleKind.find_by!(key: :owner_or_officer),
+                                         ]
+                                       )
 
-Parties::PartyRelationshipKind.create!(	key: :organization_rollup, title: 'Organization Contact',
-                                        party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by!(key: :primary_contact),
-                                            Parties::PartyRoleKind.find_by!(key: :secondary_contact),
-                                          ]
-                                        )
+Parties::PartyRelationshipKind.create!(key: :organization_rollup, title: 'Organization Contact',
+                                       party_role_kinds: [
+                                           Parties::PartyRoleKind.find_by!(key: :primary_contact),
+                                           Parties::PartyRoleKind.find_by!(key: :secondary_contact),
+                                         ]
+                                       )
 
-Parties::PartyRelationshipKind.create!(	key: :organization_entity, title: 'Organization Entity',
-                                        party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by!(key: :parent_organization),
-                                            Parties::PartyRoleKind.find_by!(key: :subsiary),
-                                            Parties::PartyRoleKind.find_by!(key: :department),
-                                            Parties::PartyRoleKind.find_by!(key: :division),
-                                            Parties::PartyRoleKind.find_by!(key: :other_organization_unit),
-                                          ]
-                                        )
+Parties::PartyRelationshipKind.create!(key: :organization_entity, title: 'Organization Entity',
+                                       party_role_kinds: [
+                                           Parties::PartyRoleKind.find_by!(key: :parent_organization),
+                                           Parties::PartyRoleKind.find_by!(key: :subsiary),
+                                           Parties::PartyRoleKind.find_by!(key: :department),
+                                           Parties::PartyRoleKind.find_by!(key: :division),
+                                           Parties::PartyRoleKind.find_by!(key: :other_organization_unit),
+                                         ]
+                                       )
 
 
-Parties::PartyRelationshipKind.create!(	key: :organization_rollup, title: 'Organization Rollup',
-                                        party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by!(key: :parent_organization),
-                                            Parties::PartyRoleKind.find_by!(key: :subsiary),
-                                            Parties::PartyRoleKind.find_by!(key: :department),
-                                            Parties::PartyRoleKind.find_by!(key: :division),
-                                            Parties::PartyRoleKind.find_by!(key: :other_organization_unit),
-                                          ]
-                                        )
+Parties::PartyRelationshipKind.create!(key: :organization_rollup, title: 'Organization Rollup',
+                                       party_role_kinds: [
+                                           Parties::PartyRoleKind.find_by!(key: :parent_organization),
+                                           Parties::PartyRoleKind.find_by!(key: :subsiary),
+                                           Parties::PartyRoleKind.find_by!(key: :department),
+                                           Parties::PartyRoleKind.find_by!(key: :division),
+                                           Parties::PartyRoleKind.find_by!(key: :other_organization_unit),
+                                         ]
+                                       )
 
-Parties::PartyRelationshipKind.create!(	key: :family_rollup, title: 'Family Rollup',
-                                        party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by!(key: :self),
-                                            Parties::PartyRoleKind.find_by!(key: :spouse),
-                                            Parties::PartyRoleKind.find_by!(key: :domestic_partner),
-                                            Parties::PartyRoleKind.find_by!(key: :child),
-                                            Parties::PartyRoleKind.find_by!(key: :dependent),
-                                          ]
-                                        )
+Parties::PartyRelationshipKind.create!(key: :family_rollup, title: 'Family Rollup',
+                                       party_role_kinds: [
+                                           Parties::PartyRoleKind.find_by!(key: :self),
+                                           Parties::PartyRoleKind.find_by!(key: :spouse),
+                                           Parties::PartyRoleKind.find_by!(key: :domestic_partner),
+                                           Parties::PartyRoleKind.find_by!(key: :child),
+                                           Parties::PartyRoleKind.find_by!(key: :dependent),
+                                         ]
+                                       )
 
 puts "Creating Organization Parties and Wage Reports"
 
