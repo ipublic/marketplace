@@ -1,0 +1,32 @@
+<div class="card-body">
+  <div class="card">
+    <li class="list-group-item" id="card-header">Start a new Wage Report </li>
+      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
+      <div class="card-header" role="tab">
+        <a data-toggle="collapse" data-parent="#accordionEx" href="#new-report">
+          <li class="list-group-item"> Create New Wage Report > </li>
+        </a>
+        <div id= "new-report" class="collapse hide" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+
+          <div>
+            <%= radio_button_tag :filing_method_kind, 'upload',  :class => 'radio' %> 
+            <%= label :filing_method_kind, 'upload' %>
+          </div>
+          <div>
+            <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true,:class => 'radio' %>
+            <%= label :filing_method_kind, 'manual_entry' %>
+          </div>
+          <div>
+            <%= radio_button_tag :filing_method_kind, 'no_wages', :class => 'radio' %>
+            <%= label :filing_method_kind, 'no_wages' %>
+          </div>
+          <div>
+          <%= link_to 'Create Report', new_employer_wage_report_path(@organization), :class => "btn btn-outline-primary btn-rounded ", :id => "start-report" %>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+</div>

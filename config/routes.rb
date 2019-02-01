@@ -6,13 +6,14 @@ Rails.application.routes.draw do
 
   resources :dashboard
 
-  resources :employers do 
-    resources :wage_reports, shallow: true do 
+  resources :employers do
+    get 'get_employers'
+    resources :wage_reports, shallow: true do
       resources :wage_entries
     end
   end
 
-  # resources : do 
+  # resources : do
 
 
   # end

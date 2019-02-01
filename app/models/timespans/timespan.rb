@@ -52,6 +52,7 @@ module Timespans
     alias_method :max,        :end_on
     alias_method :contains?,  :between?
 
+
     private
 
     def range_present?

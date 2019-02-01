@@ -1,0 +1,29 @@
+<div class="card-body">
+  <div class="card">
+    <li class="list-group-item "id="card-header">At a Glance </li>
+    <div class = "at-a-glance col">
+      <div class = "card-body at">
+
+      <h6>Current UI Wages Paid- <span class = 'number'> <%="#{number_to_currency(@current_reports.first.ui_paid_amount)}"%></span></h6>
+      </div>
+     <div class = "card-body at">
+
+      <h6>Current UI Amount Due- <span class = 'number'> <%="#{number_to_currency(@current_reports.first.ui_amount_due)}"%></span></h6>
+     </div>
+
+     <div class = "card-body at">
+
+      <h6>Current Total Wages - <span class = 'number'> <%="#{number_to_currency(@current_reports.first.state_total_gross_wages)}"%></span></h6>
+     </div>
+
+     <div class = "card-body at">
+
+     <h6>Next report due -  <span class = 'number'><%="#{@current_reports.first.timespan.end_on.to_date}"%></span></h6>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+
+

@@ -1,0 +1,46 @@
+<div class="card-body">
+<div class="card">
+  <li class="list-group-item" id="card-header">Older Reports Versions </li>
+  <% @all_quarters[1..@all_quarters.length].each do |quarter|%>
+  <div class="accordion md-accordion" id="accordionEx" role="tablist" >
+    <div class="card-header" role="tab">
+      <a data-toggle="collapse" data-parent="#accordionEx" href="#<%="#{quarter.begin_on}"%>"
+        <li class="list-group-item"> <%= "#{quarter.title}"%></li>
+      </a>
+    </div>
+    <div id= <%="#{quarter.begin_on}"%> class="collapse hide" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+      <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th class="th-sm">Status
+          </th>
+          <th class="th-sm">Submission Method
+          </th>
+          <th class="th-sm">Total Wages
+          </th>
+          <th class="th-sm">Excess Wages
+          </th>
+          <th class="th-sm">UI Amount Due
+          </th>
+          <th class="th-sm">Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @org_reports.each do |report|%>
+          <tr>
+            <td><%= link_to "#{report.status.capitalize}", wage_report_path(report)%></td>
+            <td><%=report.submission_kind.capitalize%></td>
+            <td>$<%=report.state_total_gross_wages%></td>
+            <td>$<%=report.state_ui_taxable_wages%></td>
+            <td>$<%=report.ui_total_due%></td>
+            <td>          
+              <%=link_to 'Amend', edit_wage_report_path(report), :class => "btn btn-outline-primary btn-rounded ", :id => "plus"  %>
+            </td>
+          </tr>
+          <%end%>
+      </tbody>
+    </table>
+  </div>
+  <%end%>
+</div>

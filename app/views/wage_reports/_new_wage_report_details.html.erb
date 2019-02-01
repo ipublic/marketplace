@@ -1,0 +1,59 @@
+<div class= 'card-header' id= "card-header">Add Wage report details</div>
+  <div class=  'card-body'>
+    <%= form_for @report, url: employer_wage_reports_path(@organization), method: :post do |f| %>
+      <div class = "row">
+        <div class = "col">
+        <%= label_tag "Choose a Quarter:"%>
+        <div class = "col">
+          <%= select_tag "quarter", options_from_collection_for_select(@timespans,"id", 'title'), class: 'btn' %>
+        </div>
+      </div>
+      </div>
+      <div class="row ">
+        <div class = "col">
+          <%= f.number_field :state_total_gross_wages, placeholder: "State Total Gross Wages", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :state_ui_total_wages, placeholder: "State UI Total Wages", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :state_ui_taxable_wages, placeholder: "State UI  Taxable Wages", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :state_ui_excess_wages,  placeholder: "State UI Excess Wages", :class =>" input form-control"  %>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col">
+          <%= f.number_field :ui_tax_amount,placeholder: "UI Tax amount", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :ui_admin_fee_amount,placeholder: "UI Admin fee amount", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :ui_interest_amount,placeholder: "UI Interest Amount", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :ui_penalty_amount,placeholder: "UI Penalty Amount", :class =>" input form-control"  %>
+        </div>
+        </div>
+      <div class = "row">            
+        <div class = "col">
+          <%= f.number_field :ui_total_due, placeholder: "UI Total Due", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :ui_paid_amount, placeholder: "UI Paid Amount", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :ui_amount_due, placeholder: "UI Amount Due", :class =>" input form-control"  %>
+        </div>
+        <div class = "col">
+          <%= f.number_field :total_employees,placeholder: " Employee count", :class =>" input form-control"  %>
+        </div>
+      </div>
+        <%= f.submit 'Save Details', :class =>"btn btn-outline-primary btn-rounded",:id => "start-report" %>
+        <%= f.submit 'Cancel', :class =>"btn btn-outline-primary btn-rounded ",:id => "start-report" %>
+          <% end %>
+      </div>
+    </div>
+  </div>

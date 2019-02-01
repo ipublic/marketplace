@@ -1,50 +1,80 @@
-$back: #17365D;
+$blue: #355575;
 $green:#019588;
-
 
 .bmd-layout-canvas {
   height: calc(100vh - 88px) !important;
 }
-
-.bmd-layout-drawer {
-  background-color: #188ef4 !important;
+.at-a-glance h6{
+  color: $blue;
+  padding-left:6px;
+  border-left: 2px solid $blue;
 }
 
+.radio{
+  // background-color:$blue; Commenting out due to globally styling inputs outside of wage reports
+}
+.wage-report-table, #entries{
+  color:$blue;
+}
+.wage-report-table tr td{
+// border-left: 2px solid $blue;
+margin-bottom:2px;
+box-shadow: 1px 1px;
+}
+
+.bmd-layout-drawer {
+  background-color: #355575 !important;
+}
+.wage-report-edit-headers td{
+  font-size:16px;
+}
+.edit-wage-report-card{
+  margin-left:20px;
+}
 #card-header{
   color:white;
-  background-color: $back
+  background-color: $blue
 }
 
 .input{
-  color: $green;
+  color: $blue;
+}
+#button-row{
+  margin-top:20px;
 }
 
 #plus{
-  font-size: 21px;
-  border-radius:1000px;
-  background-color: $green;
+  font-size: 10px;
+  background-color: $blue;
+  color:white;
+}
+
+#start-report{
+  font-size: 15px;
+  background-color: $blue;
+  margin-top:15px;
   color:white;
 }
 
 .th-sm{
-  color: $green;
+  color: $blue;
 }
 
 #plus:hover{
   background-color: white;
-  color:$green;
+  color:$blue;
 }
 
 #single-button{
   color:white;
   margin:10px;
-  background: $back
+  background: $blue
 
 }
 
 #single-button:hover{
   background-color: white;
-  color:$back
+  color:$blue
 }
 
 
@@ -59,4 +89,18 @@ table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
   bottom: .5em;
+}
+
+.wizard-content .wizard > .steps > ul > li.current .step {
+  border-color: #355575 !important;
+  color: #355575 !important;
+}
+
+.wizard-content .wizard > .steps > ul > li.done .step {
+  background-color: #355575 !important;
+  border-color: #355575 !important;
+}
+
+li.first.done:after, li.current:before, li.done:before, li.done:after {
+  background-color: #355575 !important;
 }
