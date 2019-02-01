@@ -15,7 +15,7 @@ module Parties
 	  field :gender, 							type: String
   	field :dob, 								type: Date
 
-  	delegate :party_relationships, to: :party_roles
+  	# delegate :party_relationships, to: :party_roles
 
   	embeds_many	:person_names,
   							class_name: "Parties::PersonName"

@@ -10,6 +10,9 @@ module Parties
 	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
+	  # has_and_belongs_to_many :party_relationships, 
+	  # 												class_name: 'Parties::PartyRelationship'
+
 	  embeds_many		:party_roles, 
 									class_name: "Parties::PartyRole"
 
@@ -33,7 +36,7 @@ module Parties
 								class_name: "Notices::Notice"
 
 		scope :associated_parties,	->{ where("party_roles.related_party_id": _id) }
-		
+
 	  scope :ui_group_sponsors,		->{ any_in(party_roles: [:unemployment_insurance_group_sponsor])}
 		scope :ui_tpas, 						->{ any_in(party_roles: [:unemployment_insurance_tpa]) } 				# need to check end_date for active
 		scope :ui_tpa_agents, 			->{ any_in(party_roles: [:unemployment_insurance_tpa_agent]) } 	# need to check end_date for active
@@ -62,10 +65,11 @@ module Parties
 	  end
 
 	  def add_party_role(new_role)
-	  	if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
-		  	party_roles << new_role unless party_roles_by_kind(new_role)
-		  end
-
+	  	if new_role.valid?
+		  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
+			  	party_roles << new_role # unless party_roles_by_kind(new_role)
+			  # end
+			end
 	  	party_roles
 	  end
 
@@ -78,7 +82,7 @@ module Parties
 	  end
 
 	  def active_party_roles_by_kind(role_kind)
-	  	party_roles_by_kind(role_kind).reduce([]) { |list, role| ist << role.kind if role.is_active? }
+	  	party_roles_by_kind(role_kind).reduce([]) { |list, role| list << role.kind if role.is_active? }
 	  end
 
 	  def party_roles_by_kind(role_kind)

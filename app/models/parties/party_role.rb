@@ -18,8 +18,11 @@ module Parties
 	  validates_presence_of :party_role_kind_id, :start_date
 	  validate :related_party_presence
 
+	  delegate :key, 					to: :party_role_kind, allow_nil: true
 	  delegate :title, 				to: :party_role_kind, allow_nil: true
 	  delegate :description, 	to: :party_role_kind, allow_nil: true
+	  delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
+	  delegate :eligibility_policy, 	to: :party_role_kind, allow_nil: true
 
 	  def is_active?
 	  	end_date.blank? || end_date >= Date.today
@@ -62,12 +65,23 @@ module Parties
 	  private
 
 	  def related_party_presence
-	  	if party_role_kind.has_related_parties?
-	  		errors.add if related_party.blank?
+	  	if party_relationship_kinds.present?
+
+	  		errors.add(:related_party, "party_role #{title} requires a related party instance") if related_party.blank?
+	  		errors.add(:related_party, "party_role #{title} related party kinds #{party_relationship_kinds.inspect} don't match party_relationship definition") unless party_roles_match?
   		else
-  			errors.add if related_party.present?
+  			errors.add(:related_party, "unexpected related_party #{related_party.inspect} for party_role #{title}") if related_party.present?
 	  	end
 	  end
+
+	  # Party roles must match valid role-to-role relationship definition
+	  # Compare Roles for this and associated party
+	  def party_roles_match?
+	  	return false if related_party.blank?
+    	party_relationship_kinds.sort == [party_role_kind.key, related_party.party_role_kind.key].sort
+  	end
+
+
 
 		def roles
 			[
