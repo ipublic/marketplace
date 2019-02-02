@@ -108,6 +108,19 @@ li.side-menu-item:after {
   transform: rotate(45deg);
 }
 
+.er-list-group {
+	border-right: 1px solid rgba(0, 0, 0, .1);
+}
+
+.uic-warning {
+	color: #f44336;
+	font-weight: 600;
+}
+
+.uits-green {
+	color: #018176;
+}
+
 .navbar-toggler {
   .fa-bars {
     color: #ffffff;
