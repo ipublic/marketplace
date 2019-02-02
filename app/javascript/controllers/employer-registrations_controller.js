@@ -1,13 +1,40 @@
 import { Controller } from "stimulus"
+import Rails from 'rails-ujs'
 
 export default class extends Controller {
 
-  static targets = [ "companyType", "evidence", "successor", "previousOrganization", "contributionStep", "message" ]
+  static targets = [ "companyType", "evidence", "previousOrganization", "contributionStep", "message" ]
   wasPrevious;
   stepIndex;
   contributorText;
   initialize() {
         var form = $(".validation-wizard").show();
+
+				function submitForm() {
+					let contactInfo = localStorage.getItem('Contact Info');
+					let addressInfo = localStorage.getItem('Address Info');
+					let companyInfo = localStorage.getItem('Company Info');
+
+					fetch('/employers', {
+			      method: 'POST',
+			      body: JSON.stringify({'address_info': addressInfo, 'contact_info': contactInfo, 'employer_info': companyInfo}),
+			      headers: {
+			        'Content-Type': 'application/json',
+			        'X-CSRF-Token': Rails.csrfToken()
+			      },
+			      credentials: 'same-origin',
+			    })
+			    .then(response => response.json())
+			    .then(response => {
+			      if (response.code === 200) {
+			        swal({
+								title: "Form Received!",
+								text: "Your employer registration has successfully been submitted.",
+								icon: "success",
+							});
+			      }
+			    })
+				}
 
         $(".validation-wizard").steps({
             headerTag: "h6",
@@ -18,14 +45,49 @@ export default class extends Controller {
                 finish: "Submit"
             },
             onStepChanging: function (event, currentIndex, newIndex) {
-                return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
+							// Temporaily stores data from form to pass to rails on submit
+
+							let formData = form[0].elements;
+							if (currentIndex === 0) {
+								localStorage.setItem('Contact Info', JSON.stringify({
+									'first_name': formData[2].value,
+									'last_name': formData[3].value,
+									'dob': formData[4].value,
+									'email': formData[5].value,
+									'area_code': formData[6].value,
+									'number': formData[7].value
+								}))
+							}
+
+							if (currentIndex === 1) {
+								localStorage.setItem('Address Info', JSON.stringify({
+									'address_1': formData[8].value,
+									'address_2': formData[10].value,
+									'kind': formData[9].value,
+									'city': formData[11].value,
+									'state': formData[12].value,
+									'zip': formData[13].value,
+									'county': formData[14].value
+								}))
+							}
+
+							if (currentIndex === 2) {
+								localStorage.setItem('Company Info', JSON.stringify({
+									'legal_name': formData[15].value,
+									'dba': formData[16].value,
+									'fein': formData[17].value,
+									'kind': formData[18].value,
+									'company_type': formData[19].value
+								}))
+							}
+
+              return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
             },
             onFinishing: function (event, currentIndex) {
+								submitForm();
                 return form.validate().settings.ignore = ":disabled", form.valid()
             },
-            onFinished: function (event, currentIndex) {
-                swal("Form Submitted!", "Your employer registration has been received check email for next steps.");
-            }
+            onFinished: function (event, currentIndex) { }
         }), $(".validation-wizard").validate({
             ignore: "input[type=hidden]",
             errorClass: "text-danger",
@@ -56,10 +118,8 @@ export default class extends Controller {
   evidenceNeeded() {
     if (this.companyTypeTarget.value == "reimbursable") {
       this.evidenceTarget.classList.remove('d-none')
-      this.successorTarget.classList.remove('d-none')
     } else {
       this.evidenceTarget.classList.add('d-none')
-      this.successorTarget.classList.add('d-none')
     }
   }
 

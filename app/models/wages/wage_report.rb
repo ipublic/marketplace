@@ -65,27 +65,41 @@ module Wages
     index({ organization_party_id: 1, timespan_id: 1 })
     index({ timespan_id: 1 })
 
-    before_save :sum_employees
+    # before_save :sum_employees
 
     def set_state_wages
     	write_attributes(sum_all_state_wages)
     end
 
     def sum_state_total_wages
-	  	wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_total_gross_wages)  }
+	  	wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_total_gross_wages)  }
 	  end
 
     def sum_state_excess_wages
-      wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_excess_wages)  }
+      wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_excess_wages)  }
 
 	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_excess_wages  }
 	  end
 
     def sum_state_taxable_wages
-      wage_entries.map(&:wage).reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_taxable_wages)  }
-
+      wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_taxable_wages)  } 
 	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_taxable_wages  }
-	  end
+    end
+    
+    def ui_total_due
+        0.05 * sum_state_total_wages
+    end
+
+        
+    def ui_paid_amount
+      0.1 * sum_state_total_wages
+  end
+
+
+    
+    def sum_state_ui_total_wages
+      0.05 * sum_state_total_wages
+    end
 
 	  # Calculate all wage values in one pass -- higher performance on large wage reports
 	  def sum_all_state_wages
@@ -98,7 +112,7 @@ module Wages
 	  end
 
 	  def sum_employees
-	  	wage_entries.size
+	  	wage_entries.compact.uniq.size
     end
 
     def self.find_and_filter_wage_reports(org)

@@ -32,6 +32,8 @@ module Employers
     attribute :fein, String
     attribute :kind, String
     attribute :sic_code, String
+		attribute :company_type, String
+		attribute :successor, String
   end
 
   class ContributionInfoForm
@@ -46,6 +48,10 @@ module Employers
     attribute :contact_info, Employers::ContactInfoForm
     attribute :contribution_info, Employers::ContributionInfoForm
     attribute :employer_info, Employers::EmployerInfoForm
+
+    def self.for_new
+      self.new
+    end
 
     def self.for_create(params)
       form = self.new(params)

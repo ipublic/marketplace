@@ -1,0 +1,29 @@
+
+    <table  class="table table-striped  " id="new-entry">
+      <thead>
+        <tr>
+          <td class="">Employee</td>
+          <td class="td-sm">Submission Kind</td>
+          <td class="td-sm">Submitted At</td>
+          <td class="td-sm">Total Gross Wages</td>
+          <td class="td-sm">Total Wages</td>
+          <td class="td-sm">Excess Wages</td>
+          <td class="td-sm">Taxable Wages</td>
+      </tr>
+      </thead>
+      <tbody>
+        <% @entries.each do |entry| %>
+          <tr>
+            <td><%= entry.try(:wage).try(:person_party).try(:current_first_name) + " " + entry.try(:wage).try(:person_party).try(:current_last_name)%></td>
+            <td scope="row"><%= entry.submission_kind.capitalize%></td>
+            <td scope="row"><%= entry.submitted_at.to_date%></td>
+            <td>$ <%= entry.try(:wage).try(:state_total_gross_wages)%></td>
+            <td>$ <%= entry.try(:wage).try(:state_total_wages)%></td>
+            <td>$ <%= entry.try(:wage).try(:state_excess_wages)%></td>
+            <td>$ <%= entry.try(:wage).try(:state_taxable_wages)%></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

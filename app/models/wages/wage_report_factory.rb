@@ -41,18 +41,18 @@ module Wages
     
     def self.add_entries(report, params)
       wage_params = params[:wages_wage_report][:new_wage_entry]
-
       person =  Parties::PersonParty.create!(current_first_name: wage_params[:person_first_name],current_last_name: wage_params[:person_last_name] )
       entry =  report.wage_entries.new(submission_kind: :amended, submitted_at: Time.now)
       entry.wage = Wages::Wage.new(
-          person_party_id: person.id,
-          timespan_id: report.timespan.id,
-          state_total_gross_wages: wage_params[:state_total_gross_wages],
-          state_total_wages: wage_params[:state_total_wages],
-          state_excess_wages: wage_params[:state_excess_wages],
-          state_taxable_wages:wage_params[:state_taxable_wages]
+        person_party_id: person.id,
+        timespan_id: report.timespan.id,
+        state_total_gross_wages: wage_params[:state_total_gross_wages],
+        state_total_wages: wage_params[:state_total_wages],
+        state_excess_wages: wage_params[:state_excess_wages],
+        state_taxable_wages:wage_params[:state_taxable_wages]
       )
       entry.save
+
       report.save
       if params[:commit] == "Add Entry"
         set_current_report(report)
@@ -78,26 +78,30 @@ module Wages
       cloned_report.save!
     end
 
-    def self.create_report(params)
-      party = Parties::OrganizationParty.find(params[:employer_id])
-      span = Timespans::Timespan.find(params[:quarter])
-      report =  Wages::WageReport.create!(
-        organization_party: party,
-        timespan: span,
-        submission_kind: :original,
-        filing_method_kind: :manual_entry,
-        status: :submitted,
-        state_total_gross_wages: params[:wages_wage_report][:state_total_gross_wages],
-        state_ui_taxable_wages: params[:wages_wage_report][:state_ui_taxable_wages],
-        ui_total_due: params[:wages_wage_report][:ui_total_due],
-        submitted_at: Time.now,
-        state_ui_total_wages:params[:wages_wage_report][:state_ui_total_wages],
-        state_ui_excess_wages: params[:wages_wage_report][:state_ui_excess_wages],
-        ui_paid_amount:  params[:wages_wage_report][:ui_paid_amount],
-        ui_tax_amount: params[:wages_wage_report][:ui_tax_amount],
-        ui_amount_due:  params[:wages_wage_report][:ui_tax_amount],
-        total_employees: params[:wages_wage_report][:total_employees])
-      set_current_report(report)
+    def self.create_report_and_add_entries(params)
+      if @current_report 
+        add_entries(@current_report, params)
+      else
+        party = Parties::OrganizationParty.find(params[:employer_id])
+        span = Timespans::Timespan.current_timespan
+        report =  Wages::WageReport.create!(
+          organization_party: party,
+          timespan: span,
+          submission_kind: :original,
+          filing_method_kind: :manual_entry,
+          status: :submitted,
+          state_total_gross_wages: 0,
+          state_ui_taxable_wages: 0,
+          ui_total_due: 0,
+          submitted_at: Time.now,
+          state_ui_total_wages:0 ,
+          state_ui_excess_wages: 0,
+          ui_paid_amount:  0,
+          ui_tax_amount: 0,
+          ui_amount_due: 0,
+          total_employees: 0)
+          add_entries(report, params)
+      end
     end
 
 

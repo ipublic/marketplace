@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Employers::EmployerForm do
+RSpec.describe Employers::EmployerForm, dbclean: true do
   describe Employers::EmployerForm do
     describe "##for_create" do
       let(:contact_info) do
@@ -51,8 +51,16 @@ RSpec.describe Employers::EmployerForm do
         expect(subject).to be_a(Employers::EmployerForm)
       end
 
-      it 'can be saved and creates a new instance' do
+      it 'can be saved and creates a new Party' do
         expect { subject.save }.to change { Parties::Party.all.count }.by(1)
+      end
+
+      it 'can be saved and creates a new Organization' do
+        expect { subject.save }.to change { Parties::OrganizationParty.all.count }.by(1)
+      end
+
+      it 'can be saved and creates a new Person' do
+        expect { subject.save }.to change { Parties::PersonParty.all.count }.by(1)
       end
     end
   end

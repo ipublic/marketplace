@@ -1,18 +1,12 @@
-<%if @current_report%>
-  <div class="card-body">
     <div class="card">
-      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-          <a data-toggle="collapse" data-parent="#accordionEx" href="#new-entry">
             <li class="list-group-item" id = "card-header"> Add Wage Entries </li>
-          </a>
-      </div>
-      <div class="collapse hide" id="new-entry" role="tablist" >
-            <%= form_for @current_report, url: employer_wage_reports_path(@organization), method: :post do |f| %>
+      <div class="" id="new-entry" role="tablist" >
+            <%= form_for @report, url: employer_wage_reports_path(@organization), method: :post do |f| %>
               <%= f.fields_for :new_wage_entry do |field| %>
               <div class= 'card-body'>
                 <div class="row ">
                   <div class = "col">
-                  <%=f.hidden_field :report_id,:value => @current_report.id%>
+                  <%=f.hidden_field :report_id,:value => @report.id%>
                     <%= field.text_field :person_first_name, placeholder:"Employee First Name", required: true, :class =>" input form-control" %>
                   </div>
                   <div class = "col">
@@ -33,9 +27,10 @@
                   <% end %>
               </div>
               <%= f.submit 'Add Entry', :class =>"btn btn-outline-primary btn-rounded",:id => "start-report" %>
-          </div>
-        <% end %>
-        <%end%>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+        <% end %>
+

@@ -9,7 +9,13 @@ export default class extends Controller {
 
   initialize() {
     let table = $('#employerDataTable').DataTable({
-      "bPaginate": false,
+      "bPaginate": true,
+			"columnDefs": [
+            {
+                "targets": [ 0, 1, 2 ],
+                "className": 'mdl-data-table__cell--non-numeric'
+            }
+        ],
       "ajax": {
         "url": "/employers/1/get_employers",
         "type": "get"
