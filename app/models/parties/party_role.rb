@@ -49,6 +49,17 @@ module Parties
     end
 
     # Restore a deactiviated role
+		def is_active?
+      end_date.blank? || end_date > TimeKeeper.date_of_record
+    end
+
+    # Deactive this role
+    def terminate(new_end_date = TimeKeeper.date_of_record)
+    	related_party.end_role(new_end_date) if related_party.present?
+    	write_attribute(:end_date, new_end_date)
+    end
+
+    # Restore a deactiviated role
     def reinstate
     	related_party.reinstate_role(new_end_date) if related_party.present?
     	write_attribute(:end_date, nil)
