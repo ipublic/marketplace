@@ -16,9 +16,13 @@ module Parties
 	  has_and_belongs_to_many	:party_relationship_kinds,
 	  												class_name: "Parties::PartyRelationshipKind"
 
+    has_many 			:party_roles,
+    							class_name: 'Parties::PartyRole'
+
 	  # Associate a business rule for validating a role instance
-		# belongs_to 							:eligibility_policy,
-		# 												class_name: 'EligibilityPolicies::EligibilityPolicy'
+		belongs_to		:eligibility_policy,
+									class_name: 'EligibilityPolicies::EligibilityPolicy',
+									optional: true
 
 
 	  before_validation :assign_key_and_title

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Parties::PartyRoleKind, type: :model do
+RSpec.describe Parties::PartyRoleKind, type: :model, dbclean: :after_each do
     it { is_expected.to be_mongoid_document }
 		it { is_expected.to have_timestamps }
 
@@ -8,6 +8,7 @@ RSpec.describe Parties::PartyRoleKind, type: :model do
 
     let(:key)						{ :happy_camper }
     let(:title)					{ "Happy Camper" }
+
 
 	  let(:params) do
 	    {
@@ -79,4 +80,10 @@ RSpec.describe Parties::PartyRoleKind, type: :model do
       end
 	  end
 
+	  describe "Working with PartyRelationshipKinds" do
+	  	let(:battle_opponents_party_relationship_kind) { Parties::PartyRelationshipKind.new(key: :battle_opponents) }
+	  	let(:dating_partners_party_relationship_kind) { Parties::PartyRelationshipKind.new(key: :dating_partners) }
+	    let(:party_relationhip_kinds)	{ [battle_opponents_party_relationship_kind, dating_partners_party_relationship_kind] }
+
+	  end
 end
