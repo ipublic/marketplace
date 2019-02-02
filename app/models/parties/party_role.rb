@@ -34,13 +34,13 @@ module Parties
     end
 
     # Deactive this role
-    def end_role(new_end_date = TimeKeeper.date_of_record)
+    def end_party_role(new_end_date = TimeKeeper.date_of_record)
     	related_party.end_role(new_end_date)
     	write_attribute(:end_date, new_end_date)
     end
 
     # Restore a previously deactiviated role
-    def reinstate_role
+    def reinstate_party_role
     	related_party.reinstate_role(new_end_date)
     	write_attribute(:end_date, nil)
     end
