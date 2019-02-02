@@ -32,6 +32,8 @@ module Employers
     attribute :fein, String
     attribute :kind, String
     attribute :sic_code, String
+		attribute :company_type, String
+		attribute :successor, String
   end
 
   class ContributionInfoForm
