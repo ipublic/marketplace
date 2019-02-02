@@ -46,18 +46,6 @@ module Parties
       @fein = numeric_fein
     end
 
-    def entity_kinds
-      ENTITY_KINDS
-    end
-
-		def all_party_roles
-			super + [
-					:health_insurance_group_sponsor,
-					:unemployment_insurance_group_sponsor,
-					:paid_family_leave_group_sponsor
-				]
-		end
-
     class << self
 
       def search_hash(s_rex)

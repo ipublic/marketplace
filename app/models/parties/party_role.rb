@@ -24,7 +24,11 @@ module Parties
     # Date this role is no longer in effect for subject_party
     field :end_date, 						type: Date
 
+<<<<<<< HEAD
     validates_presence_of :party_role_kind, :start_date
+=======
+    validates_presence_of :party_role_kind, :start_date #, :party_role_kind_id
+>>>>>>> Roles and Relations working with backing specs.  Helper methods and more to come!
     # validate :validate_related_party
 
     delegate :key, 												to: :party_role_kind, allow_nil: true
@@ -38,17 +42,6 @@ module Parties
     #   role_kind = Parties::PartyRoleKind.find_by(key: :role_kind_key)
     # end
 
-    def is_active?
-      end_date.blank? || end_date > TimeKeeper.date_of_record
-    end
-
-    # Deactive this role
-    def terminate(new_end_date = TimeKeeper.date_of_record)
-    	related_party.end_role(new_end_date) if related_party.present?
-    	write_attribute(:end_date, new_end_date)
-    end
-
-    # Restore a deactiviated role
 		def is_active?
       end_date.blank? || end_date > TimeKeeper.date_of_record
     end
