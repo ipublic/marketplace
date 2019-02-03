@@ -18,10 +18,10 @@ module Parties
     # embeds_many               :comments, as: :commentable
 
 
-    validates_presence_of :key, :title
-    validate :party_role_kind_pairing
+    # # validates_presence_of :key, :title
+    # # validate :party_role_kind_pairing
 
-    before_validation :assign_key_and_title
+    # before_validation :assign_key_and_title
 
     private
 
