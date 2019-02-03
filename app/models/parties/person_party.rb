@@ -34,7 +34,7 @@ module Parties
 	  index({dob: 1}, {sparse: true})
 
 	  scope :employed_by, 	-> (party){} # party_relationship of employment, with 
-	  scope :contacts_for, 	-> (party){}
+	  scope :contact_for, 	-> (party){}
 
 	end
 end
