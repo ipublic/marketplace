@@ -31,7 +31,14 @@ export default class extends Controller {
 								title: "Form Received!",
 								text: "Your employer registration has successfully been submitted.",
 								icon: "success",
-							});
+							})
+							.then(() => {
+								window.location.pathname = '/dashboard'
+							})
+
+							localStorage.removeItem('Contact Info');
+							localStorage.removeItem('Address Info');
+							localStorage.removeItem('Company Info');
 			      }
 			    })
 				}
@@ -61,9 +68,9 @@ export default class extends Controller {
 
 							if (currentIndex === 1) {
 								localStorage.setItem('Address Info', JSON.stringify({
+									'kind': formData[9].value,
 									'address_1': formData[8].value,
 									'address_2': formData[10].value,
-									'kind': formData[9].value,
 									'city': formData[11].value,
 									'state': formData[12].value,
 									'zip': formData[13].value,
@@ -77,7 +84,7 @@ export default class extends Controller {
 									'dba': formData[16].value,
 									'fein': formData[17].value,
 									'kind': formData[18].value,
-									'company_type': formData[19].value
+									//'company_type': formData[19].value
 								}))
 							}
 

@@ -323,7 +323,5 @@ export default class extends Controller {
         document.getElementById('nav-permission-tab').click();
       },300)
     })
-
   }
-
 }
