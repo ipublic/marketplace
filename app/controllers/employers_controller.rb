@@ -15,7 +15,7 @@ class EmployersController < ApplicationController
   end
 
   def create
-    @employer = Employers::EmployerForm.for_create({form_params.to_json})
+    @employer = Employers::EmployerForm.for_create(form_params.to_json)
     if @employer.save
 			render json: {code: 200, message: 'Employer Registration successfully submitted.'}
 		else
