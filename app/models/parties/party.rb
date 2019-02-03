@@ -59,7 +59,6 @@ module Parties
 
 
 	  def add_party_role(role_kind_key)
-	  	role_kind = 
 	  	party_role.build(role_kind_Key) 
 	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
 		  # end
@@ -69,12 +68,8 @@ module Parties
 	  end
 
 	  def add_party_relationship_role(party_role_kind_key, party_relationship_kind_key, related_party)
-	  	# look up party_role_kind 
-	  	# find party_relationship_kind(s) it belongs to
-	  	# verify presence of party_relationship_kind
-	  	# build party_role
-	  	# verify there isn't an existing active duplicate party_relationship_role for this party
-	  	# add new party_role to party_roles
+	  	party_role = party_roles.build
+	  	Roles::RelationshipRoleFactory()
 	  end
 
 

@@ -1,7 +1,7 @@
 module Roles
 	class RelationshipRoleFactory
 
-		attr_accessor :party_role, :related_party_role, :party_relationship
+		attr_accessor :party, :related_party, :party_relationship
 
 
     def self.call(party, party_role_kind_key, party_relationship_kind_key, related_party)
@@ -51,7 +51,7 @@ module Roles
 
     def verify_party_role_pair
     	if @party_relationship_kind.party_role_kinds.include?(@party_role_kind)
-    		@related_party_role_kind = (@party_relationship_kind.party_role_kinds - @party_role_kind).first
+    		@related_party_role_kind = (@party_relationship_kind.party_role_kinds - @party_role_kind.to_a).first
     	else
     		# Error condition, the passed party_role_kind isn't in the relationshiop definition
     	end
@@ -81,12 +81,12 @@ module Roles
     	@related_party_role = related_party.party_roles.build(party_role_kind: @related_party_role_kind)
     end
 
-    def party_role
-      @party_role
+    def party
+      @party
     end
 
-    def related_party_role
-      @related_party_role
+    def related_party
+      @related_party
     end
 
     def party_relationship

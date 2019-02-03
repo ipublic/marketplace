@@ -11,7 +11,7 @@ RSpec.describe Roles::RoleFactory, type: :model, dbclean: :after_each do
 
   let(:scott_pilgrim_party)					{ Parties::PersonParty.create!(current_first_name: current_first_name, current_last_name: current_last_name) }
   let!(:hero_party_role_kind)				{ Parties::PartyRoleKind.create!(key: hero_party_role_kind_key) }
-  let!(:evil_ex_party_role_kind)		{ Parties::PartyRoleKind.create!(key: evil_ex_party_role_kind_key) }
+  let!(:evil_ex_party_role_kind)			{ Parties::PartyRoleKind.create!(key: evil_ex_party_role_kind_key) }
 
   describe 'Given a PersonParty with no PartyRoles and some party_role_kinds' do
 
