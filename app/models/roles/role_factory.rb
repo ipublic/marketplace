@@ -20,7 +20,6 @@ module Roles
 
     	find_party_role_kind
     	build_party_role
-    	validate_unique_role
     end
 
     def find_party_role_kind
@@ -28,10 +27,11 @@ module Roles
     end
 
     def build_party_role
-    	unless @party.active_party_roles.detect { |role| role.key == party_role_kind_key }
-	    	@party_role = party.party_roles.build(party_role_kind: @party_role_kind)
+    	if @party.active_party_roles_by_key(@party_role_kind_key).size == 0
+	    	@party_role = @party.party_roles.build(party_role_kind: @party_role_kind)
     	else
-    		# Error condintion, party already has this active role
+    		# Error condition, party already has this active role
+    		@party_role = nil
     	end
     end
 
