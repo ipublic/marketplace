@@ -57,6 +57,27 @@ module Parties
 	  index({"party_roles.party_role_kind_id": 1})
 	  index({"party_roles.related_party_id": 1}, {sparse: true})
 
+
+	  def add_party_role(role_kind_key)
+	  	role_kind = 
+	  	party_role.build(role_kind_Key) 
+	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
+		  # end
+	  	party_roles << new_role # unless party_roles_by_kind(new_role)
+
+	  	party_roles
+	  end
+
+	  def add_party_relationship_role(party_role_kind_key, party_relationship_kind_key, related_party)
+	  	# look up party_role_kind 
+	  	# find party_relationship_kind(s) it belongs to
+	  	# verify presence of party_relationship_kind
+	  	# build party_role
+	  	# verify there isn't an existing active duplicate party_relationship_role for this party
+	  	# add new party_role to party_roles
+	  end
+
+
 	  def active_party_roles_by_key(role_key)
 	  	party_roles_by_key(role_key).reduce([]) { |active_list, role| active_list << role if role.is_active? }
 	  end
@@ -77,14 +98,6 @@ module Parties
 
 	  def has_relationship?(relationship_kind)
 	  	party_relationships.include?(relationship_kind)
-	  end
-
-	  def add_party_role(new_role)
-	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
-		  # end
-	  	party_roles << new_role # unless party_roles_by_kind(new_role)
-
-	  	party_roles
 	  end
 
 	  def end_party_role(ended_role)

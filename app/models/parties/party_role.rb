@@ -34,6 +34,10 @@ module Parties
     # delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
     # delegate :eligibility_policy, 				to: :party_role_kind, allow_nil: true
 
+    # def add(role_kind_key)
+    #   role_kind = Parties::PartyRoleKind.find_by(key: :role_kind_key)
+    # end
+
     def is_active?
       end_date.blank? || end_date > TimeKeeper.date_of_record
     end

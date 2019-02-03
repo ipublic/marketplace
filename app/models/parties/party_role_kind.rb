@@ -37,9 +37,9 @@ module Parties
 
 	  alias_method :is_published?, 				:is_published
 
-	  def defined_relationships
-	  	party_relationship_kinds.reduce([]) { |list, kind| list << kind if kind.party_role_kinds.include? self }
-	  end
+    def has_party_relationship_kinds?
+    	party_relationship_kinds.size > 0
+    end
 
 	  def key=(new_key)
 	  	write_attribute(:key, text_to_symbol(new_key))
