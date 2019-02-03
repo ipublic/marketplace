@@ -4,24 +4,16 @@ module Roles
 		attr_accessor :party_role, :related_party_role, :party_relationship
 
 
-    def self.call(party, args)
+    def self.call(party, party_role_kind_key, party_relationship_kind_key, related_party)
       build(party, args).party_role
     end
 
-    def self.validate(party_role)
-      # TODO: Add validations
-      # Validate open enrollment period
-      true
-    end
-
   	# look up party_role_kind
-  	# find party_relationship_kind(s) it belongs to
-  	# verify presence of party_relationship_kind
-  	# build party_role
-  	# verify there isn't an existing active duplicate party_relationship_role for this party
-  	# assign party_role kind to this party
-  	# assign party_role to related_party
-  	# add new party_role to party_roles
+  	# look up party_relationship kind
+  	# verify the party_relationship includes the passed party_role_kind in the relationship pair
+  	# build party_roles for both the source party and related party
+  	# instantiate a new party_relationship instance populated with the party_role instances
+  	# validate the relationship isn't already present for these parties
 
     def initialize(party, party_role_kind_key, party_relationship_kind_key, related_party)
     	@party 												= party
