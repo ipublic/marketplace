@@ -28,8 +28,10 @@ module Parties
 	  before_validation :assign_key_and_title
 
 	  validates_presence_of :key, :title, :start_date, :is_published
+    validates_uniqueness_of :key
 
-	  index({ key: 1, is_published: 1, start_date: 1, end_date: 1 })
+	  index({ key: 1}, { unique: true })
+	  index({ is_published: 1, start_date: 1, end_date: 1 })
 
 	  # before_validation :set_key
 

@@ -7,21 +7,18 @@ Parties::PartyRoleKind.create!(key: :employee, title: 'Employee')
 Parties::PartyRoleKind.create!(key: :owner_or_officer, title: 'Owner/Officer')
 Parties::PartyRoleKind.create!(key: :contractor, title: 'Contractor')
 
+Parties::PartyRoleKind.create!(key: :responsible_party, title: 'Responsible Party')
 Parties::PartyRoleKind.create!(key: :self, title: 'Self')
 Parties::PartyRoleKind.create!(key: :spouse, title: 'Spouse')
 Parties::PartyRoleKind.create!(key: :domestic_partner, title: 'Domestic Partner')
 Parties::PartyRoleKind.create!(key: :child, title: 'Child')
 Parties::PartyRoleKind.create!(key: :dependent, title: 'Dependent')
 
-Parties::PartyRoleKind.create!(key: :ui_primary_contact, title: 'UI Primary Contact')
-Parties::PartyRoleKind.create!(key: :ui_secondary_contact, title: 'UI Secondary Contact')
-
-Parties::PartyRoleKind.create!(key: :pfl_primary_contact, title: 'PFL Primary Contact')
-Parties::PartyRoleKind.create!(key: :pfl_secondary_contact, title: 'PFL Secondary Contact')
+Parties::PartyRoleKind.create!(key: :contact, title: 'Contact')
 
 # UITS/PFL 
-Parties::PartyRoleKind.create!(key: :tpa_agent, title: 'TPA Agent')
 Parties::PartyRoleKind.create!(key: :ui_claiment, title: 'Unemployment Insurance Claiment')
+Parties::PartyRoleKind.create!(key: :pfl_claiment, title: 'Paid Family Leave Claiment')
 
 
 ## OrganizationParty Roles ##
@@ -66,57 +63,62 @@ puts "*"*80
 puts "Populating Relationships"
 puts "*"*80
 
-Parties::PartyRelationshipKind.create!(   key: :employment, title: 'Employment',
-                                      party_role_kinds: [
+Parties::PartyRelationshipKind.create!( key: :employment, title: 'Employment',
+                                        party_role_kinds: [
                                             Parties::PartyRoleKind.find_by(key: :employee),
                                             Parties::PartyRoleKind.find_by(key: :employer),
+                                          ]
+                                      )
+
+Parties::PartyRelationshipKind.create!( key: :organization_officer, title: 'Organization Officer',
+                                        party_role_kinds: [
+                                            Parties::PartyRoleKind.find_by(key: :parent_organization),
                                             Parties::PartyRoleKind.find_by(key: :owner_or_officer),
                                           ]
                                       )
 
-Parties::PartyRelationshipKind.create!(   key: :ui_contact, title: 'Organization UI Contact',
-                                      party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by(key: :ui_primary_contact),
-                                            Parties::PartyRoleKind.find_by(key: :ui_secondary_contact),
-                                            Parties::PartyRoleKind.find_by(key: :employer),
-                                          ]
-                                      )
-
-Parties::PartyRelationshipKind.create!(   key: :organization_entity, title: 'Organization Entity',
-                                      party_role_kinds: [
+Parties::PartyRelationshipKind.create!( key: :organization_ui_primary_contact, title: 'Organization UI Primary Contact',
+                                        party_role_kinds: [
+                                            Parties::PartyRoleKind.find_by(key: :contact),
                                             Parties::PartyRoleKind.find_by(key: :parent_organization),
-                                            Parties::PartyRoleKind.find_by(key: :subsiary),
-                                            Parties::PartyRoleKind.find_by(key: :department),
-                                            Parties::PartyRoleKind.find_by(key: :division),
-                                            Parties::PartyRoleKind.find_by(key: :other_organization_unit),
                                           ]
                                       )
 
-
-Parties::PartyRelationshipKind.create!(   key: :organization_rollup, title: 'Organization Rollup',
-                                      party_role_kinds: [
+Parties::PartyRelationshipKind.create!( key: :organization_ui_secondary_contact, title: 'Organization UI Secondary Contact',
+                                        party_role_kinds: [
+                                            Parties::PartyRoleKind.find_by(key: :contact),
                                             Parties::PartyRoleKind.find_by(key: :parent_organization),
-                                            Parties::PartyRoleKind.find_by(key: :subsiary),
-                                            Parties::PartyRoleKind.find_by(key: :department),
-                                            Parties::PartyRoleKind.find_by(key: :division),
-                                            Parties::PartyRoleKind.find_by(key: :other_organization_unit),
                                           ]
                                       )
 
-Parties::PartyRelationshipKind.create!(   key: :family_rollup, title: 'Family Rollup',
-                                      party_role_kinds: [
-                                            Parties::PartyRoleKind.find_by(key: :self),
-                                            Parties::PartyRoleKind.find_by(key: :spouse),
-                                            Parties::PartyRoleKind.find_by(key: :domestic_partner),
-                                            Parties::PartyRoleKind.find_by(key: :child),
-                                            Parties::PartyRoleKind.find_by(key: :dependent),
+Parties::PartyRelationshipKind.create!( key: :organization_pfl_primary_contact, title: 'Organization PFL Primary Contact',
+                                        party_role_kinds: [
+                                            Parties::PartyRoleKind.find_by(key: :contact),
+                                            Parties::PartyRoleKind.find_by(key: :parent_organization),
                                           ]
                                       )
 
-Parties::PartyRelationshipKind.create!(   key: :family_rollup, title: 'TPA Relationship',
-                                      party_role_kinds: [
+Parties::PartyRelationshipKind.create!( key: :organization_pfl_secondary_contact, title: 'Organization PFL Secondary Contact',
+                                        party_role_kinds: [
+                                            Parties::PartyRoleKind.find_by(key: :contact),
+                                            Parties::PartyRoleKind.find_by(key: :parent_organization),
+                                          ]
+                                      )
+
+Parties::PartyRelationshipKind.create!( key: :ui_tpa_relationship, title: 'UI TPA Relationship',
+                                        party_role_kinds: [
                                             Parties::PartyRoleKind.find_by(key: :tpa),
                                             Parties::PartyRoleKind.find_by(key: :employer),
                                           ]
                                       )
+
+Parties::PartyRelationshipKind.create!( key: :pfl_tpa_relationship, title: 'PFL TPA Relationship',
+                                        party_role_kinds: [
+                                            Parties::PartyRoleKind.find_by(key: :tpa),
+                                            Parties::PartyRoleKind.find_by(key: :employer),
+                                          ]
+                                      )
+
+
+
 

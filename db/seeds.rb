@@ -109,6 +109,7 @@ end
 
 1..30.times do
  Parties::OrganizationParty.create!(
+    entity_id:"#{rand(10000...999999)}",
     fein:"#{rand(111111111...999999999)}",
     legal_name:"#{legal_first_names.sample + " " + legal_last_names.sample}",
     is_foreign_entity: false)
@@ -160,7 +161,7 @@ end
 puts "*"*80
 
 puts "Creating Indexes"
-# system "rake db:mongoid:create_indexes"
+system "rake db:mongoid:create_indexes"
 puts "::: complete :::"
 
 puts "End of Seed Data"

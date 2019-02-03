@@ -24,16 +24,12 @@ module Parties
     # Date this role is no longer in effect for subject_party
     field :end_date, 						type: Date
 
-<<<<<<< HEAD
     validates_presence_of :party_role_kind, :start_date
-=======
-    validates_presence_of :party_role_kind, :start_date #, :party_role_kind_id
->>>>>>> Roles and Relations working with backing specs.  Helper methods and more to come!
     # validate :validate_related_party
 
     delegate :key, 												to: :party_role_kind, allow_nil: true
     delegate :title, 											to: :party_role_kind, allow_nil: true
-    delegate :description, 								to: :party_role_kind, allow_nil: true
+    delegate :description,
 
     # delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
     # delegate :eligibility_policy, 				to: :party_role_kind, allow_nil: true

@@ -42,6 +42,18 @@ RSpec.describe Parties::PartyRelationshipKind, type: :model, dbclean: :after_eac
         end
 	    end
 
+      context "with both key and title" do
+        let(:other_key)   { :other_key }
+        let(:other_title) { 'other_title' }
+        subject { described_class.new(key: other_key, title: other_title) }
+
+        it "should set the assigned values" do
+          subject.validate
+          expect(subject.key).to eq other_key
+          expect(subject.title).to eq other_title
+        end
+      end
+
       context "with no key and no title" do
         subject { described_class.new(params.except(*[:key, :title])) }
 

@@ -32,7 +32,7 @@ module Parties
 
 	  validates_presence_of :fein, :legal_name, :is_foreign_entity
 
-		index({ entity_id: 1 },		{ unique: true})
+		# index({ entity_id: 1 },		{ unique: true})
     index({ legal_name: 1 })
     index({ dba: 1 },   			{ sparse: true })
     index({ fein: 1 },  			{ unique: true, sparse: true })
