@@ -23,6 +23,9 @@ $green:#019588;
 .wage-report-table, #entries{
   color:$blue;
 }
+.new-report-button{
+  background-color: $blue;
+}
 .wage-report-table tr td{
 // border-left: 2px solid $blue;
 margin-bottom:2px;
@@ -32,11 +35,11 @@ box-shadow: 1px 1px;
 .bmd-layout-drawer {
   background-color: #355575 !important;
 }
-.wage-report-edit-headers td{
+.wage-report-edit-headers{
   font-size:16px;
 }
 .edit-wage-report-card{
-  margin-left:20px;
+  margin-left:15px;
 }
 #card-header{
   color:white;
@@ -69,10 +72,20 @@ box-shadow: 1px 1px;
 .row {
   margin:20px;
 }
-#plus{
+#plus, #create-report-btn{
   font-size: 10px;
+
   background-color: $blue;
   color:white;
+}
+.start-report-button{
+width:120px;
+background-color: $blue;
+a{
+
+  color:white;
+}
+padding:5px;
 }
 
 #start-report, .start-report{
@@ -103,6 +116,14 @@ box-shadow: 1px 1px;
 
 }
 
+#destroy-entry 
+{
+  margin-left:10px;
+  a {
+    padding:5px;
+    font-size: 15px;
+  }
+}
 #single-button:hover{
   background-color: white;
   color:$blue

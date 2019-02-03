@@ -22,6 +22,7 @@ module Wages
       @current_report = report
     end
 
+
     def self.get_current_report 
       @current_report
     end
@@ -30,7 +31,7 @@ module Wages
       cloned_report = report.clone 
       if params[:wages_wage_report][:new_wage_entry][:person_first_name].present?
         add_entries(cloned_report, params)
-      end
+      else
       wage_entry_ids = cloned_report.wage_entries.map(&:_id)
       wage_entry_ids.each do |id|
         if params[:wages_wage_report][:wage_entries][id.to_s]
@@ -38,18 +39,24 @@ module Wages
         end
       end
     end
+    end
     
     def self.add_entries(report, params)
+      if params[:commit] == "Add Entry"
+        submission_kind = :original
+      else 
+        submission_kind = :amended
+      end
       wage_params = params[:wages_wage_report][:new_wage_entry]
-      person =  Parties::PersonParty.create!(current_first_name: wage_params[:person_first_name],current_last_name: wage_params[:person_last_name] )
-      entry =  report.wage_entries.new(submission_kind: :amended, submitted_at: Time.now)
+      person =  Parties::PersonParty.create!(
+        current_first_name: wage_params[:person_first_name],
+        current_last_name: wage_params[:person_last_name],
+        ssn: wage_params[:ssn] )
+      entry =  report.wage_entries.new(submission_kind: submission_kind, submitted_at: Time.now)
       entry.wage = Wages::Wage.new(
         person_party_id: person.id,
         timespan_id: report.timespan.id,
         state_total_gross_wages: wage_params[:state_total_gross_wages],
-        state_total_wages: wage_params[:state_total_wages],
-        state_excess_wages: wage_params[:state_excess_wages],
-        state_taxable_wages:wage_params[:state_taxable_wages]
       )
       entry.save
 
@@ -64,10 +71,7 @@ module Wages
     def self.update_clone(id,cloned_report, wage_params)
       wage = cloned_report.wage_entries.find(id).wage
       wage.update_attributes!(
-        state_total_gross_wages: wage_params[:state_total_gross_wages],
-        state_total_wages:wage_params[:state_total_wages],
-        state_excess_wages: wage_params[:state_excess_wages],
-        state_taxable_wages:wage_params[:state_taxable_wages]
+        state_total_gross_wages: wage_params[:state_total_gross_wages]
       )
       cloned_report.update_attributes(submission_kind: :amended, 
       submitted_at: Time.now.to_date,

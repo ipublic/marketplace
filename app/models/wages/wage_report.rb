@@ -72,19 +72,25 @@ module Wages
     end
 
     def sum_state_total_wages
-	  	wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_total_gross_wages)  }
+      wage_entries.map(&:wage).compact.reduce(0.0) do |subtotal, wage|
+         subtotal += wage.state_total_gross_wages if  wage.state_total_gross_wages
+        end
 	  end
 
     def sum_state_excess_wages
-      wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_excess_wages)  }
+      wage_entries.map(&:wage).compact.reduce(0.0) do |subtotal, wage| 
+        excess = wage.state_excess_wages || 0
+        subtotal += excess
+    end
 
 	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_excess_wages  }
 	  end
 
     def sum_state_taxable_wages
-      wage_entries.map(&:wage).compact.reduce(0.0) { |subtotal, wage| subtotal += wage.try(:state_taxable_wages)  } 
-	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_taxable_wages  }
+      wage_entries.map(&:wage).compact.reduce(0.0) do  |subtotal, wage| 
+        subtotal += wage.state_taxable_wages || 0 
     end
+  end
     
     def ui_total_due
         0.05 * sum_state_total_wages

@@ -45,10 +45,18 @@ class WageReportsController <  ApplicationController
     redirect_to new_employer_wage_report_path(@organization)
   end
 
+  def destroy
+    binding.pry
+    report = Wages::WageReport.find(params[:id])
+    entry = report.wage_entries.find(params[:entry])
+    entry.destroy 
+    redirect_to edit_wage_report_path(report)
+  end
+
   def update
     @report = Wages::WageReport.find(params[:id])
     if params[:commit] == "Cancel" ||  params[:commit] == "Save"
-      redirect_to edit_wage_report_path(@report)
+      redirect_to employer_wage_reports_path(@report.organization_party)
     else
       Wages::WageReportFactory.amend(@report, params)
       redirect_to employer_wage_reports_path(@report.organization_party)

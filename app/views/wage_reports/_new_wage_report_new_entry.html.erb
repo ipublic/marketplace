@@ -13,16 +13,10 @@
                     <%= field.text_field :person_last_name, placeholder: "Employee Last Name",required: true, :class =>" input form-control" %>
                   </div>
                   <div class="col">
-                    <%= field.number_field :state_total_gross_wages, placeholder:"Total Gross Wages", required: true,:class =>"input form-control" %>
+                    <%= field.number_field :ssn, placeholder:"SSN", required: true,:class =>"input form-control" %>
                   </div>
                   <div class="col">
-                    <%= field.number_field :state_total_wages, placeholder:" State Total Wages", required: true, :class =>"input  form-control" %>
-                  </div>
-                  <div class="col">
-                    <%= field.number_field :state_excess_wages, placeholder:"State Excess Wages", required: true, :class =>"input  form-control" %>
-                  </div>
-                  <div class="col">
-                    <%= field.number_field :state_taxable_wages, placeholder:"State Taxable Wages",  required: true, :class =>"input  form-control" %>
+                    <%= field.number_field :state_total_gross_wages, placeholder:"UI Wages Paid", required: true,:class =>"input form-control" %>
                   </div>
                   <% end %>
               </div>

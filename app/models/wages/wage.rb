@@ -17,7 +17,7 @@ module Wages
 	  field :state_excess_wages,			type: BigDecimal
 	  field :state_taxable_wages,			type: BigDecimal
 
-	  validates_presence_of :person_party_id, :timespan_id, :state_total_wages, :state_excess_wages, :state_taxable_wages
+	  validates_presence_of :person_party_id, :timespan_id
 
     index({ person_party_id: 1})
     index({ timespan_id: 1})

@@ -1,10 +1,10 @@
 <div class="card-body">
   <div class="card">
       <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-        <a data-toggle="collapse" data-parent="#accordionEx" href="#new-report">
+        <a data-toggle="collapse" data-parent="#accordionEx" >
             <li class="list-group-item" id="card-header">Start a new Wage Report </li>
         </a>
-          <div id= "new-report" class="collapse hide" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+          <div id= "new-report" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
             <div>
               <%= radio_button_tag :filing_method_kind, 'upload',  :class => 'radio' %> 
               <%= label :filing_method_kind, 'upload' %>
@@ -17,9 +17,9 @@
               <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true, :class => 'radio' %>
               <%= label :filing_method_kind, 'manual_entry' %>
             </div>
-            <div>
-            <%= link_to 'Create Report', controller: 'wage_reports', action: "new", employer_id: @organization.id, report: "new", :class => "btn btn-outline-primary btn-rounded  start-report", method: :post %>
-            </div>
+            <div class = 'start-report-button btn' id = "create-report-btn">
+            <%= link_to 'Create Report', controller: 'wage_reports', action: "new", employer_id: @organization.id, report: "new", method: :get%>
+          </div>
         </div>
     </div>
   </div>
