@@ -1,7 +1,9 @@
 <div class="card">
   <div class="card-header"><%= @organization.legal_name %> Wage Reports</div>
-  <%= render :partial => "new_report" %>
-  <%= render :partial => "latest_report" %>
+	<div class="row pl-3">
+	  <%= render :partial => "latest_report" %>
+		<%= render :partial => "new_report" %>
+	</div>
   <%= render :partial => "older_reports" %>
   </div>
 </div>
