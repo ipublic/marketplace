@@ -41,7 +41,7 @@ parties = Parties::OrganizationParty.all
 parties.each do |party|
   (1..10).each do  |i|
     entries = []
-    span =  Timespans::Timespan.all.where('quarter' =>{'$in' => [1,2,3,4]})[i]
+    span =  Timespans::Timespan.current_quarters.to_a[i]
 
       1..10.times do
         person = Parties::PersonParty.all.sample

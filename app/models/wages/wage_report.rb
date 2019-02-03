@@ -93,7 +93,7 @@ module Wages
   end
     
     def ui_total_due
-        0.05 * sum_state_total_wages
+        sum_state_total_wages - sum_state_excess_wages
     end
 
         

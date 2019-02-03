@@ -44,22 +44,23 @@ module Wages
     def self.add_entries(report, params)
       if params[:commit] == "Add Entry"
         submission_kind = :original
+        amend_reason = "original"
       else 
         submission_kind = :amended
+        amend_reason = params[:amend_reason]
       end
       wage_params = params[:wages_wage_report][:new_wage_entry]
       person =  Parties::PersonParty.create!(
         current_first_name: wage_params[:person_first_name],
         current_last_name: wage_params[:person_last_name],
         ssn: wage_params[:ssn] )
-      entry =  report.wage_entries.new(submission_kind: submission_kind, submitted_at: Time.now)
+      entry =  report.wage_entries.new(submission_kind: submission_kind, submitted_at: Time.now, amend_reason: amend_reason)
       entry.wage = Wages::Wage.new(
         person_party_id: person.id,
         timespan_id: report.timespan.id,
         state_total_gross_wages: wage_params[:state_total_gross_wages],
       )
       entry.save
-
       report.save
       if params[:commit] == "Add Entry"
         set_current_report(report)

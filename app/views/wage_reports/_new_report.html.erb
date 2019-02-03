@@ -16,6 +16,12 @@
             <div>
               <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true, :class => 'radio' %>
               <%= label :filing_method_kind, 'manual_entry' %>
+     
+            </div>
+            <div>
+              <%= label :Quarter, "Quarter:" %>
+              <%= select_tag "quarter" , options_for_select(@current_quarters.map(&:title), @current_timespan.title)%>
+
             </div>
             <div class = 'start-report-button btn' id = "create-report-btn">
             <%= link_to 'Create Report', controller: 'wage_reports', action: "new", employer_id: @organization.id, report: "new", method: :get%>

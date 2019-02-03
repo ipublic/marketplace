@@ -1,26 +1,147 @@
 <div class="card-body">
-  <div class="card">
-    <li class="list-group-item "id="card-header">At a Glance </li>
-      <div class = "row">
-        <div class = "col">
-          <p class = "data-header">Current UI Wages Paid</p>
-            <p> <%="#{number_to_currency(@current_reports.first.ui_paid_amount)}"%></p>
-        </div>
-     <div class = "col">
-          <p class = "data-header">Current UI  Due</p>
-          <p><%="#{number_to_currency(@current_reports.first.ui_total_due)}"%></p>
-     </div>
-     <div class = "col">
-          <p class = "data-header">Current Total Wages</p>
-      <p> <%="#{number_to_currency(@current_reports.first.sum_state_total_wages)}"%></p>
-     </div>
+  <div class="card">      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
+        <a data-toggle="collapse" data-parent="#accordionEx"href="#at-a-glance" >
+    <li class="list-group-item "id="card-header">Quarterly Calculations </li>
+    </a>
+    <div class = "collapse hide" id = "at-a-glance">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      <thead>
+        <tr class =  "at-a-glance">
+          <td class="td-sm">Report Details
+          </td>
+          <td class="td-sm">Quarter 1
+          </td>
+          <td class="td-sm">Quarter 2 
+          </td>
+          <td class="td-sm">Quarter 3 
+          </td>
+          <td class="td-sm">Quarter 4
+          </td>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>Report Type</td>
+            <td>Original</td>
+            <td>Original</td>
+            <td>Original</td>
+            <td>Original</td>
+            </tr>
+        <tr>
+            <td>Submitted on</td>
+            <td>1/23/2019</td>
+            <td>1/23/2019</td>
+            <td>1/23/2019</td>
+            <td>1/23/2019</td>
 
-     <div class = "col">
-        <p class = "data-header">Next report due </p>
-     <p><%="#{@current_reports.first.timespan.end_on.to_date}"%></p>
-    </div>
-    </div>
 
+        </tr>
+        <tr>
+            <td> Submitted By</td>
+            <td>IdeaCrew</td>
+            <td>IdeaCrew</td>
+            <td>IdeaCrew</td>
+            <td>IdeaCrew</td>
+
+        </tr>
+        <tr>
+            <td> User Name</td>
+            <td>Dan Thomas</td>
+            <td>Dan Thomas</td>
+            <td>Dan Thomas</td>
+            <td>Dan Thomas</td>
+        </tr>
+      </tbody>
+        <thead>
+          <tr class = 'at-a-glance'>
+          <td class="td-sm">Quarterly Wages
+            </td>
+            <td class="td-sm">Quarter 1
+            </td>
+            <td class="td-sm">Quarter 2 
+            </td>
+            <td class="td-sm">Quarter 3 
+            </td>
+            <td class="td-sm">Quarter 4
+            </td>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Total Wages</td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+          </tr>
+          <tr>
+              <td>Taxable Wages</td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+          </tr>
+          <tr>
+              <td>Excess Wages</td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+           </tr>
+      </tbody>
+
+      <thead>
+        <tr class = 'at-a-glance'>
+        <td class="td-sm">Contributions
+          </td>
+          <td class="td-sm">Quarter 1
+          </td>
+          <td class="td-sm">Quarter 2 
+          </td>
+          <td class="td-sm">Quarter 3 
+          </td>
+          <td class="td-sm">Quarter 4
+          </td>
+          </td>
+        </tr>
+      </thead>
+        <tbody>
+          <tr>
+              <td>UI Tax</td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+          </tr>
+          <tr>
+              <td>Administrative Assesment  </td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+          </tr>
+          <tr>
+              <td>Interest</td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+           </tr>
+          <tr>
+              <td>Penalty</td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+              <td><%=number_to_currency(200)%></td>
+          </tr>
+      </tbody>
+
+  
+    </table>
+  </div>
+  </div>
   </div>
 </div>
 

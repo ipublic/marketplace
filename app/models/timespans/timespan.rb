@@ -41,6 +41,14 @@ module Timespans
       where(:begin_on.lte => Time.now, :end_on.gte => Time.now)[1]
     end
 
+    def self.current_quarters
+      where(:begin_on.gte => (Time.now - 1.years), :end_on.lte => (Time.now + 2.years)).select{|s|s._type=="Timespans::QuarterYearTimespan"}
+    end
+
+    def self.all_quarters
+      where('quarter' =>{'$in' => [1,2,3,4]}).flatten.uniq.sort{|a,b| b.begin_on - a.begin_on}
+    end
+
     def kind
       _type.to_s.demodulize.underscore.to_sym
     end

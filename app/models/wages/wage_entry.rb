@@ -3,14 +3,25 @@ module Wages
 	  include Mongoid::Document
 	  include Mongoid::Timestamps
 
-	  SUBMISSION_KINDS = [:original, :amended]
+    SUBMISSION_KINDS = [:original, :amended]
+	  AMEND_REASONS = ["Select Amendment Reason",
+                      "Wages Reported to Another State", 
+                      "Wages Reported as Net Instead of Gross",
+                      "Wages Reported to Wrong Quarter/Year",
+                      "Wages Overreported",
+                      "Wages Underreported",
+                      "Wages Ommitted",
+                      "Original"]
+    
 
 		# attr_readonly :submission_kind, :submitted_at
 
 	  embedded_in	:wage_report,
 	  						class_name: 'Wages::WageReport'
 
-	  field :submission_kind,	type: Symbol, default: :original
+    field :submission_kind,	type: Symbol, default: :original
+	  field :amend_reason,	type: String, default: "Original"
+    
 	  field :submitted_at, 		type: Time, 	default: ->{ Time.now }
 
 	  embeds_one	:wage,

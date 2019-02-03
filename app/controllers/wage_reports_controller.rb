@@ -4,8 +4,10 @@ class WageReportsController <  ApplicationController
 
   def index
     @organization = Parties::OrganizationParty.find(params[:employer_id])
-    @all_quarters = @organization.wage_reports.map(&:timespan).flatten.uniq.sort{|a,b| b.begin_on - a.begin_on}
-    @current_reports =  Wages::WageReport.find_and_filter_wage_reports_by_quarter(@organization, @all_quarters.first)
+    @all_quarters = Timespans::Timespan.all_quarters
+    @current_quarters = Timespans::Timespan.current_quarters
+    @current_timespan = Timespans::Timespan.current_timespan
+    @current_reports =  Wages::WageReport.find_and_filter_wage_reports_by_quarter(@organization, @current_timespan)
     @report= Wages::WageReport.new
     @org_reports =  Wages::WageReport.find_and_filter_wage_reports(@organization)
   end
@@ -31,6 +33,8 @@ class WageReportsController <  ApplicationController
   def edit 
     @report = Wages::WageReport.find(params[:id])
     @organization = @report.organization_party
+    @amend_reasons = Wages::WageEntry::AMEND_REASONS
+
     @entries = @report.wage_entries.sort{|a,b|b.wage.state_total_gross_wages - a.wage.state_total_gross_wages}
     @entry  =  @report.wage_entries.new
     @submission_kinds = Wages::WageEntry::SUBMISSION_KINDS
@@ -46,7 +50,6 @@ class WageReportsController <  ApplicationController
   end
 
   def destroy
-    binding.pry
     report = Wages::WageReport.find(params[:id])
     entry = report.wage_entries.find(params[:entry])
     entry.destroy 

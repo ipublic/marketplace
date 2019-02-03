@@ -36,5 +36,9 @@ module Parties
 	  scope :employed_by, 	-> (party){} # party_relationship of employment, with 
 	  scope :contact_for, 	-> (party){}
 
+    def hide_ssn 
+      self.ssn.split('')[5..8].unshift("x","x-","x","x","x-").join('')
+
+    end
 	end
 end
