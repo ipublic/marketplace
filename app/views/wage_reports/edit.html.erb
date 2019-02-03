@@ -1,40 +1,33 @@
 <div class="card-body">
     <div class="card">
-      <div class="card-header" id= "card-header" >Ammend Report </div>
-      <table class="table ">
-        <tbody>
-          <tr class= 'wage-report-edit-headers edit-wage-report-card'>
-            <td>Employee</td>
-            <td>Total Gross Wages</td>
-            <td>Total Wages</td>
-            <td>Excess Wages</td>
-            <td>Taxable Wages</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="card-header " id= "card-header" >Amend Report </div>
+          <div class= 'row edit-wage-report-card'>
+            <div class = 'col  edit-wage-report-card'>Employee</div>
+            <div class = 'col'>SSN</div>
+            <div class = 'col'>UI Wages Paid</div>
+            <div class = 'col'>Remove Entry</div>
+
+          </div>
       <div class="card">
-        <div class="card-body edit-wage-report-card">
+        <div class="card-body">
            <%= form_for @report, url: wage_report_path(@report), method: :put do |f| %>
             <% @entries.each do |entry| %>
               <%= f.fields_for "wage_entries[]", entry do |wage_entry_field| %>
                 <%= wage_entry_field.fields_for :wage, entry.wage do |wage_field| %>
                   <%= wage_field.hidden_field :id %>
                   <div class="row">
-                    <div class="col form-control">
+                    <div class="col">
                       <%="#{entry.try(:wage).try(:person_party).try(:current_first_name) +" " + entry.try(:wage).try(:person_party).try(:current_last_name) }" %>
                     </div>
+                    <div class = 'col '>
+                      <%= "#{entry.try(:wage).try(:person_party).try(:ssn)}"%>
+                    </div>              
                     <div class= 'col'>
                       <%= wage_field.text_field :state_total_gross_wages, :class =>" input form-control" %>
-                    </div>              
-                    <div class = 'col'>
-                      <%= wage_field.text_field :state_total_wages, :class =>" input form-control" %>
-                    </div>              
-                    <div class = 'col'>
-                      <%= wage_field.text_field :state_excess_wages, :class =>" input form-control" %>
-                    </div>              
-                    <div class = 'col'>
-                      <%= wage_field.text_field :state_taxable_wages, :class =>" input form-control" %>
-                    </div>
+                    </div>         
+                    <div class= 'col create-report-btn' id = "destroy-entry">
+                      <%= link_to "X", wage_report_path(@report, :entry => entry.id), :method => :delete, :class =>"start-report" %>
+                    </div>        
                   </div>
               <%end%>
           <%end%>
@@ -42,23 +35,29 @@
           <%= f.fields_for :new_wage_entry do |field| %>
             <div class="row ">
               <div class = "col">
-              <%= field.text_field :person_first_name, placeholder:"Employee First Name", required: true, :class =>" input form-control" %>
+              <%= field.text_field :person_first_name, placeholder:"Employee First Name", :class =>" input form-control" %>
               </div>
               <div class = "col">
-              <%= field.text_field :person_last_name, placeholder: "Employee Last Name",required: true, :class =>" input form-control" %>
+              <%= field.text_field :person_last_name, placeholder: "Employee Last Name", :class =>" input form-control" %>
               </div>
               <div class="col">
-                <%= field.number_field :state_total_gross_wages, placeholder:"Total Gross Wages", required: true,:class =>"input form-control" %>
+                <%= field.number_field :state_total_gross_wages, placeholder:"UI Wages Paid",:class =>"input form-control" %>
               </div>
               <div class="col">
-                  <%= field.number_field :state_total_wages, placeholder:" State Total Wages", required: true, :class =>"input  form-control" %>
+                  <%= field.number_field :ssn, placeholder:"SSN", :class =>"input  form-control" %>
               </div>
-              <div class="col">
-              <%= field.number_field :state_excess_wages, placeholder:"State Excess Wages", required: true, :class =>"input  form-control" %>
+                            <div class="col">
+                  <%= field.select :reason_for_amendment,[
+                    "Select Amendment Reason",
+                    "Wages Reported to Another State", 
+                    "Wages Reported as Net Instead of Gross",
+                    "Wages Reported to Wrong Quarter/Year",
+                    "Wages Overreported",
+                    "Wages Underreported",
+                    "Wages Ommitted"],
+                  required: true, :class =>"  f" %>
               </div>
-              <div class="col">
-                <%= field.number_field :state_taxable_wages, placeholder:"State Taxable Wages",  required: true, :class =>"input  form-control" %>
-              </div>
+
               <% end %>
               </div>
        <div id= "button-row"> 

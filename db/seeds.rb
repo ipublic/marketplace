@@ -26,7 +26,7 @@ legal_last_names = ["Cook House","Car Rental", "Burgers", "Autobody","Jewelry"]
 person_first_names =  ["Bill", "Dan", "Chevy","Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan", "Kristen", "Jack","Cindy","Linda", "Elliot","Jane","Martina","Hannah","Kara", "Alexis", "Gabe"]
 person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown", "Harris", "Hessen", "Golden", "Waithe","Murray","Aykroyd","Chase", "Curtin", "williams"]
 1..30.times do
-   Parties::PersonParty.create!(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}")
+   Parties::PersonParty.create!(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}", ssn: "#{rand(111111111...999999999)}")
 end
 
 1..30.times do
