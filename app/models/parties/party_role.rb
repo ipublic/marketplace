@@ -8,11 +8,15 @@ module Parties
     include Mongoid::Document
     include Mongoid::Timestamps
 
-    embedded_in :party,
-      					class_name: "Parties:Party"
+    # Enable subclassing on the Party base class
+    belongs_to 	:role_castable, polymorphic: true
 
-    field :party_role_kind_id, 	type: BSON::ObjectId
-    field :related_party_id, 		type: BSON::ObjectId
+    belongs_to	:party_role_kind,
+    						class_name: "Parties::PartyRoleKind"
+
+		belongs_to	:party_relationship,
+								class_name: 'Parties::PartyRelationship',
+								optional: true
 
     # Date this role becomes effective for subject party
     field :start_date, 					type: Date, default: ->{ TimeKeeper.date_of_record }
@@ -20,13 +24,14 @@ module Parties
     # Date this rolerole is no longer in effect for subject_party
     field :end_date, 						type: Date
 
-    validates_presence_of :party_role_kind_id, :start_date
-    validate :validate_related_party
+    validates_presence_of :party_role_kind, :start_date #, :party_role_kind_id
+    # validate :validate_related_party
 
     delegate :key, 												to: :party_role_kind, allow_nil: true
     delegate :title, 											to: :party_role_kind, allow_nil: true
     delegate :description, 								to: :party_role_kind, allow_nil: true
-    delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
+
+    # delegate :party_relationship_kinds, 	to: :party_role_kind, allow_nil: true
     # delegate :eligibility_policy, 				to: :party_role_kind, allow_nil: true
 
     def is_active?
@@ -34,14 +39,14 @@ module Parties
     end
 
     # Deactive this role
-    def end_role(new_end_date = TimeKeeper.date_of_record)
-    	related_party.end_role(new_end_date)
+    def end_party_role(new_end_date = TimeKeeper.date_of_record)
+    	related_party.end_role(new_end_date) if related_party.present?
     	write_attribute(:end_date, new_end_date)
     end
 
     # Restore a previously deactiviated role
-    def reinstate_role
-    	related_party.reinstate_role(new_end_date)
+    def reinstate_party_role
+    	related_party.reinstate_role(new_end_date) if related_party.present?
     	write_attribute(:end_date, nil)
     end
 

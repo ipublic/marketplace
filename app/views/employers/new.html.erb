@@ -6,7 +6,7 @@
     <div class="col-12">
       <div class="card wizard-content">
         <div class="card-body">
-          <%= form_for @employer, url: new_employer_path, html: { class: "validation-wizard wizard-circle" } do |f| %>
+          <%= form_for @employer, url: new_employer_path, html: { class: "validation-wizard wizard-circle", id:'employerFrom' } do |f| %>
             <!-- Step 1 -->
             <h6>Contact Info</h6>
             <section>
@@ -187,7 +187,7 @@
                   </label>
                   <input type="file" class="form-control-file" id="exampleInputFile">
                 </div>
-                <div class="col-md-12 d-none" data-target="employer-registrations.successor">
+                <div class="col-md-12">
                   <label for="exampleInputFile" class="bmd-label-floating">
                     Is this organization a successor of a previous organization?
                   </label>

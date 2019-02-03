@@ -8,10 +8,25 @@ module Determinations
     end
 
     def add_employer
+
+    	@organization_party.add_role 
     end
 
     def determine_contribution_rate
+    	# [:non_profit_501c3, :other_non_profit].detect { |non_profit_role| }
+    	# if @organization_party.active_party_roles_by_key(:non_profit_501c3) || 
+
+    	current_rate_range 				= 0.016..7.0
+    	new_employer_rate 				= 0.027
+    	reimbursing_employer_rate = 0.0
+    	
+    	new_employer_rate
     end
+
+    def determine_administrative_rate
+    	0.002
+    end
+
 
     def determine_write_off_eligibility
     end
@@ -26,8 +41,7 @@ module Determinations
     																													)
     end
 
-    def current_payment_model
-
+    def determine_payment_model
     #   contributing_role = Parties::PartyRole.find_by(key: :uits_contributing)
     #   reimbursing_role = Parties::PartyRole.find_by(key: :uits_reimbursing)
 
@@ -40,10 +54,14 @@ module Determinations
   		# end
     end
 
-    def current_filing_schedule
-    	quarterly_filer_role = Parties::PartyRole.find_by(key: :uits_qtr_filer)
-      annual_filer_role = Parties::PartyRole.find_by(key: :uits_annual_filer)
+    def determine_filing_schedule
+    	if @organization_party.party_active_roles_by_key(:household_employer).size > 0
+    		Parties::PartyRole.find_by(key: :uits_annual_filer)
+    	else
+    		Parties::PartyRole.find_by(key: :uits_qtr_filer)
+    	end
     end
+
 
     def build_or_find_party_ledger
     	@organization_party.party_ledger.present? ? ledger = @organization_party.party_ledger : @organization_party.build_party_ledger

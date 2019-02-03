@@ -15,10 +15,17 @@ class EmployersController < ApplicationController
   end
 
   def create
-    @employer = Employers::EmployerForm.for_create(params.permit[:address_info,
-                                                                 :contact_info,
-                                                                 :contribution_info,
-                                                                 :employer_info])
-    @employer.save
+    @employer = Employers::EmployerForm.for_create({form_params.to_json})
+    if @employer.save
+			render json: {code: 200, message: 'Employer Registration successfully submitted.'}
+		else
+			render json: {code: 400, message: 'Unable to process this request.'}
+		end
   end
+
+	private
+
+	def form_params
+		params.permit(:contact_info, :employer_info, :address_info)
+	end
 end

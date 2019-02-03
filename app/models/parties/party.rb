@@ -4,23 +4,21 @@ module Parties
 	  include Mongoid::Timestamps
 
 		field	:party_id, 					type: Integer
-	  field :registered_on, 		type: Date, default: ->{Date.today} #{ TimeKeeper.date_of_record }
+	  field :registered_on, 		type: Date, default: ->{ TimeKeeper.date_of_record }
 
 	  field :profile_source, 		type: Symbol, default: :self_serve
 	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
-	  # has_and_belongs_to_many :party_relationships, 
-	  # 												class_name: 'Parties::PartyRelationship'
-
-	  embeds_many		:party_roles, 
-									class_name: "Parties::PartyRole"
+    has_many    :party_roles, 
+                as: :role_castable,
+                class_name: "Parties::PartyRole"
 
 	  embeds_many		:documents, as: :documentable,
 	  							class_name: '::Document'
 
 	  has_one			:party_ledger, 
-								class_name: "Parties::PartyRole"
+								class_name: "Parties::PartyLedger"
 
 	  has_many		:party_ledger_account_balances, 
 								class_name: "FinancialAccounts::PartyLedgerAccountBalance"
@@ -33,6 +31,11 @@ module Parties
 
 		has_many		:notices,
 								class_name: "Notices::Notice"
+
+	  # embeds_many :addresses, as: :addressable
+	  # embeds_many :phones, 		as: :phonable
+	  # embeds_many :emails, 		as: :emailable
+
 
 		scope :associated_parties,	->{ where("party_roles.related_party_id": _id) }
 
@@ -79,7 +82,6 @@ module Parties
 	  def add_party_role(new_role)
 	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
 		  # end
-
 	  	party_roles << new_role # unless party_roles_by_kind(new_role)
 
 	  	party_roles

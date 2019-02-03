@@ -20,11 +20,6 @@ module Parties
   	embeds_many	:person_names,
   							class_name: "Parties::PersonName"
 
-
-	  # embeds_many :addresses
-	  # embeds_many :phones
-	  # embeds_many :emails
-
 	  validates_presence_of	:current_first_name, :current_last_name
 
 	  validates :ssn, uniqueness: true, allow_blank: true
