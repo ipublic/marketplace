@@ -13,12 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources : do
-
-
-  # end
-
-
   resources :settings do
     post 'create_role', to: 'settings#create_role', as: 'create_role'
     post 'create_key', to: 'settings#create_key', as: 'create_key'

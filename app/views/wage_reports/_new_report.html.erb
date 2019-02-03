@@ -1,26 +1,32 @@
-<div class="card-body">
-  <div class="card">
-      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
-        <a data-toggle="collapse" data-parent="#accordionEx" >
-            <li class="list-group-item" id="card-header">Start a new Wage Report </li>
-        </a>
-          <div id= "new-report" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
-            <div>
-              <%= radio_button_tag :filing_method_kind, 'upload',  :class => 'radio' %> 
-              <%= label :filing_method_kind, 'upload' %>
-            </div>
-            <div>
-              <%= radio_button_tag :filing_method_kind, 'no_wages', :class => 'radio' %>
-              <%= label :filing_method_kind, 'no_wages' %>
-            </div>
-            <div>
-              <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true, :class => 'radio' %>
-              <%= label :filing_method_kind, 'manual_entry' %>
-            </div>
-            <div class = 'start-report-button btn' id = "create-report-btn">
-            <%= link_to 'Create Report', controller: 'wage_reports', action: "new", employer_id: @organization.id, report: "new", method: :get%>
-          </div>
-        </div>
-    </div>
-  </div>
+<div class="col-md-12">
+	<div class="col-md-5 mt-4">
+		<div class="card">
+			<div class="card-header">
+    		<h4 class="display-5">Create Wage Report</h4>
+  		</div>
+		  <div class="card-body">
+					<div class="radio">
+						<label>
+				      <%= radio_button_tag :filing_method_kind, 'upload' %>
+				      Upload
+				    </label>
+					</div>
+					<div class="radio">
+						<label>
+				      <%= radio_button_tag :filing_method_kind, 'no_wages' %>
+				      No Wages
+				    </label>
+					</div>
+					<div class="radio">
+						<label>
+				      <%= radio_button_tag :filing_method_kind, 'manual_entry', :checked => true %>
+				      Manuel Entry
+				    </label>
+					</div>
+					<div>
+						<%= link_to 'Submit', new_employer_wage_report_path(@organization.id), class:'btn btn-raised btn-success btn-block btn-lg mt-3' %>
+					</div>
+		  </div>
+		</div>
+	</div>
 </div>
