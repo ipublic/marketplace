@@ -6,6 +6,8 @@
           <td class="td-sm">Submission Kind</td>
           <td class="td-sm">Submitted At</td>
           <td class="td-sm">UI Wages Paid</td>
+          <td class="td-sm">Amend Reason</td>
+
       </tr>
       </thead>
       <tbody>
@@ -15,6 +17,7 @@
             <td scope="row"><%= entry.submission_kind.capitalize%></td>
             <td scope="row"><%= entry.submitted_at.to_date%></td>
             <td>$ <%= entry.try(:wage).try(:state_total_gross_wages)%></td>
+            <td> <%= entry.amend_reason.capitalize%></td>
           </tr>
         <%end%>
       </tbody>

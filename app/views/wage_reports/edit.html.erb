@@ -5,7 +5,9 @@
             <div class = 'col  edit-wage-report-card'>Employee</div>
             <div class = 'col'>SSN</div>
             <div class = 'col'>UI Wages Paid</div>
-            <div class = 'col'>Remove Entry</div>
+            <div class = 'col'>Amend Reason</div>
+            <div class = 'col'>Actions</div>
+
 
           </div>
       <div class="card">
@@ -20,12 +22,15 @@
                       <%="#{entry.try(:wage).try(:person_party).try(:current_first_name) +" " + entry.try(:wage).try(:person_party).try(:current_last_name) }" %>
                     </div>
                     <div class = 'col '>
-                      <%= "#{entry.try(:wage).try(:person_party).try(:ssn)}"%>
+                      <%= "#{entry.wage.person_party.hide_ssn}"%>
                     </div>              
                     <div class= 'col'>
                       <%= wage_field.text_field :state_total_gross_wages, :class =>" input form-control" %>
                     </div>         
-                    <div class= 'col create-report-btn' id = "destroy-entry">
+                      <div class= 'col destroy-entry'>
+                      <%= select_tag "amend_reason", options_for_select(@amend_reasons[0..5] ) %>
+                      </div>
+                      <div class= 'col destroy-entry'>
                       <%= link_to "X", wage_report_path(@report, :entry => entry.id), :method => :delete, :class =>"start-report" %>
                     </div>        
                   </div>
@@ -46,16 +51,8 @@
               <div class="col">
                   <%= field.number_field :ssn, placeholder:"SSN", :class =>"input  form-control" %>
               </div>
-                            <div class="col">
-                  <%= field.select :reason_for_amendment,[
-                    "Select Amendment Reason",
-                    "Wages Reported to Another State", 
-                    "Wages Reported as Net Instead of Gross",
-                    "Wages Reported to Wrong Quarter/Year",
-                    "Wages Overreported",
-                    "Wages Underreported",
-                    "Wages Ommitted"],
-                  required: true, :class =>"  f" %>
+              <div class="col">
+                  <%= select_tag :amend_reason, options_for_select(@amend_reasons) %>
               </div>
 
               <% end %>
