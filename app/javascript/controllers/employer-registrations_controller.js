@@ -84,6 +84,7 @@ export default class extends Controller {
 									'dba': formData[16].value,
 									'fein': formData[17].value,
 									'kind': formData[18].value,
+									'date_of_first_wages': formData[20].value,
 									//'company_type': formData[19].value
 								}))
 							}
