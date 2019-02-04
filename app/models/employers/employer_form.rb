@@ -34,6 +34,7 @@ module Employers
     attribute :sic_code, String
 		attribute :company_type, String
 		attribute :successor, String
+		attribute :date_of_first_wages, String
   end
 
   class ContributionInfoForm

@@ -13,6 +13,7 @@ module FinancialAccounts
     def initialize(party, args)
     	@party							= party
     	@account_kind 			= args[:account_kind]
+      @initial_liability_date = args[:initial_liability_date]
 
     	@ledger	= nil
     	@financial_account	= nil

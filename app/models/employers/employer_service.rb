@@ -18,7 +18,6 @@ module Employers
 
     def store(form, objects)
       objects.each do |object|
-        puts object.inspect
         object.save!
       end
     end
