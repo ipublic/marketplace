@@ -72,5 +72,8 @@ module Parties
   		symbol.to_s.titleize
   	end
 
+    def self.is_valid_key?(key)
+      all.pluck(:key).include?(key)
+    end
 	end
 end

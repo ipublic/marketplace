@@ -18,7 +18,7 @@ module Parties
 	  							class_name: '::Document'
 
 	  has_one			:party_ledger,
-								class_name: "Parties::PartyLedger"
+								class_name: "FinancialAccounts::PartyLedger"
 
 	  has_many		:party_ledger_account_balances,
 								class_name: "FinancialAccounts::PartyLedgerAccountBalance"

@@ -22,8 +22,8 @@ module FinancialAccounts
     field :current_administrative_rate,   type: Float,  default: 0.0
     field :current_contribution_rate,     type: Float,  default: 0.0
 
-    embeds_many :filing_statuses    # wage report filed for timespans
-    embeds_many :payment_status     # financial transactions for timespans
+    #embeds_many :filing_statuses    # wage report filed for timespans
+    #embeds_many :payment_status     # financial transactions for timespans
 
     validates_presence_of :initial_liability_date, :status, :current_payment_kind, :current_wage_filing_schedule
 

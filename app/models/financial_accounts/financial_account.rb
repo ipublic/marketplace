@@ -10,7 +10,8 @@ module FinancialAccounts
 	  							class_name: 'FinancialAccounts::PartyLedger'
 
 	  has_many 			:financial_transactions,
-	  							class_name: 'FinancialAccounts::FinancialTransactions'
+	  							class_name: 'FinancialAccounts::FinancialTransaction',
+                  autosave: true
 
 	  validates_presence_of :title, :opened_on
 

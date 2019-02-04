@@ -162,10 +162,7 @@
                     </label>
                     <select class="form-control required" id="kind" name="employer_info[kind]">
                       <option value="">Select Entity Kind</option>
-                      <option value="tax_exempt_organization">Tax Exempt Organization</option>
-                      <option value="c_corporation">C Corporation</option>
-                      <option value="s_corporation">S Corporation</option>
-                      <option value="partnership">Partnership</option>
+                      <%= options_for_select Parties::PartyRoleKind.where(:key.in => [:s_corporation, :c_corporation, :limited_liability_corporation, :limited_liability_partnership, :non_profit_501c3, :other_non_profit, :household_employer]).pluck(:title, :key).to_h %>
                     </select>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ module FinancialAccounts
 	  						class_name: 'FinancialAccounts::FinancialAccount'
 
 	  belongs_to 	:timespan, 
-								class_name: 'TimeSpans::Timespan'
+								class_name: 'Timespans::Timespan'
 
 
 

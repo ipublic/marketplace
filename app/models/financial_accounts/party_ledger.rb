@@ -8,14 +8,14 @@ module FinancialAccounts
 	  belongs_to	:party,
 	  						class_name: 'Parties::Party'
 
-	  has_many		:fianancial_accounts,
+	  has_many		:financial_accounts,
 	  						class_name: 'FinancialAccounts::FinancialAccount'
 
 		has_many		:party_ledger_account_balances,
-								class_name: 'Parties::PartyLedgerAccountBalance'
+								class_name: 'FinancialAccounts::PartyLedgerAccountBalance'
 
 		has_many		:timespans,
-								class_name: 'Timespans:Timespan'
+								class_name: 'Timespans::Timespan'
 
 
 		delegate :party_roles, to: :party
