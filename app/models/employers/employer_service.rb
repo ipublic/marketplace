@@ -17,7 +17,6 @@ module Employers
 		end
 
     def store(form, employee, employer)
-      binding.pry
       employee.save!
       employer.save!
       #employee.party_roles.first.related_party.save #TODO: Get rid of this first
