@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  layout 'two_column'
+  before_action :authenticate_user!
 
   def show
     @organization = Parties::OrganizationParty.find(params[:employer_id])

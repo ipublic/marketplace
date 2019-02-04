@@ -25,7 +25,7 @@
           <div class = 'row'>
             <div class = 'col'>
               <p  class="data-header">Current Contribution Rate</p>
-              <p class = ""><%= @account.current_contribution_rate%></p>
+              <p class = ""><%=  number_to_percentage(@account.current_contribution_rate * 10)%></p>
             </div>
             <div class = 'col'>
               <p class="data-header">Current Wage Filing Schedule</p>
@@ -33,7 +33,7 @@
               </div>
               <div class = 'col'>
                 <p class="data-header">Administrative Assesment Rate</p>
-                <p class = ""><%= @account.current_administrative_rate%></p>
+                <p class = ""><%= number_to_percentage(@account.current_administrative_rate * 10)  %></p>
             </div>
           </div>
           <div class = 'row'>
