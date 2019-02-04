@@ -28,8 +28,9 @@ module FinancialAccounts
     validates_presence_of :initial_liability_date, :status, :current_payment_kind, :current_wage_filing_schedule
 
     def current_balance
-      financial_transactions.reduce(0.0) { |totoal, transaction| total + transaction.amount }
+      financial_transactions.reduce(0.0) do |total, transaction| 
+        total += transaction.amount || 0
+      end
     end
-
   end
 end

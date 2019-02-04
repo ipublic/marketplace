@@ -99,6 +99,10 @@ module Wages
         sum_state_total_wages - sum_state_excess_wages
     end
 
+
+    def self.current_reports(org)
+     quarter = org.wage_reports.sort{|a,b| b.timespan.begin_on - a.timespan.begin_on}.first
+    end
           
     def ui_paid_amount
       0
@@ -144,7 +148,7 @@ module Wages
     end
 
     def self.find_and_filter_wage_reports_by_quarter(org, quarter)
-      org.wage_reports.select{|d|d.timespan.begin_on == quarter.begin_on} 
+      org.wage_reports.select{|d|d.timespan.begin_on == quarter.begin_on}.sort{|a,b|  b.submitted_at - a.submitted_at}
     end
     
 

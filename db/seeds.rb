@@ -39,9 +39,13 @@ end
 parties = Parties::OrganizationParty.all
 
 parties.each do |party|
-  (1..10).each do  |i|
+  (0..10).each do  |i|
     entries = []
-    span =  Timespans::Timespan.current_quarters.to_a[i]
+    spans = [] 
+    3.times do
+      spans << Timespans::Timespan.current_quarters
+    end
+    spans = spans.flatten
 
       1..10.times do
         person = Parties::PersonParty.all.sample
@@ -50,7 +54,7 @@ parties.each do |party|
         entry = Wages::WageEntry.new(submission_kind: :original, submitted_at: Time.now)
         wage  = Wages::Wage.new(person_party_id: person.id,
                                 state_total_gross_wages: gross_wages,
-                                timespan_id:span.id,
+                                timespan_id: spans[i].id,
                                 state_taxable_wages: Wages::Wage.new.sum_taxable_wages(gross_wages),
                                 state_total_wages:gross_wages,
                                 state_excess_wages: Wages::Wage.new.sum_excess_wages(gross_wages),
@@ -59,7 +63,7 @@ parties.each do |party|
         entries << entry
       end
        report =  Wages::WageReport.create!(organization_party: party,
-                                  timespan: span,
+                                  timespan: spans[i],
                                   submission_kind:  "#{Wages::WageReport::SUBMISSION_KINDS.sample}",
                                   wage_entries: entries,
                                   filing_method_kind: "#{Wages::WageReport::FILING_METHOD_KINDS.sample}",
@@ -80,7 +84,7 @@ parties.each do |party|
         entry.save!
       end
       report.save!
-  end
+    end
 end
 puts "*"*80
 
