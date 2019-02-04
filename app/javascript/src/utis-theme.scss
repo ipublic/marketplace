@@ -14,6 +14,10 @@ body, html {
   cursor: pointer;
 }
 
+.fa-address-card {
+  color: #355575;
+}
+
 footer {
   background-color: #343a40;
   color: #8d97ad;
@@ -166,6 +170,10 @@ li.side-menu-item:after {
 
 .uits-portal-section {
 	margin-top: 8%;
+}
+
+.value-card {
+  height: 457px;
 }
 
 // Overides datatables styles for table

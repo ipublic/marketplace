@@ -5,17 +5,19 @@
 
   <nav>
     <div class="nav nav-tabs mb-2" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="true">Users</a>
+      <!-- <a class="nav-item nav-link active" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="true">Users</a> -->
       <a class="nav-item nav-link" id="nav-role-tab" data-toggle="tab" href="#nav-role" role="tab" aria-controls="nav-role" aria-selected="false">Roles</a>
       <a class="nav-item nav-link" id="nav-key-tab" data-toggle="tab" href="#nav-key" role="tab" aria-controls="nav-key" aria-selected="false">Keys</a>
       <a class="nav-item nav-link" id="nav-permission-tab" data-toggle="tab" data-action="settings#loadTableData" href="#nav-permission" role="tab" aria-controls="nav-permission" aria-selected="false">Permissions</a>
       <a class="nav-item nav-link" id="uits-settings-tab" data-toggle="tab" href="#uits-settings" role="tab" aria-controls="uits-key" aria-selected="false">UITS Settings</a>
+      <a class="nav-item nav-link" id="pfl-settings-tab" data-toggle="tab" href="#pfl-settings" role="tab" aria-controls="pfl-key" aria-selected="false">PFL Settings</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
+    <!--
     <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
       Im the user tab Content
-    </div>
+    </div> -->
 
     <div class="tab-pane fade" id="uits-settings" role="tabpanel" aria-labelledby="uits-settings-tab">
       <div class="row">
@@ -25,26 +27,56 @@
             <div class="card-body">
               <h6 class="card-title">Configuration Settings</h6>
               <ul class="list-group">
-                <li class="list-group-item">Quarter 1 Reporting Deadline</li>
-                <li class="list-group-item">Quarter 2 Reporting Deadline</li>
-                <li class="list-group-item">Quarter 3 Reporting Deadline</li>
-                <li class="list-group-item">Quarter 4 Reporting Deadline</li>
-                <li class="list-group-item">Annual Reporting Deadline</li>
+                <a class="list-group-item pb-0">
+                  Quarter 1 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Quarter 2 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Quarter 3 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Quarter 4 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Annual Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
               </ul>
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="card">
+          <div class="card value-card">
             <div class="card-body">
               <h6 class="card-title">Picklist Values</h6>
-              <ul class="list-group">
-                <li class="list-group-item">
-                  Select field to edit its set values
-                </li>
-                <li class="list-group-item"></li>
-              </ul>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Select a field to edit its values</label>
+                <select multiple class="form-control" id="exampleFormControlSelect1">
+                  <option>Trust</option>
+                  <option>Government</option>
+                  <option>C Organization</option>
+                  <option>S Organization</option>
+                  <option>Partnership</option>
+                  <option></option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -54,11 +86,179 @@
             <div class="card-body">
               <h6 class="card-title">Integration Channels</h6>
               <ul class="list-group">
-                <li class="list-group-item">Department of Labor</li>
-                <li class="list-group-item">Internal Revenue Service</li>
-                <li class="list-group-item">Integration 3</li>
-                <li class="list-group-item">Integration 4</li>
-                <li class="list-group-item">Integration 5</li>
+          		  <a class="list-group-item col-5 pb-0 pl-0">
+          		    <i></i>
+          		    	Department of Labor
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox" checked>
+                        Enabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+                <a class="list-group-item col-5 pb-0 pt-0 pl-0">
+          		    <i></i>
+          		    	Internal Revenue Service
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox">
+                        Disabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+                <a class="list-group-item col-5 pb-0 pt-0 pl-0">
+          		    <i></i>
+          		    	Integration 3
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox">
+                        Disabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+                <a class="list-group-item col-5 pb-0 pt-0 pl-0">
+          		    <i></i>
+          		    	Integration 4
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox" checked>
+                        Enabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="tab-pane fade" id="pfl-settings" role="tabpanel" aria-labelledby="pfl-settings-tab">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Configuration Settings</h6>
+              <ul class="list-group">
+                <a class="list-group-item pb-0">
+                  Quarter 1 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Quarter 2 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Quarter 3 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Quarter 4 Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+                <a class="list-group-item pb-0 pt-0">
+                  Annual Reporting Deadline
+                  <i class="material-icons pull-xs-right">
+                    <input type="date" class="form-control">
+                  </i>
+                </a>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card value-card">
+            <div class="card-body">
+              <h6 class="card-title">Picklist Values</h6>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Select a field to edit its values</label>
+                <select multiple class="form-control" id="exampleFormControlSelect1">
+                  <option>Trust</option>
+                  <option>Government</option>
+                  <option>C Organization</option>
+                  <option>S Organization</option>
+                  <option>Partnership</option>
+                  <option></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Integration Channels</h6>
+              <ul class="list-group">
+          		  <a class="list-group-item col-5 pb-0 pl-0">
+          		    <i></i>
+          		    	Department of Labor
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox" checked>
+                        Enabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+                <a class="list-group-item col-5 pb-0 pt-0 pl-0">
+          		    <i></i>
+          		    	Internal Revenue Service
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox">
+                        Disabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+                <a class="list-group-item col-5 pb-0 pt-0 pl-0">
+          		    <i></i>
+          		    	Integration 3
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox">
+                        Disabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
+                <a class="list-group-item col-5 pb-0 pt-0 pl-0">
+          		    <i></i>
+          		    	Integration 4
+          		    <i class="material-icons">
+                    <div class="switch">
+                      <label>
+                      <input type="checkbox" checked>
+                        Enabled
+                      </label>
+                    </div>
+                  </i>
+          		  </a>
               </ul>
             </div>
           </div>
