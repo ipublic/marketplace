@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tpas do
+    get 'get_tpas'
+  end
+
   # resources : do
 
 
