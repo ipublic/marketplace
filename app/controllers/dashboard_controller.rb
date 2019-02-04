@@ -9,9 +9,9 @@ class DashboardController < ApplicationController
       if party.present?
         kind = party.party_roles.first
         if kind.present?
-        if kind.party_role_kind.key = :tpa
-          @tpas << party
-        end
+          if kind.party_role_kind.key == :tpa
+            @tpas << party
+          end
         end
       end
     end
