@@ -22,18 +22,18 @@
       <tbody>
         <tr>
             <td>Report Type</td>
+            <td>Amended</td>
             <td>Original</td>
-            <td>Original</td>
-            <td>Original</td>
+            <td>Amended</td>
             <td>Original</td>
             <td></td>
         </tr>
         <tr>
             <td>Submitted on</td>
-            <td>1/23/2019</td>
-            <td>1/23/2019</td>
-            <td>1/23/2019</td>
-            <td>1/23/2019</td>
+            <td>1/23/2018</td>
+            <td>4/23/2018</td>
+            <td>8/23/2018</td>
+            <td>12/23/2018</td>
         </tr>
         <tr>
             <td> Submitted By</td>
@@ -47,7 +47,7 @@
         <tr>
             <td> User Name</td>
             <td>Dan Thomas</td>
-            <td>Dan Thomas</td>
+            <td>Angus Irvine</td>
             <td>Dan Thomas</td>
             <td>Dan Thomas</td>
                         <td></td>
@@ -72,29 +72,24 @@
         <tbody>
           <tr>
             <td>Total Wages</td>
-            <td><%=number_to_currency(530)%></td>
-            <td><%=number_to_currency(200)%></td>
-            <td><%=number_to_currency(139.23)%></td>
-            <td><%=number_to_currency(200)%></td>
-            <td><%=number_to_currency(1069.23)%></td>
+            <% @org_reports.each do |report|%>
+              <td><%=number_to_currency(report.sum_state_total_wages)%></td>
+            <% end%>
+              <td><%=number_to_currency(@last_year_totals[0])%></td>
           </tr>
           <tr>
               <td>Taxable Wages</td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(330.30)%></td>
-              <td><%=number_to_currency(100)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(830.3)%></td>
-
+            <% @org_reports.each do |report|%>
+              <td><%=number_to_currency(report.sum_state_taxable_wages)%></td>
+            <% end%>
+              <td><%=number_to_currency(@last_year_totals[1])%></td>
           </tr>
           <tr>
-              <td>Excess Wages</td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(100.45)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(700.45)%></td>
-
+            <td>Excess Wages</td>
+            <% @org_reports.each do |report|%>
+             <td><%=number_to_currency(report.sum_state_excess_wages)%></td>
+            <% end%>
+            <td><%=number_to_currency(@last_year_totals[2])%></td>
            </tr>
       </tbody>
 
@@ -118,38 +113,40 @@
         <tbody>
           <tr>
               <td>UI Tax</td>
+            <% @org_reports.each do |report|%>
+
               <td><%=number_to_currency(100)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(500.30)%></td>
-              <td><%=number_to_currency(300)%></td>
-              <td><%=number_to_currency(1100.30)%></td>
+            <%end%>
+
+              <td><%=number_to_currency(1000.23)%></td>
 
           </tr>
           <tr>
               <td>Administrative Assesment  </td>
-              <td><%=number_to_currency(120.23)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(720.23)%></td>
+              <td><%=number_to_currency(115)%></td>
+              <td><%=number_to_currency(115)%></td>
+              <td><%=number_to_currency(115)%></td>
+              <td><%=number_to_currency(115)%></td>
+              <td><%=number_to_currency(460)%></td>
+
 
           </tr>
           <tr>
               <td>Interest</td>
-              <td><%=number_to_currency(145.23)%></td>
-              <td><%=number_to_currency(100)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(645.23)%></td>
+              <td><%=number_to_currency(0)%></td>
+              <td><%=number_to_currency(00)%></td>
+              <td><%=number_to_currency(00)%></td>
+              <td><%=number_to_currency(00)%></td>
+              <td><%=number_to_currency(0)%></td>
 
            </tr>
           <tr>
               <td>Penalty</td>
-              <td><%=number_to_currency(430.24)%></td>
-              <td><%=number_to_currency(100)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(200)%></td>
-              <td><%=number_to_currency(543.24)%></td>
+              <td><%=number_to_currency(0)%></td>
+              <td><%=number_to_currency(0)%></td>
+              <td><%=number_to_currency(0)%></td>
+              <td><%=number_to_currency(0)%></td>
+              <td><%=number_to_currency(0)%></td>
 
           </tr>
       </tbody>

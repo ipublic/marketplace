@@ -104,6 +104,21 @@ module Wages
       0
     end
 
+    def self.multi_report_totals(reports)
+     total_wages =  reports.reduce(0.0) do |subtotal, total_wages|
+        subtotal += total_wages.sum_state_total_wages
+      end
+
+      total_taxable =  reports.reduce(0.0) do |subtotal, total_wages|
+        subtotal += total_wages.sum_state_taxable_wages
+      end
+
+      total_excess =  reports.reduce(0.0) do |subtotal, total_wages|
+        subtotal += total_wages.sum_state_excess_wages
+      end
+
+      [total_wages,total_taxable, total_excess]
+    end
 
       
     def sum_state_ui_total_wages
@@ -142,3 +157,10 @@ module Wages
 
 	end
 end
+
+
+
+
+
+
+

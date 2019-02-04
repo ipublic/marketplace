@@ -21,7 +21,7 @@ require File.join(File.dirname(__FILE__),'seedfiles', 'party_roles_and_relations
 
 puts "Creating Organization Parties and Wage Reports"
 
-legal_first_names = ["Bold Ideas", "Adaptas","Integra Design","Magna Solutions","Omni Tech","Affinity Investments","Millenia Life", "Acme Widgets","Opal Banking", "Toro Capital"]
+legal_first_names = ["Bold Ideas", "Adaptas", "Integra Design", "Magna Solutions", "Omni Tech", "Affinity Investments", "Millenia Life", "Acme Widgets","Opal Banking", "Toro Capital", "IdeaCrew"]
 person_first_names =  ["Jane", "Nora", "Samuel","Matthew", "Caroline", "John", "Sara","Mason","Kristen", "David", "William", "Kevin", "Jessica","Mary","David", "John"]
 person_last_names = ["Carter", "Farrell", "Jackson", "Adams","Klein","Lopez", "Price", "Peterson", "Derby", "Harris", "Hessen", "Golden", "Waithe","Murray","Aykroyd","Chase", "Curtin", "Williams"]
 1..30.times do
