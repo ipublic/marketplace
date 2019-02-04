@@ -45,6 +45,7 @@ module Employers
     include Virtus.model
     include ActiveModel::Model
 
+    attribute :id, String
     attribute :address_info, Employers::AddressInfoForm
     attribute :contact_info, Employers::ContactInfoForm
     attribute :contribution_info, Employers::ContributionInfoForm
@@ -69,6 +70,7 @@ module Employers
       save_result, persisted_object = (update ? service.update(self) : service.save(self))
       return false unless save_result
       @show_page_model = persisted_object
+      self.id = persisted_object.id.to_s
       true
     end
 

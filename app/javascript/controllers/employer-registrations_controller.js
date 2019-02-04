@@ -33,7 +33,7 @@ export default class extends Controller {
 								icon: "success",
 							})
 							.then(() => {
-								window.location.pathname = '/dashboard'
+								window.location.pathname = `/employers/${response.message}`
 							})
 
 							localStorage.removeItem('Contact Info');
