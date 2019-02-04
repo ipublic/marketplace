@@ -54,16 +54,13 @@
                 <ul id="employers" class="collapse" aria-labelledby="headingOne" data-parent="#side-menu">
                   <li class="list-group-item pb-0 pl-0"><span id="employerName"></span></li>
                   <li class="list-group-item pb-0 pl-0"><a href="#" id="employerWageReport">Wage Reports</a></li>
-                  <li class="list-group-item pb-0 pl-0">Accounts</li>
-                  <li class="list-group-item pb-0 pl-0">Profile</li>
+                  <li class="list-group-item pb-0 pl-0"><a href="#" id="employerAccount">Accounts</a></li>
+                  <li class="list-group-item pb-0 pl-0"><%= link_to 'Profile', dashboard_index_path %></li>
                 </ul>
               </li>
-
-              <li class="list-group-item pr-1 side-menu-item" data-toggle="collapse" data-target="#tpa" aria-expanded="true" aria-controls="collapseOne"><i class="fas fa-cogs  mr-3"></i> TPA <br />
-                <ul id="tpa" class="collapse" aria-labelledby="headingOne" data-parent="#side-menu">
-                  <li class="list-group-item pb-0 pl-0"><%= link_to 'Settings', settings_home_path %></li>
-                </ul>
-              </li>
+              <li class="list-group-item pr-1" aria-controls="collapseOne"><i class="fas fa-users mr-3"></i> <%= link_to 'TPAs', tpas_path %></li>
+              <li class="list-group-item pr-1"><i class="fas fa-comment-alt mr-3"></i><%= link_to 'Notifications', notifications_path %></li>
+              <li class="list-group-item pr-1"><i class="fas fa-cogs mr-3"></i><%= link_to 'Settings', settings_home_path %></li>
             </ul>
           </div>
 

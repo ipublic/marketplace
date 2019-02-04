@@ -14,6 +14,11 @@ export default class extends Controller {
 			this.continueBtnTarget.closest('fieldset').setAttribute('disabled', true)
 		}
 
+		if (event.target.value == 0) {
+			localStorage.setItem('Is Admin', true)
+		} else {
+			localStorage.removeItem('Is Admin')
+		}
 	}
 
 	goToRoute() {

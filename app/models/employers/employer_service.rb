@@ -8,19 +8,19 @@ module Employers
 
     def save(form)
       model_attributes = form_params_to_attributes(form)
-      employee, employer = factory.call(model_attributes)
-      store(form, employee, employer)
+      objects = factory.call(model_attributes)
+      store(form, objects)
     end
 
 		def form_params_to_attributes(form)
       form.attributes.except(:contribution_info)
 		end
 
-    def store(form, employee, employer)
-      employee.save!
-      employer.save!
-      #employee.party_roles.first.related_party.save #TODO: Get rid of this first
-      #employee.save
+    def store(form, objects)
+      objects.each do |object|
+        puts object.inspect
+        object.save!
+      end
     end
   end
 end

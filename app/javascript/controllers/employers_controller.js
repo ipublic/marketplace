@@ -38,6 +38,7 @@ export default class extends Controller {
     let employerId = event.target.dataset.id;
     document.getElementById('employerName').innerHTML = selectedEmployerName;
     document.getElementById('employerWageReport').setAttribute("href", `/employers/${employerId}/wage_reports`);
+    document.getElementById('employerAccount').setAttribute("href", `/employers/${employerId}`);
     this.employerName = selectedEmployerName;
   }
 

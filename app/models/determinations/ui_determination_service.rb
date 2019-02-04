@@ -18,7 +18,7 @@ module Determinations
       # if @active_role_keys.include?(:non_profit_501c3) || @active_role_keys.include?(:other_non_profit)
       # end
 
-      @pactive_role_keys.include?(:uits_reimbursing) ? :uits_reimbursing : :uits_contributing
+      @active_role_keys.include?(:uits_reimbursing) ? :uits_reimbursing : :uits_contributing
     end
 
     def wage_filing_schedule

@@ -36,8 +36,8 @@ legal_first_names.each do  |name|
     is_foreign_entity: false)
 end
 
+parties = Parties::OrganizationParty.all
 
-parties = Parties::OrganizationParty.all 
 parties.each do |party|
   (1..10).each do  |i|
     entries = []
@@ -75,7 +75,7 @@ parties.each do |party|
                                   ui_amount_due:"#{rand(100...400)}",
                                   total_employees: entries.size )
       report.wage_entries.each do |entry|
-        
+
         entry.wage.save!
         entry.save!
       end
@@ -84,10 +84,19 @@ parties.each do |party|
 end
 puts "*"*80
 
+puts "Creating sample TPAs"
+first_names = ['Dave', 'Sue', 'Mike', 'Ann', 'Jim', 'Carol']
+last_names = ['Adams', 'Brown', 'Collins', 'Douglas', 'Harris', 'Ingrid']
+
+(0..5).each do |i|
+  person = Parties::PersonParty.create!(current_first_name:"#{first_names[i]}",current_last_name:"#{last_names[i]}", ssn: "#{rand(111111111...999999999)}")
+  tpa_party_role_kind = Parties::PartyRoleKind.where(key: :tpa).first
+  tpa_party_relationship_kind = Parties::PartyRelationshipKind.where(key: :ui_tpa_relationship).first
+  person.party_roles.create!(party_role_kind: tpa_party_role_kind, party_relationship_id: tpa_party_relationship_kind.id)
+end
+
 puts "Creating Indexes"
 system "rake db:mongoid:create_indexes"
 puts "::: complete :::"
 
 puts "End of Seed Data"
-
-

@@ -10,17 +10,17 @@ module Parties
 	  field :contact_method, 		type: Symbol, default: :only_electronic_communications
 
 
-    has_many    :party_roles, 
+    has_many    :party_roles,
                 as: :role_castable,
                 class_name: "Parties::PartyRole"
 
 	  embeds_many		:documents, as: :documentable,
 	  							class_name: '::Document'
 
-	  has_one			:party_ledger, 
-								class_name: "Parties::PartyLedger"
+	  has_one			:party_ledger,
+								class_name: "FinancialAccounts::PartyLedger"
 
-	  has_many		:party_ledger_account_balances, 
+	  has_many		:party_ledger_account_balances,
 								class_name: "FinancialAccounts::PartyLedgerAccountBalance"
 
 	  has_many		:determinations,
@@ -52,7 +52,6 @@ module Parties
 	  scope :clients_for_tpa,					->(third_party_administrator){}
 	  scope :employees_for_employer, 	->(employer){}
 
-
 		index({ party_id: 1 })
 	  index({"party_roles.party_role_kind_id": 1})
 	  index({"party_roles.related_party_id": 1}, {sparse: true})
@@ -60,7 +59,7 @@ module Parties
 
 	  # TODO -- Protect from duplicate active keys
 	  def add_party_role(role_kind_key)
-	  	party_role.build(role_kind_Key) 
+	  	party_role.build(role_kind_Key)
 	  	party_roles << new_role
 
 	  	party_roles

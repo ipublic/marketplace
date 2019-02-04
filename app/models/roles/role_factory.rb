@@ -38,6 +38,5 @@ module Roles
     def party_role
       @party_role
     end
-
   end
 end
