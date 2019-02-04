@@ -4,6 +4,8 @@ module Employers
       employer = Parties::OrganizationParty.new(legal_name: employer_info.legal_name, fein: employer_info.fein, entity_kind: employer_info.kind.to_sym, is_foreign_entity: false)
       contact = Parties::PersonParty.new(current_first_name: contact_info.first_name, current_last_name: contact_info.last_name)
 
+      employer.addresses.build address_info.attributes.except(:area_code, :number, :extension)
+
       relationship_party = Roles::RelationshipRoleFactory.new(contact, :contact, :organization_ui_primary_contact, employer).party
 
       if Parties::PartyRoleKind.is_valid_key?(employer_info.kind.to_sym)
