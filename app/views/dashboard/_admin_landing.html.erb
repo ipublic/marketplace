@@ -60,7 +60,11 @@
 	<div class="col-md-6">
 		<ul class="list-group">
 			<% @tpas.each do |tpa| %>
-				<li class="list-group-item"><a href="#"><%= tpa.current_first_name %> <%= tpa.current_last_name %></a></li>
+        <% if tpa.respond_to? :legal_name %>
+          <li class="list-group-item"><a href="#"><%= tpa.legal_name %></a></li>
+        <% else %>
+          <li class="list-group-item"><a href="#"><%= tpa.current_first_name %> <%= tpa.current_last_name %></a></li>
+        <% end %>
 			<% end %>
 		</ul>
 	</div>
