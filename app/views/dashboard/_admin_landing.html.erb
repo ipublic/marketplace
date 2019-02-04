@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-md-6">
-		Status Alerts
+		<strong>Status Alerts</strong>
 	</div>
 	<div class="col-md-6">
-		Notifications
+		<strong>Notifications</strong>
 	</div>
 	<div class="col-md-12">
 		<hr>
@@ -42,30 +42,26 @@
 		<button class="btn btn-raised btn-success">Create New Notification</button>
 	</div>
 	<div class="col-md-6 mt-3">
-		Recently Accessed Employers
+		<strong>Recently Accessed Employers</strong>
 	</div>
 	<div class="col-md-6 mt-3">
-		TPAs
+		<strong>TPAs</strong>
 	</div>
 	<div class="col-md-12">
 		<hr>
 	</div>
 	<div class="col-md-6">
 		<ul class="list-group er-list-group">
-		  <li class="list-group-item"><a href="#">Employer 1</a></li>
-		  <li class="list-group-item"><a href="#">Employer 2</a></li>
-		  <li class="list-group-item"><a href="#">Employer 3</a></li>
-		  <li class="list-group-item"><a href="#">Employer 4</a></li>
-		  <li class="list-group-item"><a href="#">Employer 5</a></li>
+			<% @employers.each do |er| %>
+				<li class="list-group-item"><a href="#"><%= er.legal_name %></a></li>
+			<% end %>
 		</ul>
 	</div>
 	<div class="col-md-6">
 		<ul class="list-group">
-		  <li class="list-group-item"><a href="#">TPA 1</a></li>
-		  <li class="list-group-item"><a href="#">TPA 2</a></li>
-		  <li class="list-group-item"><a href="#">TPA 3</a></li>
-		  <li class="list-group-item"><a href="#">TPA 4</a></li>
-		  <li class="list-group-item"><a href="#">TPA 5</a></li>
+			<% @tpas.each do |tpa| %>
+				<li class="list-group-item"><a href="#"><%= tpa.current_first_name %> <%= tpa.current_last_name %></a></li>
+			<% end %>
 		</ul>
 	</div>
 </div>
