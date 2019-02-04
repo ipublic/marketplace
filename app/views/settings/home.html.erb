@@ -68,14 +68,16 @@
             <div class="card-body">
               <h6 class="card-title">Picklist Values</h6>
               <div class="form-group">
-                <label for="exampleFormControlSelect1">Select a field to edit its values</label>
-                <select multiple class="form-control" id="exampleFormControlSelect1">
-                  <option>Trust</option>
-                  <option>Government</option>
-                  <option>C Organization</option>
-                  <option>S Organization</option>
-                  <option>Partnership</option>
-                  <option></option>
+                <label for="exampleFormControlSelect1">Select a type to edit its values</label>
+                <select class="form-control" id="exampleFormControlSelect1" data-action="settings#picklistChange">
+                  <option value='employer_types_select'>Employer Entity Types</option>
+                  <option value='uits_status_types_select'>UITS Statuses</option>
+                </select>
+                <select multiple class="form-control" id="employer_types_select">
+                  <%= options_for_select Parties::PartyRoleKind.where(:key.in => [:s_corporation, :c_corporation, :limited_liability_corporation, :limited_liability_partnership, :non_profit_501c3, :other_non_profit, :household_employer]).pluck(:title, :key).to_h %>
+                </select>
+                <select multiple class="form-control d-none" id="uits_status_types_select">
+                  <%= options_for_select Parties::PartyRoleKind.where(:key.in => [:uits_liable, :uits_exempt, :uits_contributing, :uits_reimbursing, :uits_qtr_filer, :uits_annual_filer]).pluck(:title, :key).to_h %>
                 </select>
               </div>
             </div>

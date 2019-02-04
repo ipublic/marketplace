@@ -1,8 +1,8 @@
 <div data-controller="dashboard">
   <div id="adminLanding" class="d-none">
-    <%= render 'admin_landing' %>
+    <%= render 'admin_landing', :locals => {employers: @employers, tpas: @tpas} %>
   </div>
   <div id="employerLanding" class="d-none">
-    <%= render 'employer_landing' %>
+    <%= render 'employer_landing'  %>
   </div>
 </div>

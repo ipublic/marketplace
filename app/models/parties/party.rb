@@ -32,7 +32,7 @@ module Parties
 		has_many		:notices,
 								class_name: "Notices::Notice"
 
-	  # embeds_many :addresses, as: :addressable
+	  embeds_many :addresses, as: :addressable, class_name: 'Address'
 	  # embeds_many :phones, 		as: :phonable
 	  # embeds_many :emails, 		as: :emailable
 

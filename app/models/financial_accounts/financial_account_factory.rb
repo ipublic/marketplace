@@ -13,6 +13,7 @@ module FinancialAccounts
     def initialize(party, args)
     	@party							= party
     	@account_kind 			= args[:account_kind]
+      @initial_liability_date = args[:initial_liability_date]
 
     	@ledger	= nil
     	@financial_account	= nil
@@ -52,7 +53,7 @@ module FinancialAccounts
     end
 
     def initialize_ui_financial_account
-    	@financial_account.initial_liability_date 			= @determination_service.initial_liability_date
+    	@financial_account.initial_liability_date 			= @initial_liability_date || @determination_service.initial_liability_date
     	@financial_account.current_payment_kind 				= @determination_service.payment_kind
     	@financial_account.current_wage_filing_schedule = @determination_service.wage_filing_schedule
     	@financial_account.current_administrative_rate 	= @determination_service.administrative_rate

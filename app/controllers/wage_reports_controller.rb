@@ -10,9 +10,9 @@ class WageReportsController <  ApplicationController
     @current_timespan =  Timespans::Timespan.current_timespan
     @current_reports =  Wages::WageReport.find_and_filter_wage_reports_by_quarter(@organization,@latest_timespan)
     @report= Wages::WageReport.new
-    @org_reports =  Wages::WageReport.find_and_filter_wage_reports(@organization)[2..5]
+    @org_reports =  Wages::WageReport.find_and_filter_wage_reports(@organization)[2..5] || []
     @last_year_totals = Wages::WageReport.multi_report_totals(@org_reports)
-end
+  end
 
   def new
     @report = Wages::WageReport.new 
