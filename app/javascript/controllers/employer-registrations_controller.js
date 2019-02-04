@@ -53,7 +53,6 @@ export default class extends Controller {
             },
             onStepChanging: function (event, currentIndex, newIndex) {
 							// Temporaily stores data from form to pass to rails on submit
-
 							let formData = form[0].elements;
 							if (currentIndex === 0) {
 								localStorage.setItem('Contact Info', JSON.stringify({
@@ -73,8 +72,7 @@ export default class extends Controller {
 									'address_2': formData[10].value,
 									'city': formData[11].value,
 									'state': formData[12].value,
-									'zip': formData[13].value,
-									'county': formData[14].value
+									'zip': formData[13].value
 								}))
 							}
 

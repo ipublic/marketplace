@@ -99,6 +99,19 @@ last_names = ['Adams', 'Brown', 'Collins', 'Douglas', 'Harris', 'Ingrid']
   person.party_roles.create!(party_role_kind: tpa_party_role_kind, party_relationship_id: tpa_party_relationship_kind.id)
 end
 
+puts "Creating Roles and Keys"
+roles = ['UITS Administrator', 'UITS Call Center', 'Employer', 'Third Party Administrator', 'Call Center']
+keys = ['Configure Settings', 'Create/Manage Employers', 'Create/Manage TPAs', 'Audit Wage Reports', 'Manage Wage Reports', 'Create Wage Reports', 'Amend Wage Reports', 'Assign TPA', 'Manage Employer Details', 'Manage TPA Details']
+
+roles.each do |role|
+Role.create(name: role)
+end
+
+keys.each do |key|
+  FilterToken.create(name: key, granted: false)
+end
+
+
 puts "Creating Indexes"
 system "rake db:mongoid:create_indexes"
 puts "::: complete :::"
