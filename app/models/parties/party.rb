@@ -58,20 +58,17 @@ module Parties
 	  index({"party_roles.related_party_id": 1}, {sparse: true})
 
 
+	  # TODO -- Protect from duplicate active keys
 	  def add_party_role(role_kind_key)
 	  	party_role.build(role_kind_Key) 
-	  	# if new_role.eligibility_policy.present? && new_role.eligibility_policy.satisfied?
-		  # end
-	  	party_roles << new_role # unless party_roles_by_kind(new_role)
+	  	party_roles << new_role
 
 	  	party_roles
 	  end
 
-	  def add_party_relationship_role(party_role_kind_key, party_relationship_kind_key, related_party)
-	  	party_role = party_roles.build
-	  	Roles::RelationshipRoleFactory()
+	  def active_party_role_keys
+	  	party_roles.reduce([]) { |active_list, role| active_list << role.key if role.is_active? }
 	  end
-
 
 	  def active_party_roles_by_key(role_key)
 	  	party_roles_by_key(role_key).reduce([]) { |active_list, role| active_list << role if role.is_active? }

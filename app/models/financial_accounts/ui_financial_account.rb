@@ -1,21 +1,5 @@
 module FinancialAccounts
   class UiFinancialAccount < FinancialAccount
-    include Mongoid::Document
-
-    # Initial date employer became liable for UI tax
-    field :initial_liability_date,        type: Date 
-    field :status,                        type: Symbol, default: :active
-
-    field :ledger_system_account_id,      type: BSON::ObjectId
-
-    field :current_payment_type,          type: Symbol
-    field :current_wage_filing_schedule,  type: Symbol
-
-    embeds_many :filing_statuses    # wage report filed for timespans
-    embeds_many :payment_status     # financial transactions for timespans
-
-
-    validates_presence_of :initial_liability_date, :status, :current_payment_type, :current_wage_filing_schedule
 
     # Account states:
     # Current
@@ -25,9 +9,26 @@ module FinancialAccounts
     # Closed
     #   Reason: Written Off
 
-    def assign_schedule_and_payment
+    include Mongoid::Document
 
-      
+    # Initial date employer became liable for UI tax
+    field :status,                        type: Symbol, default: :active
+
+    field :ledger_system_account_id,      type: BSON::ObjectId
+
+    field :initial_liability_date,        type: Date,   default: ->{ TimeKeeper.date_of_record }
+    field :current_payment_kind,          type: Symbol, default: :uits_contributing
+    field :current_wage_filing_schedule,  type: Symbol, default: :uits_qtr_filer
+    field :current_administrative_rate,   type: Float,  default: 0.0
+    field :current_contribution_rate,     type: Float,  default: 0.0
+
+    embeds_many :filing_statuses    # wage report filed for timespans
+    embeds_many :payment_status     # financial transactions for timespans
+
+    validates_presence_of :initial_liability_date, :status, :current_payment_kind, :current_wage_filing_schedule
+
+    def current_balance
+      financial_transactions.reduce(0.0) { |totoal, transaction| total + transaction.amount }
     end
 
   end
