@@ -22,7 +22,7 @@ module Parties
 
 	  validates_presence_of	:current_first_name, :current_last_name
 
-	  validates :ssn, uniqueness: true, allow_blank: true
+	  #validates :ssn, uniqueness: true, allow_blank: true
 
 	  validates :gender,
 	    allow_blank: true,
