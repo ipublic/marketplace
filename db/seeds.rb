@@ -21,21 +21,21 @@ require File.join(File.dirname(__FILE__),'seedfiles', 'party_roles_and_relations
 
 puts "Creating Organization Parties and Wage Reports"
 
-legal_first_names = ["Tom's","John's", "Bob's", "Jan's", "Kathy's"]
-legal_last_names = ["Cook House","Car Rental", "Burgers", "Autobody","Jewelry"]
-person_first_names =  ["Bill", "Dan", "Chevy","Joe", "Jim", "Sam", "Alex","Sara","Matt", "Trey", "Dan", "Kristen", "Jack","Cindy","Linda", "Elliot","Jane","Martina","Hannah","Kara", "Alexis", "Gabe"]
-person_last_names = ["Johnson", "Farrell", "Smith", "Jenkins","Golen","Thompson", "Belvedere", "Sims", "Brown", "Harris", "Hessen", "Golden", "Waithe","Murray","Aykroyd","Chase", "Curtin", "williams"]
+legal_first_names = ["Bold Ideas", "Adaptas","Integra Design","Magna Solutions","Omni Tech","Affinity Investments","Millenia Life", "Acme Widgets","Opal Banking", "Toro Capital"]
+person_first_names =  ["Jane", "Nora", "Samuel","Matthew", "Caroline", "John", "Sara","Mason","Kristen", "David", "William", "Kevin", "Jessica","Mary","David", "John"]
+person_last_names = ["Carter", "Farrell", "Jackson", "Adams","Klein","Lopez", "Price", "Peterson", "Derby", "Harris", "Hessen", "Golden", "Waithe","Murray","Aykroyd","Chase", "Curtin", "Williams"]
 1..30.times do
    Parties::PersonParty.create!(current_first_name:"#{person_first_names.sample}",current_last_name:"#{person_last_names.sample}", ssn: "#{rand(111111111...999999999)}")
 end
 
-1..30.times do
+legal_first_names.each do  |name|
  Parties::OrganizationParty.create!(
     entity_id:"#{rand(10000...999999)}",
     fein:"#{rand(111111111...999999999)}",
-    legal_name:"#{legal_first_names.sample + " " + legal_last_names.sample}",
+    legal_name: name,
     is_foreign_entity: false)
 end
+
 
 parties = Parties::OrganizationParty.all 
 parties.each do |party|
@@ -45,13 +45,15 @@ parties.each do |party|
 
       1..10.times do
         person = Parties::PersonParty.all.sample
+        gross_wages= rand(1000...30000)
+
         entry = Wages::WageEntry.new(submission_kind: :original, submitted_at: Time.now)
         wage  = Wages::Wage.new(person_party_id: person.id,
-                                state_total_gross_wages: "#{rand(100...1000)}",
+                                state_total_gross_wages: gross_wages,
                                 timespan_id:span.id,
-                                state_taxable_wages:"#{rand(100...1000)}",
-                                state_total_wages:"#{rand(1000...10000)}",
-                                state_excess_wages:"#{rand(100...1000)}",
+                                state_taxable_wages: Wages::Wage.new.sum_taxable_wages(gross_wages),
+                                state_total_wages:gross_wages,
+                                state_excess_wages: Wages::Wage.new.sum_excess_wages(gross_wages),
                                 wage_entry: entry )
 
         entries << entry

@@ -18,9 +18,9 @@
           </th>
           <th class="th-sm">Total Wages
           </th>
-          <th class="th-sm">Excess Wages
-          </th>
           <th class="th-sm">Taxable Wages
+          </th>
+          <th class="th-sm">Excess Wages
           </th>
           <th class="th-sm">Actions
           </th>
@@ -31,9 +31,9 @@
           <tr>
             <td><%= link_to "#{report.status.capitalize}", wage_report_path(report)%></td>
             <td><%=report.submission_kind.capitalize%></td>
-            <td>$<%=report.state_total_gross_wages%></td>
-            <td>$<%=report.state_ui_taxable_wages%></td>
-            <td>$<%=report.ui_total_due%></td>
+            <td>$<%=report.sum_state_total_wages%></td>
+            <td>$<%=report.sum_state_taxable_wages%></td>
+            <td>$<%=report.sum_state_excess_wages%></td>
             <td>          
               <%=link_to 'Amend', edit_wage_report_path(report), :class => "btn btn-outline-primary btn-rounded ", :id => "plus"  %>
             </td>

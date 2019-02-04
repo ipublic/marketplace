@@ -65,7 +65,6 @@ module Wages
     index({ organization_party_id: 1, timespan_id: 1 })
     index({ timespan_id: 1 })
 
-    # before_save :sum_employees
 
     def set_state_wages
     	write_attributes(sum_all_state_wages)
@@ -78,44 +77,48 @@ module Wages
 	  end
 
     def sum_state_excess_wages
-      wage_entries.map(&:wage).compact.reduce(0.0) do |subtotal, wage| 
-        excess = wage.state_excess_wages || 0
-        subtotal += excess
-    end
-
-	  	# wage_entries.reduce(0.0) { |subtotal, wage_entry| subtotal += wage_entry.wage.state_excess_wages  }
+     if (sum_state_total_wages - 9000) < 0 
+      0 
+     else
+      sum_state_total_wages - 9000 
+     end
 	  end
 
     def sum_state_taxable_wages
-      wage_entries.map(&:wage).compact.reduce(0.0) do  |subtotal, wage| 
+      total = wage_entries.map(&:wage).compact.reduce(0.0) do  |subtotal, wage| 
         subtotal += wage.state_taxable_wages || 0 
+      end
+      if total > 9000
+        9000
+      else  
+        total
+      end
     end
-  end
     
     def ui_total_due
         sum_state_total_wages - sum_state_excess_wages
     end
 
-        
+          
     def ui_paid_amount
-      0.1 * sum_state_total_wages
-  end
+      0
+    end
 
 
-    
+      
     def sum_state_ui_total_wages
-      0.05 * sum_state_total_wages
+      sum_state_total_wages
     end
 
 	  # Calculate all wage values in one pass -- higher performance on large wage reports
-	  def sum_all_state_wages
-	  	wage_entries.map do | wage_entry |
-	  		total_wages 	+= wage_entry.state_total_gross_wages 
-	  		excess_wages 	+= wage_entry.state_qtr_total_gross_wages
-	  		taxable_wages += wage_entry.state_qtr_total_gross_wages 
-	  		{ state_total_wages: total_wages, state_excess_wages: excess_wages, state_taxable_wages: taxable_wages }
-	  	end
-	  end
+    def sum_all_state_wages
+      wage_entries.map do | wage_entry |
+        total_wages 	+= wage_entry.state_total_gross_wages 
+        excess_wages 	+= wage_entry.state_qtr_total_gross_wages
+        taxable_wages += wage_entry.state_qtr_total_gross_wages 
+        { state_total_wages: total_wages, state_excess_wages: excess_wages, state_taxable_wages: taxable_wages }
+      end
+    end
 
 	  def sum_employees
 	  	wage_entries.compact.uniq.size

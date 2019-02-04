@@ -31,13 +31,26 @@ module Wages
       end
       @person_party = new_person_party
 	  end
-	  
+
 	  def person_party
 	    return nil if person_party_id.blank?
 	    return @person_party if defined? @person_party
 	    @person_party = Parties::PersonParty.find(person_party_id)
 	  end
 
+
+    def sum_taxable_wages(state_total_wages)
+      if state_total_wages.to_f > 9000
+       9000.to_d
+      else
+       state_total_wages.to_f
+      end
+     end
+ 
+     def sum_excess_wages(state_total_wages)
+       state_total_wages.to_f - 9000
+     end
+ 
 	  def timespan=(new_timespan)
       if new_timespan.nil?
         write_attribute(:new_timespan, nil)

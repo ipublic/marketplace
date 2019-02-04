@@ -42,7 +42,7 @@ module Timespans
     end
 
     def self.current_quarters
-      where(:begin_on.gte => (Time.now - 1.years), :end_on.lte => (Time.now + 2.years)).select{|s|s._type=="Timespans::QuarterYearTimespan"}
+      where(:begin_on.gte => (Time.now - 2.years), :end_on.lte => (Time.now + 1.years)).select{|s|s._type=="Timespans::QuarterYearTimespan"}
     end
 
     def self.all_quarters

@@ -10,9 +10,9 @@
           </td>
           <td class="td-sm">Total Wages
           </td>
-          <td class="td-sm">Excess Wages
-          </td>
           <td class="td-sm">Taxable Wages
+          </td>
+          <td class="td-sm">Excess Wages
           </td>
           <td class="td-sm"> Administrative Assessment
           </td>        
@@ -29,9 +29,9 @@
         <tr>
           <td><%= link_to "#{current_report.submitted_at.to_date}", wage_report_path(current_report), :class => "card-header"%></td>
           <td><%=current_report.submission_kind.capitalize%></td>
-          <td><%=number_to_currency(current_report.state_total_gross_wages)%></td>
-          <td><%=number_to_currency(current_report.state_ui_taxable_wages)%></td>
-          <td><%=number_to_currency(current_report.ui_total_due)%></td>
+          <td><%=number_to_currency(current_report.sum_state_total_wages)%></td>
+          <td><%=number_to_currency(current_report.sum_state_taxable_wages)%></td>
+          <td><%=number_to_currency(current_report.sum_state_excess_wages)%></td>
           <td><%=number_to_currency(0)%></td>    
           <td><%=number_to_currency(0)%></td>
           <td><%=number_to_currency(0)%></td>

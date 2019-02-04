@@ -8,7 +8,7 @@
           <div class = 'row'>
             <div class = 'col'>
               <p  class="data-header">Total State Gross Wages</p>
-                <p ><%=@current_report.sum_state_total_wages%></p>
+                <p ><%=number_to_currency(@current_report.sum_state_total_wages)%></p>
             </div>
             <div class = 'col'>
               <p class="data-header">Total State UI Wages</p>
