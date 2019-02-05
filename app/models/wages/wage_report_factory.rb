@@ -49,16 +49,19 @@ module Wages
       if params[:commit] == "Add Entry"
         submission_kind = :original
         amend_reason = "Original"
+        report_submission_kind = :original
       else 
         submission_kind = :amended
         amend_reason = params[:amend_reason]
+        report_submission_kind = :amended
       end
       wage_params = params[:wages_wage_report][:new_wage_entry]
       gross_wages =  wage_params[:state_total_gross_wages]
       person =  Parties::PersonParty.create!(
         current_first_name: wage_params[:person_first_name],
         current_last_name: wage_params[:person_last_name],
-        ssn: wage_params[:ssn] )
+        ssn: wage_params[:ssn])
+      report.update_attributes(submission_kind: report_submission_kind)
       entry =  report.wage_entries.new(submission_kind: submission_kind, submitted_at: Time.now, amend_reason: amend_reason)
       entry.wage = Wages::Wage.new(
         person_party_id: person.id,
@@ -78,6 +81,7 @@ module Wages
     end
 
     def self.update_clone(id,cloned_report, wage_params)
+
       entry = cloned_report.wage_entries.find(id)
       wage = entry.wage
       entry.update_attributes!(
