@@ -21,6 +21,9 @@ require File.join(File.dirname(__FILE__),'seedfiles', 'party_roles_and_relations
 
 puts "Creating Organization Parties and Wage Reports"
 
+# Favor more common entity types in the random selection
+ENTITY_KINDS = [:s_corporation, :c_corporation, :s_corporation, :c_corporation, :s_corporation, :c_corporation, :limited_liability_corporation, :limited_liability_partnership, :non_profit_501c3, :other_non_profit, :household_employer]
+
 legal_first_names = ["Bold Ideas", "Adaptas", "Integra Design", "Magna Solutions", "Omni Tech", "Affinity Investments", "Millenia Life", "Acme Widgets","Opal Banking", "Toro Capital", "IdeaCrew"]
 person_first_names =  ["Jane", "Nora", "Samuel","Matthew", "Caroline", "John", "Sara","Mason","Kristen", "David", "William", "Kevin", "Jessica","Mary","David", "John"]
 person_last_names = ["Carter", "Farrell", "Jackson", "Adams","Klein","Lopez", "Price", "Peterson", "Derby", "Harris", "Hessen", "Golden", "Waithe","Murray","Aykroyd","Chase", "Curtin", "Williams"]
@@ -29,11 +32,28 @@ person_last_names = ["Carter", "Farrell", "Jackson", "Adams","Klein","Lopez", "P
 end
 
 legal_first_names.each do  |name|
- Parties::OrganizationParty.create!(
-    entity_id:"#{rand(10000...999999)}",
-    fein:"#{rand(111111111...999999999)}",
+  org = Parties::OrganizationParty.new(
+    entity_id: "#{rand(10000...999999)}",
+    fein: "#{rand(111111111...999999999)}",
+    entity_kind: ENTITY_KINDS.sample,
     legal_name: name,
     is_foreign_entity: false)
+
+  
+  date_of_first_wages = Time.at(rand(Time.new(2015,1,1).to_i..Time.now.to_i)).to_date
+
+  contact = Parties::PersonParty.new(current_first_name: "#{person_first_names.sample}", current_last_name: "#{person_last_names.sample}")
+  role = Roles::RoleFactory.new(org, org.entity_kind).party_role if Parties::PartyRoleKind.is_valid_key?(org.entity_kind)
+
+  party_relationship = Roles::RelationshipRoleFactory.new(contact, :contact, :organization_ui_primary_contact, org).party
+
+  ui_financial_account  = FinancialAccounts::FinancialAccountFactory.call(org, account_kind: :ui_financial_account, initial_liability_date: date_of_first_wages)
+  
+  party_relationship.save!
+  contact.save!
+  ui_financial_account.save!
+  org.party_ledger.save!
+  org.save!
 end
 
 parties = Parties::OrganizationParty.all
