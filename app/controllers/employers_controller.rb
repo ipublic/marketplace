@@ -17,7 +17,7 @@ class EmployersController < ApplicationController
   def create
     @employer = Employers::EmployerForm.for_create(contact_info: JSON.parse(form_params[:contact_info]), employer_info: JSON.parse(form_params[:employer_info]), address_info: JSON.parse(form_params[:address_info]))
     if @employer.save
-			render json: {code: 200, message: 'Employer Registration successfully submitted.'}
+      render json: {code: 200, message: @employer.id.to_s}
 		else
 			render json: {code: 400, message: 'Unable to process this request.'}
 		end
