@@ -56,6 +56,16 @@ box-shadow: 1px 1px;
   font-weight: bold;
   border-bottom: 1px solid $blue;
 }
+.data-label {
+  font-weight: bold;
+  display: inline;
+  &::after {
+    content: ':'
+  }
+}
+.data-label + p {
+  display: inline;
+}
 .col  {
 
   p{

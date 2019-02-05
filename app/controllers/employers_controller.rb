@@ -9,6 +9,13 @@ class EmployersController < ApplicationController
     @employer = Employers::EmployerForm.for_new
   end
 
+  def show
+    @organization = Parties::OrganizationParty.find(params[:id])
+    @account = @organization.party_ledger.financial_accounts.last
+
+    render layout: 'two_column'
+  end
+
   def get_employers
     @orgs = Parties::OrganizationParty.all.order(created_at: :desc)
     render json: { data: @orgs }
