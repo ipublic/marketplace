@@ -16,9 +16,9 @@ module FinancialAccounts
 
     field :ledger_system_account_id,      type: BSON::ObjectId
 
-    field :initial_liability_date,        type: Date,   default: ->{ TimeKeeper.date_of_record }
-    field :current_payment_kind,          type: Symbol, default: :uits_contributing
-    field :current_wage_filing_schedule,  type: Symbol, default: :uits_qtr_filer
+    field :initial_liability_date,        type: Date #,   default: ->{ TimeKeeper.date_of_record }
+    field :current_payment_kind,          type: Symbol#, default: :uits_contributing
+    field :current_wage_filing_schedule,  type: Symbol#, default: :uits_qtr_filer
     field :current_administrative_rate,   type: Float,  default: 0.0
     field :current_contribution_rate,     type: Float,  default: 0.0
 
