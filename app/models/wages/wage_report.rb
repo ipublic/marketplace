@@ -146,10 +146,9 @@ module Wages
     end
 
     def self.latest_timespan(org)
+      binding.pry
       filter =  self.find_and_filter_wage_reports(org)
-      if filter.size > 1 
-        filter[1].timespan
-      elsif filter.present? 
+      if filter.present? 
         filter[0].timespan
       else  
         []
