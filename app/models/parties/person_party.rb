@@ -37,7 +37,11 @@ module Parties
 	  scope :contact_for, 	-> (party){}
 
     def hide_ssn 
+      if self.ssn 
       self.ssn.split('')[5..8].unshift("x","x-","x","x","x-").join('')
+      else 
+        ""
+      end
 
     end
 	end
