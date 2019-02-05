@@ -78,12 +78,12 @@ export default class extends Controller {
 
 							if (currentIndex === 2) {
 								localStorage.setItem('Company Info', JSON.stringify({
-									'legal_name': formData[15].value,
-									'dba': formData[16].value,
-									'fein': formData[17].value,
-									'kind': formData[18].value,
-									'date_of_first_wages': formData[20].value,
-									//'company_type': formData[19].value
+									'legal_name': formData[14].value,
+									'dba': formData[15].value,
+									'fein': formData[16].value,
+									'kind': formData[17].value,
+									'date_of_first_wages': formData[19].value,
+									//'company_type': formData[18].value
 								}))
 							}
 
