@@ -26,7 +26,7 @@
                       <%= wage_field.text_field :state_total_gross_wages, :class =>" input form-control" %>
                     </div>         
                       <div class= 'col destroy-entry'>
-                      <%= select_tag "amend_reason", options_for_select(@amend_reasons[0..5] ) %>
+                      <%= wage_entry_field.select "amend_reason", options_for_select(@amend_reasons[0..5] ) %>
                       </div>
                       <div class= 'col destroy-entry'>
                       <%= link_to "X", wage_report_path(@report, :entry => entry.id), :method => :delete, :class =>"start-report" %>
@@ -52,7 +52,6 @@
               <div class="col">
                   <%= select_tag :amend_reason, options_for_select(@amend_reasons) %>
               </div>
-
               <% end %>
               </div>
        <div id= "button-row"> 

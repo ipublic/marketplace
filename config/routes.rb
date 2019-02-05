@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :employers do
     get 'get_employers'
-    resources :accounts, only: [:show] do 
+    resources :accounts, only: [:index] do 
     end
     resources :wage_reports, shallow: true do
       resources :wage_entries

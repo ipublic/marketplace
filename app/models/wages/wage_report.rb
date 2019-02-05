@@ -72,7 +72,7 @@ module Wages
 
     def sum_state_total_wages
       wage_entries.map(&:wage).compact.reduce(0.0) do |subtotal, wage|
-         subtotal += wage.state_total_gross_wages if  wage.state_total_gross_wages
+         subtotal += wage.state_total_gross_wages || 0
         end
 	  end
 
@@ -85,11 +85,13 @@ module Wages
 	  end
 
     def sum_state_taxable_wages
+      ee_count =  wage_entries.size
+      total_taxable =  (9000 * ee_count)
       total = wage_entries.map(&:wage).compact.reduce(0.0) do  |subtotal, wage| 
         subtotal += wage.state_taxable_wages || 0 
       end
-      if total > 9000
-        9000
+      if total > total_taxable
+        total_taxable
       else  
         total
       end
@@ -143,15 +145,37 @@ module Wages
 	  	wage_entries.compact.uniq.size
     end
 
-    def self.find_and_filter_wage_reports(org)
-      org.wage_reports.sort{|a,b|b.timespan.begin_on - a.timespan.begin_on}
+    def self.latest_timespan(org)
+      filter =  self.find_and_filter_wage_reports(org)
+      if filter.size > 1 
+        filter[1].timespan
+      elsif filter.present? 
+        filter[0].timespan
+      else  
+        []
+      end
+
     end
+
+    def self.find_and_filter_wage_reports(org)
+        org.wage_reports.sort{|a,b|b.timespan.begin_on - a.timespan.begin_on} 
+    end
+
+    def self.current_quarters(org)
+      quarters = Timespans::Timespan.current_quarters.map(&:_id)
+      reports = quarters.map{|q| org.wage_reports.select{|a|a.timespan.id == q}.try(:first)}
+     if reports.compact.present?
+      reports.map(&:timespan) 
+     else 
+      []
+     end
+
+   end
 
     def self.find_and_filter_wage_reports_by_quarter(org, quarter)
-      org.wage_reports.select{|d|d.timespan.begin_on == quarter.begin_on}.sort{|a,b|  b.submitted_at - a.submitted_at}
+      org.wage_reports.select{|d|d.timespan.begin_on == quarter.begin_on}.sort{|a,b|  b.submitted_at - a.submitted_at} if quarter.present?
     end
     
-
 
 	  private 
 

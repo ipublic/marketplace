@@ -5,10 +5,10 @@ class WageReportsController <  ApplicationController
   def index
     @organization = Parties::OrganizationParty.find(params[:employer_id])
     @all_quarters = Timespans::Timespan.all_quarters
-    @current_quarters = Timespans::Timespan.current_quarters
-    @latest_timespan = Wages::WageReport.find_and_filter_wage_reports(@organization)[1].timespan
+    @current_quarters = Wages::WageReport.current_quarters(@organization)
+    @latest_timespan = Wages::WageReport.latest_timespan(@organization)
     @current_timespan =  Timespans::Timespan.current_timespan
-    @current_reports =  Wages::WageReport.find_and_filter_wage_reports_by_quarter(@organization,@latest_timespan)
+    @current_reports =  Wages::WageReport.find_and_filter_wage_reports_by_quarter(@organization, @latest_timespan)
     @report= Wages::WageReport.new
     @org_reports =  Wages::WageReport.find_and_filter_wage_reports(@organization)[2..5] || []
     @last_year_totals = Wages::WageReport.multi_report_totals(@org_reports)
@@ -36,8 +36,7 @@ class WageReportsController <  ApplicationController
     @report = Wages::WageReport.find(params[:id])
     @organization = @report.organization_party
     @amend_reasons = Wages::WageEntry::AMEND_REASONS
-
-    @entries = @report.wage_entries.sort{|a,b|b.wage.state_total_gross_wages - a.wage.state_total_gross_wages}
+    @entries = @report.wage_entries.sort{|a,b| b.wage.state_total_gross_wages - a.wage.state_total_gross_wages}
     @entry  =  @report.wage_entries.new
     @submission_kinds = Wages::WageEntry::SUBMISSION_KINDS
   end
