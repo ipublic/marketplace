@@ -16,6 +16,22 @@ export default class extends Controller {
       document.getElementById('dashboard-menu').classList.add('d-none');
       document.getElementById('notifications-menu').classList.add('d-none');
       document.getElementById('ee-employer').classList.remove('d-none');
+      this.getIdeaCrew();
     }
+  }
+
+  getIdeaCrew() {
+    let employers = [];
+    fetch('/employers/11/get_employers')
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        data.data.filter(item => {
+          if (item.legal_name === "IdeaCrew") {
+            document.getElementById('ee-wage-report').setAttribute("href", `/employers/${item['_id']['$oid']}/wage_reports`);
+          }
+        })
+      })
   }
 }
