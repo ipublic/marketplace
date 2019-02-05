@@ -85,7 +85,7 @@ module Wages
       )
       entry.save!
       wage.update_attributes!(
-        state_total_gross_wages: wage_params[:state_total_gross_wages] || 0
+        state_total_gross_wages: wage_params[:wage][:state_total_gross_wages] || 0
       )
       cloned_report.update_attributes(submission_kind: :amended, 
       submitted_at: Time.now.to_date,
