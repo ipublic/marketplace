@@ -6,6 +6,15 @@ export default class extends Controller {
 
 	targetValue;
 
+	initialize() {
+		localStorage.removeItem('Is Admin');
+		localStorage.removeItem('Registered');
+		let title = localStorage.getItem('title');
+		if (title) {
+			localStorage.removeItem('title')
+		}
+	}
+
 	setRoute(event) {
 		if (event.target.value !== 'Select a portal to get started') {
 			this.targetValue = event.target.value;

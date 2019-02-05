@@ -70,7 +70,8 @@ li.side-menu-item:after {
   left: 0;
   height: 21px;
   width: 21px;
-  background-color: #eee;
+  // background-color: #eee;
+  border: 1px solid #cdcbcb;
 }
 
 /* On mouse-over, add a grey background color */
@@ -80,7 +81,7 @@ li.side-menu-item:after {
 
 /* When the checkbox is checked, add a blue background */
 .cb-container input:checked ~ .checkmark {
-  background-color: #009688;
+  // background-color: #009688;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -104,8 +105,8 @@ li.side-menu-item:after {
   left: 7px;
   top: 4px;
   width: 5px;
-  height: 10px;
-  border: solid white;
+  height: 12px;
+  border: solid #009688;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);

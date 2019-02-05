@@ -3,7 +3,7 @@
     <% @organization.party_ledger.financial_accounts.each do |account| %>
       <div class='row'>
         <div class='col'>
-          <strong><%= account.title %></strong>
+          <strong id="account-title"><%= account.title %></strong>
         </div>
       </div>
       <div class='row'>

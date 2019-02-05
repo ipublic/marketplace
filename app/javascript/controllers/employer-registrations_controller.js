@@ -34,6 +34,8 @@ export default class extends Controller {
 							})
 							.then(() => {
 								window.location.pathname = `/employers/${response.message}`
+                // For demo purposes only
+                localStorage.setItem('Registered', true);
 							})
 
 							localStorage.removeItem('Contact Info');
