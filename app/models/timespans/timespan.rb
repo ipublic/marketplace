@@ -32,8 +32,8 @@ module Timespans
     after_initialize :initialize_timespan
 
     def predecessor
-      return nil unless begin_date.present?
-      preceding_timespans = self.find_on(begin_date - 1.day).entries
+      return nil unless begin_on.present?
+      preceding_timespans = self.class.find_on(begin_on - 1.day).entries
       preceding_timespans.size == 1 ? preceding_timespans.first : nil
     end
 

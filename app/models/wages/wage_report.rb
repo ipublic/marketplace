@@ -160,8 +160,10 @@ module Wages
     end
 
     def self.current_quarters(org)
-      quarters = Timespans::Timespan.current_quarters.map(&:_id)
-      reports = quarters.map{|q| org.wage_reports.select{|a|a.timespan.id == q}.try(:first)}
+      quarters = Timespans::Timespan.current_quarters.map(&:id)
+      puts quarters.inspect
+      puts org.wage_reports.map(&:timespan).inspect
+      reports = quarters.map{|q| org.wage_reports.select{|a|a.timespan.id == q}.first}
      if reports.compact.present?
       reports.map(&:timespan) 
      else 

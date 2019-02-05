@@ -37,8 +37,11 @@ module Roles
     	build_party_role
     	build_related_party_role
 
-    	initilize_party_relationship
+    	initialize_party_relationship
     	validate_unique_relationship
+      assign_party_roles
+
+      @party_relationship
     end
 
     def find_party_role_kind
@@ -57,8 +60,13 @@ module Roles
     	end
     end
 
-    def initilize_party_relationship
+    def initialize_party_relationship
     	@party_relationship = Parties::PartyRelationship.new(party_relationship_kind: @party_relationship_kind, party_roles: [@party_role, @related_party_role])
+    end
+
+    def assign_party_roles
+      @party_role.party_relationship = @party_relationship
+      @related_party_role.party_relationship = @party_relationship
     end
 
     def validate_unique_relationship
