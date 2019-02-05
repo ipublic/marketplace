@@ -5,7 +5,8 @@ import 'datatables';
 export default class extends Controller {
 
   initialize() {
-    console.log("Hello All")
+    $.fn.dataTable.ext.errMode = 'none';
+
     let table = $('#tpaDataTable').DataTable({
       "bPaginate": true,
 			"columnDefs": [
@@ -21,7 +22,9 @@ export default class extends Controller {
       "columns": [
           { "data": "current_first_name",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                $(nTd).html(`${oData.current_first_name} ${oData.current_last_name}`);
+                if (oData.current_first_name ) {
+                  $(nTd).html(`${oData.current_first_name} ${oData.current_last_name}`);
+                }
             }
           }
       ]
