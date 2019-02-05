@@ -8,7 +8,7 @@ module Employers
 
     def save(form)
       model_attributes = form_params_to_attributes(form)
-      objects = factory.call(model_attributes)
+      objects = factory.call(model_attributes.except(:id))
       store(form, objects)
     end
 

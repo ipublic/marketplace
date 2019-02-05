@@ -33,7 +33,7 @@ export default class extends Controller {
 								icon: "success",
 							})
 							.then(() => {
-								window.location.pathname = '/dashboard'
+								window.location.pathname = `/employers/${response.message}`
 							})
 
 							localStorage.removeItem('Contact Info');
@@ -53,7 +53,6 @@ export default class extends Controller {
             },
             onStepChanging: function (event, currentIndex, newIndex) {
 							// Temporaily stores data from form to pass to rails on submit
-
 							let formData = form[0].elements;
 							if (currentIndex === 0) {
 								localStorage.setItem('Contact Info', JSON.stringify({
@@ -73,18 +72,18 @@ export default class extends Controller {
 									'address_2': formData[10].value,
 									'city': formData[11].value,
 									'state': formData[12].value,
-									'zip': formData[13].value,
-									'county': formData[14].value
+									'zip': formData[13].value
 								}))
 							}
 
 							if (currentIndex === 2) {
 								localStorage.setItem('Company Info', JSON.stringify({
-									'legal_name': formData[15].value,
-									'dba': formData[16].value,
-									'fein': formData[17].value,
-									'kind': formData[18].value,
-									//'company_type': formData[19].value
+									'legal_name': formData[14].value,
+									'dba': formData[15].value,
+									'fein': formData[16].value,
+									'kind': formData[17].value,
+									'date_of_first_wages': formData[19].value,
+									//'company_type': formData[18].value
 								}))
 							}
 

@@ -59,9 +59,13 @@ end
 parties = Parties::OrganizationParty.all
 
 parties.each do |party|
-  (1..10).each do  |i|
+  (0..10).each do  |i|
     entries = []
-    span =  Timespans::Timespan.current_quarters.to_a[i]
+    spans = [] 
+    3.times do
+      spans << Timespans::Timespan.current_quarters
+    end
+    spans = spans.flatten
 
       1..10.times do
         person = Parties::PersonParty.all.sample
@@ -70,7 +74,7 @@ parties.each do |party|
         entry = Wages::WageEntry.new(submission_kind: :original, submitted_at: Time.now)
         wage  = Wages::Wage.new(person_party_id: person.id,
                                 state_total_gross_wages: gross_wages,
-                                timespan_id:span.id,
+                                timespan_id: spans[i].id,
                                 state_taxable_wages: Wages::Wage.new.sum_taxable_wages(gross_wages),
                                 state_total_wages:gross_wages,
                                 state_excess_wages: Wages::Wage.new.sum_excess_wages(gross_wages),
@@ -79,7 +83,7 @@ parties.each do |party|
         entries << entry
       end
        report =  Wages::WageReport.create!(organization_party: party,
-                                  timespan: span,
+                                  timespan: spans[i],
                                   submission_kind:  "#{Wages::WageReport::SUBMISSION_KINDS.sample}",
                                   wage_entries: entries,
                                   filing_method_kind: "#{Wages::WageReport::FILING_METHOD_KINDS.sample}",
@@ -100,7 +104,7 @@ parties.each do |party|
         entry.save!
       end
       report.save!
-  end
+    end
 end
 puts "*"*80
 
@@ -114,6 +118,19 @@ last_names = ['Adams', 'Brown', 'Collins', 'Douglas', 'Harris', 'Ingrid']
   tpa_party_relationship_kind = Parties::PartyRelationshipKind.where(key: :ui_tpa_relationship).first
   person.party_roles.create!(party_role_kind: tpa_party_role_kind, party_relationship_id: tpa_party_relationship_kind.id)
 end
+
+puts "Creating Roles and Keys"
+roles = ['UITS Administrator', 'UITS Call Center', 'Employer', 'Third Party Administrator', 'Call Center']
+keys = ['Configure Settings', 'Create/Manage Employers', 'Create/Manage TPAs', 'Audit Wage Reports', 'Manage Wage Reports', 'Create Wage Reports', 'Amend Wage Reports', 'Assign TPA', 'Manage Employer Details', 'Manage TPA Details']
+
+roles.each do |role|
+Role.create(name: role)
+end
+
+keys.each do |key|
+  FilterToken.create(name: key, granted: false)
+end
+
 
 puts "Creating Indexes"
 system "rake db:mongoid:create_indexes"

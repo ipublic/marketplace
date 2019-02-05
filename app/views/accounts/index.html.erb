@@ -1,0 +1,82 @@
+
+  <div class = "card-body">
+    <div class = "card report-details" >
+      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
+        <div class="card-header" id= "card-header"role="tab">
+            <%=@organization.legal_name%>'s Unemployment Insurance Account
+       </div>
+          <div class = 'row'>
+            <div class = 'col'>
+              <p class = "data-header">Opened On</p>
+              <p class = ""><%= @account.opened_on%></p>
+
+            </div>
+            <div class = 'col'>
+              <p class = "data-header">Status</p>
+              <p class = ""><%= @account.status.capitalize%></p>
+
+            </div>
+            <div class = 'col'>
+              <p class = "data-header">Inital Liability Date</p>
+              <p class = ""><%= @account.initial_liability_date%></p>
+            </div>
+           </div>
+          <div class = 'row'>
+            <div class = 'col'>
+              <p  class="data-header">Current Contribution Rate</p>
+              <p class = ""><%=  number_to_percentage(@account.current_contribution_rate * 10)%></p>
+            </div>
+            <div class = 'col'>
+              <p class="data-header">Current Wage Filing Schedule</p>
+              <p class = ""><%= @account.current_wage_filing_schedule.to_s%></p>
+              </div>
+              <div class = 'col'>
+                <p class="data-header">Administrative Assesment Rate</p>
+                <p class = ""><%= number_to_percentage(@account.current_administrative_rate * 10)  %></p>
+            </div>
+          </div>
+          <div class = 'row'>
+            <div class = 'col'>
+              <p class="data-header">Current Balance</p>
+              <p class = ""><%= number_to_currency(@account.current_balance)%></p>
+             </div>
+            <div class = 'col'>
+             </div>
+            <div class = 'col'>
+             </div>
+      </div>
+</div>
+</div>
+</div>
+
+  <div class = "card-body">
+    <div class = "card report-details" >
+      <div class="accordion md-accordion" id="accordionEx" role="tablist" >
+        <div class="card-header" id= "card-header"role="tab">
+            <%=@organization.legal_name%>'s Financial Transactions
+       </div>
+
+    <table  class="table table-striped  " id="new-entry">
+      <thead>
+        <tr>
+          <td class="">Date</td>
+          <td class="td-sm">Title</td>
+          <td class="td-sm">Kind</td>
+          <td class="td-sm">Amount</td>
+      </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <tr>
+            <td><%=transaction.effective_on.to_date%></td>
+            <td scope="row"><%= transaction.title.capitalize%></td>
+            <td scope="row"><%= transaction.kind%></td>
+            <td> <%= number_to_currency(transaction.amount)%></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+      </div>

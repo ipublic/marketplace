@@ -20,7 +20,7 @@
             </div>
             <div>
               <%= label :Quarter, "Quarter:" %>
-              <%= select_tag "quarter" , options_for_select(@current_quarters.map(&:title), @current_timespan.title)%>
+              <%= select_tag "quarter" , options_for_select([@current_timespan.title, "2019 Q2", "2019 Q3","2019 Q4"], @current_timespan.title)%>
 
             </div>
             <div class = 'start-report-button btn' id = "create-report-btn">

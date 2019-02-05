@@ -2,8 +2,12 @@
   <div class="card-header" id= "card-header"><%= @organization.legal_name %> Wage Reports</div>
   <%= render :partial => "new_report" %>
   <%= render :partial => "latest_report" %>
+  <%if @organization.wage_reports.count >= 4 %>
   <%= render :partial => "at_a_glance" %>
 
   <%= render :partial => "older_reports" %>
+  <% elsif @organization.wage_reports.count > 1 && @current_quarters.present?%>
+  <%= render :partial => "older_reports" %>
+  <%end%>
   </div>
 </div>

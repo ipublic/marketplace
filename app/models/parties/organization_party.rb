@@ -25,8 +25,8 @@ module Parties
     validates :fein,
       presence: true,
       length: { is: 9, message: "%{value} is not a valid FEIN" },
-      numericality: true,
-      uniqueness: true
+      numericality: true
+      #uniqueness: true
 
 	  # embeds_many :documents, as: :documentable
 

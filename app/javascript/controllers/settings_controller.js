@@ -17,6 +17,13 @@ export default class extends Controller {
     this.permissionAlertTarget.style.display = 'none';
   }
 
+  picklistChange(e) {
+    var selected = e.currentTarget.querySelector('option:checked').value
+    e.currentTarget.parentElement.querySelectorAll('select[multiple]').forEach(function(el) { el.classList.add('d-none'); });
+    e.currentTarget.parentElement.querySelector(`#${selected}`).classList.remove('d-none');
+    console.log('test');
+  }
+
   getRoles() {
     let ul = document.getElementById('currentRolesList');
     // Emptys current list items in ul

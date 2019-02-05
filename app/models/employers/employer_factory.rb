@@ -12,7 +12,7 @@ module Employers
         role = Roles::RoleFactory.new(employer, employer_info.kind.to_sym).party_role
       end
 
-      financial_account = FinancialAccounts::FinancialAccountFactory.call(employer, account_kind: :ui_financial_account, initial_liability_date: employer_info.date_of_first_wages)
+      financial_account = FinancialAccounts::FinancialAccountFactory.call(employer, account_kind: :ui_financial_account, initial_liability_date: Date.parse(employer_info.date_of_first_wages))
 
       #employee_party_role = Parties::PartyRole.new(party_role_kind: employee_party_role_kind, role_castable: employer)
       #employee.add_party_role(employee_party_role)

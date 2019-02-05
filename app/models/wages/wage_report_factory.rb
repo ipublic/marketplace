@@ -35,7 +35,7 @@ module Wages
       wage_entry_ids = cloned_report.wage_entries.map(&:_id)
       wage_entry_ids.each do |id|
         if params[:wages_wage_report][:wage_entries][id.to_s]
-          update_clone(id,cloned_report,  params[:wages_wage_report][:wage_entries][id.to_s][:wage])
+          update_clone(id,cloned_report,  params[:wages_wage_report][:wage_entries][id.to_s])
         end
       end
     end
@@ -48,7 +48,7 @@ module Wages
     def self.add_entries(report, params)
       if params[:commit] == "Add Entry"
         submission_kind = :original
-        amend_reason = "original"
+        amend_reason = "Original"
       else 
         submission_kind = :amended
         amend_reason = params[:amend_reason]
@@ -78,9 +78,14 @@ module Wages
     end
 
     def self.update_clone(id,cloned_report, wage_params)
-      wage = cloned_report.wage_entries.find(id).wage
+      entry = cloned_report.wage_entries.find(id)
+      wage = entry.wage
+      entry.update_attributes!(
+        amend_reason:  wage_params[:amend_reason] 
+      )
+      entry.save!
       wage.update_attributes!(
-        state_total_gross_wages: wage_params[:state_total_gross_wages]
+        state_total_gross_wages: wage_params[:state_total_gross_wages] || 0
       )
       cloned_report.update_attributes(submission_kind: :amended, 
       submitted_at: Time.now.to_date,

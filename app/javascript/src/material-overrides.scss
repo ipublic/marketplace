@@ -56,6 +56,16 @@ box-shadow: 1px 1px;
   font-weight: bold;
   border-bottom: 1px solid $blue;
 }
+.data-label {
+  font-weight: bold;
+  display: inline;
+  &::after {
+    content: ':'
+  }
+}
+.data-label + p {
+  display: inline;
+}
 .col  {
 
   p{
@@ -102,6 +112,13 @@ padding:5px;
 }
 .th-sm{
   color: $blue;
+}
+
+.no-reports{
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  padding:50px;
 }
 
 #plus:hover{
