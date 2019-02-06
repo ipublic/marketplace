@@ -4,16 +4,16 @@ Marketplace is a coordinated Unemployment Insurace and Paid Family Leave public 
 
 The IdeaCrew Team produced this initial design based on:
 
-# Requirements specified in DOES Unemployment Insurance Tax System and Paid Family Leave Tax System Requests for Proposals
-# IdeaCrew's vision of a built-to-purpose, unified technology solution for Unemployment Insurance (UI) and and Paid Family Leave (PFL)
+* Requirements specified in DOES Unemployment Insurance Tax System and Paid Family Leave Tax System Requests for Proposals
+* IdeaCrew's vision of a built-to-purpose, unified technology solution for Unemployment Insurance (UI) and and Paid Family Leave (PFL)
 
 Developing and operating unified UI & PFL techology offers compelling business benefits and cost savings for DOES and its Employer, Employee, TPA and associated stakeholders.  This project's objective is to demonstrate to DOES the IdeaCrew Team's competency and cability to rapidly implement a superior core mission technology solution.  
 
 The Marketplace application is notable in the following ways:
 
-* Designed: data models, domain logic and interfaces that apply DOES-specified business rules
-* Instrumented: uses IdeaCrew's development workbench framework for high productibity development, deployment and monitoring
-* Cloud-based: uses Amazon Web Service (AWS) cloud infrastructure 
+1 Designed: data models, domain logic and interfaces that apply DOES-specified business rules
+1 Instrumented: uses IdeaCrew's development workbench framework for high productibity development, deployment and monitoring
+1 Cloud-based: uses Amazon Web Service (AWS) cloud infrastructure 
 
 The Marketplace application component was presented to DOES UITS RFP Selection Committee February 5, 2019.  The user interface is Unemployment Insurance-centric due to that presentation's focus on fulfilling DOES UI needs.  The system design is much richer however, supporting common and independent requirements for both UI and PFL.
 
