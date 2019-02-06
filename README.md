@@ -11,9 +11,9 @@ Developing and operating unified UI & PFL techology offers compelling business b
 
 The Marketplace application is notable in the following ways:
 
-1 Designed: data models, domain logic and interfaces that apply DOES-specified business rules
-1 Instrumented: uses IdeaCrew's development workbench framework for high productibity development, deployment and monitoring
-1 Cloud-based: uses Amazon Web Service (AWS) cloud infrastructure 
+1. Designed: data models, domain logic and interfaces that apply DOES-specified business rules
+1. Instrumented: uses IdeaCrew's development workbench framework for high productibity development, deployment and monitoring
+1. Cloud-based: uses Amazon Web Service (AWS) cloud infrastructure 
 
 The Marketplace application component was presented to DOES UITS RFP Selection Committee February 5, 2019.  The user interface is Unemployment Insurance-centric due to that presentation's focus on fulfilling DOES UI needs.  The system design is much richer however, supporting common and independent requirements for both UI and PFL.
 
