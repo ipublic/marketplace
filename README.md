@@ -19,7 +19,7 @@ The Marketplace application component was presented to DOES UITS RFP Selection C
 
 The Archimate data model diagram below reflects the Market application component design.
 
-![models](https://raw.githubusercontent.com/ipublic/marketplace/7f66e5e333ddc913046d609d4feb7e94cc987785/models.png)
+![models](https://d33pe1gs12zopv.cloudfront.net/models.png)
 
 ## Technology
 
