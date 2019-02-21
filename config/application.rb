@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative '../lib/account_middleware'
 
 require "rails"
 # Pick the frameworks you want:
@@ -29,5 +30,7 @@ module Marketplace
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.middleware.use AccountMiddleware
   end
 end
