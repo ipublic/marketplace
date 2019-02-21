@@ -12,8 +12,8 @@ module Roles
   	# validate role isn't already active for this party
 
     def initialize(party, party_role_kind_key)
-    	@party 												= party
-    	@party_role_kind_key 					= party_role_kind_key
+    	@party                 = party
+    	@party_role_kind_key   = party_role_kind_key
 
 			@party_role_kind = nil
     	@party_role = nil

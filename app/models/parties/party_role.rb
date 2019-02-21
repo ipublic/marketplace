@@ -1,8 +1,12 @@
-# A Person or Organization may play different roles on the system.  Roles may be used for different purposes, including:
-# 	* storing different infomrmation about a Party
-# 	* defining authorization/access privilidges 
+# A Person or Organization may play different roles on the system.  A Role may be declarative, stating a fact 
+# about the subject, for example: :employer, :s_corporation.  Roles may include a relationship, which includes 
+# a specific role pair that references two object instances, for example: an :employment relationship that 
+# associates a person who has an :employee role with an organization that has an :employer role.  
 # 
-# This class manages roles assigned to instances.  A Role may be declarative, 
+# Roles may be used for different purposes, including:
+#   * defining authorization/access priviledges 
+# 	* storing role-related information about a object
+ 
 module Parties
   class PartyRole
     include Mongoid::Document
