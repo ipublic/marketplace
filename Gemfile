@@ -34,6 +34,8 @@ gem 'mongoid-history',					'~> 0.8'
 gem 'aasm',                     '~> 4.8'
 gem 'aws-sdk',                  '~> 3.0'
 
+gem 'globalid',                 '~> 0.4'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'money-rails',							'~> 1.13'
@@ -49,6 +51,9 @@ gem 'virtus'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  ## Override gem mismatch in Ruby 2.5.1 install
+  gem 'rb-readline'
 
   gem 'rspec-rails', 						'~> 3.8'
 	gem 'factory_bot_rails', 			'~> 4'
