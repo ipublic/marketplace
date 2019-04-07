@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'subscriptions/index'
+  get 'subscriptions/create'
+  get 'subscriptions/new'
+  get 'subscriptions/show'
+  get 'subscriptions/update'
   devise_for :users
   get 'pages/home'
   get 'settings/home'
+
+  mount Flipper::UI.app(Flipper.instance) => '/flipper'
 
   resources :dashboard
 
