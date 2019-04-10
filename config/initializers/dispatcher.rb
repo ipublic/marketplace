@@ -3,7 +3,7 @@ require 'sneakers'
 require 'sneakers/metrics/logging_metrics'
 
 # Mongoid extension to support GlobalID
-# JSON adapter for 
+# JSON adapter for
 
 
 # config.acapi.publish_amqp_events = :log # or true in production env
@@ -32,7 +32,7 @@ require 'sneakers/metrics/logging_metrics'
 
 # EnterpriseService
 # TaskHost
-# 	ID
+#   ID
 #   AMQP Exchange
 #   AMQP Message Routing Key
 #   ReplyTo
@@ -77,8 +77,8 @@ $redis = Redis.new
 #   classes: SlowWorker
 #   workers: 2
 
-# You can use Bunny connection to AMQP server as it's far more efficient than 
-# Sneakers default where each worker opens its own connection 
+# You can use Bunny connection to AMQP server as it's far more efficient than
+# Sneakers default where each worker opens its own connection
 
 # Sneakers.configure :connection => Bunny.new(…)
 
@@ -87,25 +87,25 @@ $redis = Redis.new
 # include ::Sneakers::WorkerGroup
 
 # Daemon
-    # :runner_config_file => nil,  # A configuration file (see below)
-    # :metrics => nil,             # A metrics provider implementation
-    # :daemonize => true,          # Send to background
-    # :start_worker_delay => 0.2,  # When workers do frenzy-die, randomize to avoid resource starvation
-    # :workers => 4,               # Number of per-cpu processes to run
-    # :log  => 'sneakers.log',     # Log file
-    # :pid_path => 'sneakers.pid', # Pid file
+# :runner_config_file => nil,  # A configuration file (see below)
+# :metrics => nil,             # A metrics provider implementation
+# :daemonize => true,          # Send to background
+# :start_worker_delay => 0.2,  # When workers do frenzy-die, randomize to avoid resource starvation
+# :workers => 4,               # Number of per-cpu processes to run
+# :log  => 'sneakers.log',     # Log file
+# :pid_path => 'sneakers.pid', # Pid file
 
- # Workers
-    # :timeout_job_after => 5,      # Maximal seconds to wait for job
-    # :prefetch => 10,              # Grab 10 jobs together. Better speed.
-    # :threads => 10,               # Threadpool size (good to match prefetch)
-    # :env => ENV['RACK_ENV'],      # Environment
-    # :durable => true,             # Is queue durable?
-    # :ack => true,                 # Must we acknowledge?
-    # :heartbeat => 2,              # Keep a good connection with broker
-    # :exchange => 'sneakers',      # AMQP exchange
-    # :hooks => {}                  # prefork/postfork hooks
-    # :start_worker_delay => 10     # Delay between thread startup  
+# Workers
+# :timeout_job_after => 5,      # Maximal seconds to wait for job
+# :prefetch => 10,              # Grab 10 jobs together. Better speed.
+# :threads => 10,               # Threadpool size (good to match prefetch)
+# :env => ENV['RACK_ENV'],      # Environment
+# :durable => true,             # Is queue durable?
+# :ack => true,                 # Must we acknowledge?
+# :heartbeat => 2,              # Keep a good connection with broker
+# :exchange => 'sneakers',      # AMQP exchange
+# :hooks => {}                  # prefork/postfork hooks
+# :start_worker_delay => 10     # Delay between thread startup
 
 # Local (per worker)
 # class ProfilingWorker
@@ -147,15 +147,15 @@ $redis = Redis.new
 
 
 Sneakers.configure(
-		# daemonize:  						true,
-		heartbeat: 							10,
-		log: 										'log/sneakers.log',
-		metrics: 								Sneakers::Metrics::LoggingMetrics.new,
+  # daemonize:              true,
+  heartbeat:              10,
+  log:                    'log/sneakers.log',
+  metrics:                Sneakers::Metrics::LoggingMetrics.new,
 
-	  retry_exchange: 				'activejob-retry',
-	  retry_error_exchange: 	'activejob-error',
-	  retry_requeue_exchange: 'activejob-retry-requeue'
-  	)
+  retry_exchange:         'activejob-retry',
+  retry_error_exchange:   'activejob-error',
+  retry_requeue_exchange: 'activejob-retry-requeue'
+)
 
 Sneakers.logger.level = Logger::INFO
 
@@ -165,4 +165,3 @@ Sneakers.logger.level = Logger::INFO
 #### Configure ActiveJob ####
 # Set Sneakers as ActiveJob Queue Adapter
 Rails.application.config.active_job.queue_adapter = :sneakers
-
