@@ -48,13 +48,17 @@ gem 'slim',                     '~> 3.0'
 
 gem 'virtus'
 
+
 gem 'flipper'
 gem 'flipper-ui'
 gem 'flipper-mongo'
 
 
-gem 'bunny',    '>= 2.14'
-gem 'sneakers', '>= 2.11'
+gem 'bunny',                    '>= 2.14'
+gem 'sneakers',                 '>= 2.11'
+gem 'active_model_serializers', '>= 0.10.0'
+
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
