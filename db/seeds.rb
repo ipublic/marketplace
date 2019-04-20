@@ -16,6 +16,9 @@ puts "*"*80
 
 puts "*"*80
 
+# Load Cupcake seed files
+require File.join(File.dirname(__FILE__),'seedfiles', 'bakery_cupcake_seed')
+
 # Load seedfiles folder files
 require File.join(File.dirname(__FILE__),'seedfiles', 'party_roles_and_relationships_seed')
 
