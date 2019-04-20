@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :api do
+    namespace :v3 do
+      get 'cupcakes/index'
+    end
+  end
   get 'subscriptions/index'
   get 'subscriptions/create'
   get 'subscriptions/new'

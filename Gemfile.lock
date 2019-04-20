@@ -820,6 +820,8 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.9.25)
     flipper (0.16.1)
     flipper-mongo (0.16.1)
@@ -1043,6 +1045,7 @@ DEPENDENCIES
   database_cleaner (~> 1.7)
   devise
   factory_bot_rails (~> 4)
+  fast_jsonapi
   flipper
   flipper-mongo
   flipper-ui

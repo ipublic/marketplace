@@ -57,7 +57,7 @@ gem 'flipper-mongo'
 gem 'bunny',                    '>= 2.14'
 gem 'sneakers',                 '>= 2.11'
 gem 'active_model_serializers', '>= 0.10.0'
-
+gem 'fast_jsonapi'
 
 
 group :development, :test do
