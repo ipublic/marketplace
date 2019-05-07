@@ -10,7 +10,12 @@ class AccountMiddleware
 		@app = app
 	end
 
-	def call(env)
+  # Make code thread safe by duplicating self on call
+  def call(env)
+    dup._call(env)
+  end
+
+	def _call(env)
 		_, account_id, request_path = env["REQUEST_PATH"].split('/', 3)
 
 		# Only process if first element of resource request is numeric or hex indicating presence of
