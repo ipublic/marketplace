@@ -9,7 +9,7 @@ require 'flipper/adapters/mongo.rb'
 # feature_collection = flipper_client[:my_flipper_settings]
 
 mongo_client = Mongoid.client(:default)
-feature_collection = mongo_client[:my_flipper_settings]
+feature_collection = mongo_client[:flipper_settings]
 
 # require 'flipper/adapters/mongo'
 # feature_collection = class FlipperFeature; include Mongoid::Document; include Mongoid::Timestamps; end

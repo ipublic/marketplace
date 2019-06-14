@@ -6,13 +6,26 @@ module Subscriptions
     has_many	:subscriptions,
       				class_name: 'Subscriptions::Subscription'
 
+    field :site_key, type: Symbol
     field :name, type: String
-    field :key,  type: Symbol
 
-    validates_presence_of :name, :key
+    validates_presence_of :site_key, :name
+
+    index({ site_key: 1 }, { unique: true })
 
     def features
       Subscriptions::Feature.in(id: subscriptions.pluck(:feature_id))
     end
+
+    def flipper_id
+      subdomain
+    end
+
+    private
+
+    def assign_schema
+      self.schema = subdomain
+    end
+
   end
 end
