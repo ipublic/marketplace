@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/ideacrew/event_source
+  revision: f6fb573697ec2dfe7285414e03bb04c1f9873973
+  specs:
+    event_source (0.1.0)
+      activesupport (>= 5.0)
+      dry-monads (~> 1.2)
+      globalid (~> 0.4)
+      mongoid (~> 7.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -26,11 +36,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.10.9)
-      actionpack (>= 4.1, < 6)
-      activemodel (>= 4.1, < 6)
-      case_transform (>= 0.2)
-      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.2.3)
       activesupport (= 5.2.3)
       globalid (>= 0.3.6)
@@ -786,8 +791,6 @@ GEM
       capistrano (~> 3.7)
       capistrano-bundler
       puma (~> 3.4)
-    case_transform (0.2)
-      activesupport
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -810,6 +813,13 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    dry-core (0.4.7)
+      concurrent-ruby (~> 1.0)
+    dry-equalizer (0.2.2)
+    dry-monads (1.2.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.4, >= 0.4.4)
+      dry-equalizer
     easy_diff (1.0.0)
     equalizer (0.0.11)
     erubi (1.8.0)
@@ -841,7 +851,6 @@ GEM
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jmespath (1.4.0)
-    jsonapi-renderer (0.2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -893,12 +902,15 @@ GEM
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
     nio4r (2.3.1)
-    nokogiri (1.10.2)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-byebug (3.7.0)
+      byebug (~> 11.0)
+      pry (~> 0.10)
     puma (3.12.1)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
@@ -946,12 +958,12 @@ GEM
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
-    rspec-core (3.8.0)
+    rspec-core (3.8.1)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
-    rspec-mocks (3.8.0)
+    rspec-mocks (3.8.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-rails (3.8.2)
@@ -962,7 +974,7 @@ GEM
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-support (3.8.0)
+    rspec-support (3.8.2)
     ruby_dep (1.5.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -977,9 +989,9 @@ GEM
     shoulda-matchers (3.1.3)
       activesupport (>= 4.0.0)
     sigdump (0.2.4)
-    slim (3.0.9)
+    slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
-      tilt (>= 1.3.3, < 2.1)
+      tilt (>= 2.0.6, < 2.1)
     sneakers (2.11.0)
       bunny (~> 2.12)
       concurrent-ruby (~> 1.0)
@@ -1019,7 +1031,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (3.5.5)
+    webpacker (4.0.7)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -1032,9 +1044,8 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (~> 4.8)
-  active_model_serializers (>= 0.10.0)
   aws-sdk (~> 3.0)
-  bcrypt (~> 3.1.7)
+  bcrypt (~> 3.1)
   bootsnap (>= 1.1.0)
   bunny (>= 2.14)
   byebug
@@ -1044,6 +1055,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   database_cleaner (~> 1.7)
   devise
+  event_source!
   factory_bot_rails (~> 4)
   fast_jsonapi
   flipper
@@ -1057,7 +1069,7 @@ DEPENDENCIES
   mongoid-autoinc (~> 6.0)
   mongoid-history (~> 0.8)
   mongoid-rspec (~> 4)
-  pry
+  pry-byebug
   puma (~> 3.11)
   pundit (~> 2.0)
   rails (~> 5.2.2)
@@ -1066,14 +1078,14 @@ DEPENDENCIES
   rspec-rails (~> 3.8)
   sassc (~> 1.12)
   shoulda-matchers (~> 3)
-  slim (~> 3.0)
+  slim (~> 4.0)
   sneakers (>= 2.11)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   virtus
   web-console (>= 3.3.0)
-  webpacker (~> 3.5.5)
+  webpacker (~> 4.0)
 
 RUBY VERSION
    ruby 2.5.1p57

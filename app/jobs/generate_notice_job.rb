@@ -1,7 +1,7 @@
 class GenerateNoticeJob < ApplicationJob
   queue_as :default
 
-  exchange_name :GenerateNotice
+  # exchange_name :GenerateNotice
 
   def perform(*args)
     # Do something later

@@ -5,11 +5,12 @@ ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
 # Use webpacker to manage application-like JavaScript in Rails
-gem 'webpacker', '~> 3.5.5'
+gem 'webpacker', '~> 4.0'
 # Use devise for authentication
 gem 'devise'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -24,7 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 4.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1'
 
 gem 'mongoid', 									'~> 7.0'
 gem 'mongoid-autoinc',					'~> 6.0'
@@ -42,21 +43,24 @@ gem 'money-rails',							'~> 1.13'
 gem 'pundit',                   '~> 2.0'
 
 gem 'sassc',                    '~> 1.12'
-gem 'slim',                     '~> 3.0'
+gem 'slim',                     '~> 4.0'
 
 # gem 'symmetric-encryption',     '~> 3.6'
 
 gem 'virtus'
 
+# gem 'govuk_message_queue_consumer', '~> 3.3'
+
 
 gem 'flipper'
 gem 'flipper-ui'
 gem 'flipper-mongo'
+gem 'event_source',             git: 'https://github.com/ideacrew/event_source'
 
 
 gem 'bunny',                    '>= 2.14'
 gem 'sneakers',                 '>= 2.11'
-gem 'active_model_serializers', '>= 0.10.0'
+# gem 'active_model_serializers', '>= 0.10.0'
 gem 'fast_jsonapi'
 
 
@@ -71,7 +75,7 @@ group :development, :test do
 	gem 'factory_bot_rails', 			'~> 4'
   gem 'shoulda-matchers',             '~> 3'
   gem 'mongoid-rspec',                '~> 4'
-  gem 'pry'
+  gem 'pry-byebug'
   gem 'database_cleaner',       '~> 1.7'
 end
 
