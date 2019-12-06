@@ -911,7 +911,7 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
-    puma (3.12.1)
+    puma (3.12.2)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
     rack (2.0.7)
@@ -1070,7 +1070,7 @@ DEPENDENCIES
   mongoid-history (~> 0.8)
   mongoid-rspec (~> 4)
   pry-byebug
-  puma (~> 3.11)
+  puma (~> 3.12)
   pundit (~> 2.0)
   rails (~> 5.2.2)
   rb-readline
